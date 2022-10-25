@@ -1,0 +1,729 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 13.1' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     28061,        719]
+NotebookOptionsPosition[     23246,        624]
+NotebookOutlinePosition[     25145,        671]
+CellTagsIndexPosition[     25060,        666]
+WindowTitle->SaveWorkspace
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[GridBox[{
+   {GridBox[{
+      {
+       ItemBox[Cell[BoxData[
+         RowBox[{
+          TemplateBox[{12},
+           "Spacer1"], Cell[
+          "BRADLEY ASHBY/ NOTEBOOK WORKSPACES SYMBOL", "PacletNameCell",
+           TextAlignment->Center,ExpressionUUID->
+           "8840b6ea-2c39-4638-894c-685b975b05a0"], 
+          TemplateBox[{8},
+           "Spacer1"]}]],
+         TextAlignment->Center,ExpressionUUID->
+         "e3287645-915f-4d0f-a319-bef757e894d6"],
+        Background->RGBColor[0.490196, 0.576471, 0.690196],
+        ItemSize->Full], ""}
+     },
+     GridBoxAlignment->{"Rows" -> {{Center}}},
+     GridBoxItemSize->{"Columns" -> {Full, 
+         Scaled[0.02]}, "Rows" -> {{2.5}}}], Cell[TextData[{
+     Cell[BoxData[
+      TagBox[
+       ActionMenuBox[
+        FrameBox[Cell[TextData[{
+          "See Also",
+          " ",
+          Cell[BoxData[
+           GraphicsBox[
+            {GrayLevel[0.66667], Thickness[0.13], 
+             LineBox[{{-1.8, 0.5}, {0, 0}, {1.8, 0.5}}]},
+            AspectRatio->1,
+            ImageSize->20,
+            PlotRange->{{-3, 4}, {-1, 1}}]],ExpressionUUID->
+           "23ffacd7-b9c6-4ce2-8c50-c6fd46b8e9e5"]
+         }],ExpressionUUID->"6ed46fd8-db66-4935-847c-99dd784a2ce4"],
+         StripOnInput->False], {"\<\"$CurrentWorkspace\"\>":>
+        Documentation`HelpLookup[
+        "paclet:BradleyAshby/NotebookWorkspaces/ref/$CurrentWorkspace"], \
+"\<\"LoadWorkspace\"\>":>Documentation`HelpLookup[
+        "paclet:BradleyAshby/NotebookWorkspaces/ref/LoadWorkspace"], \
+"\<\"CloseWorkspace\"\>":>Documentation`HelpLookup[
+        "paclet:BradleyAshby/NotebookWorkspaces/ref/CloseWorkspace"], \
+"\<\"ExcludedNotebooks\"\>":>Documentation`HelpLookup[
+        "paclet:BradleyAshby/NotebookWorkspaces/ref/ExcludedNotebooks"]},
+        Appearance->None,
+        MenuAppearance->Automatic,
+        MenuStyle->"SeeAlso"],
+       MouseAppearanceTag["LinkHand"]]],
+      LineSpacing->{1.4, 0},ExpressionUUID->
+      "f9063633-e9a4-44d7-9a8c-b7c6910de833"],
+     "\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\
+\[ThickSpace]",
+     Cell[BoxData[
+      TagBox[
+       ActionMenuBox[
+        FrameBox[Cell[TextData[{
+          "Related Guides",
+          " ",
+          Cell[BoxData[
+           GraphicsBox[
+            {GrayLevel[0.66667], Thickness[0.13], 
+             LineBox[{{-1.8, 0.5}, {0, 0}, {1.8, 0.5}}]},
+            AspectRatio->1,
+            ImageSize->20,
+            PlotRange->{{-3, 4}, {-1, 1}}]],ExpressionUUID->
+           "b32ee523-f7ff-460e-b1fc-22e032058651"]
+         }],ExpressionUUID->"28ab709b-6a38-497b-8345-8a6850dad81b"],
+         StripOnInput->False], {"\<\"Notebook Workspaces\"\>":>
+        Documentation`HelpLookup[
+        "paclet:BradleyAshby/NotebookWorkspaces/guide/NotebookWorkspaces"], "\
+\<\"Using the Notebook Workspaces palette\"\>":>Documentation`HelpLookup[
+        "paclet:BradleyAshby/NotebookWorkspaces/guide/\
+UsingTheNotebookWorkspacesPalette"]},
+        Appearance->None,
+        MenuAppearance->Automatic,
+        MenuStyle->"MoreAbout"],
+       MouseAppearanceTag["LinkHand"]]],
+      LineSpacing->{1.4, 0},ExpressionUUID->
+      "ace3379d-19e5-4d27-b19b-f5592f52ce61"],
+     "\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\
+\[ThickSpace]",
+     Cell[BoxData[
+      TagBox[
+       ActionMenuBox[
+        FrameBox[Cell[TextData[{
+          "URL",
+          " ",
+          Cell[BoxData[
+           GraphicsBox[
+            {GrayLevel[0.66667], Thickness[0.13], 
+             LineBox[{{-1.8, 0.5}, {0, 0}, {1.8, 0.5}}]},
+            AspectRatio->1,
+            ImageSize->20,
+            PlotRange->{{-3, 4}, {-1, 1}}]],ExpressionUUID->
+           "220e89e4-0f22-4663-b070-db45dff0a3ae"]
+         }],ExpressionUUID->"2f977591-4298-4ae7-bde9-60b5ef21d9b9"],
+         StripOnInput->
+          False], {"\<\"BradleyAshby/NotebookWorkspaces/ref/SaveWorkspace\"\>\
+":>None, "\<\"Copy Wolfram Documentation Center URL\"\>":>
+        Module[{DocumentationSearch`Private`nb$}, 
+         DocumentationSearch`Private`nb$ = NotebookPut[
+            Notebook[{
+              Cell["BradleyAshby/NotebookWorkspaces/ref/SaveWorkspace"]}, 
+             Visible -> False]]; 
+         SelectionMove[DocumentationSearch`Private`nb$, All, Notebook]; 
+         FrontEndTokenExecute[DocumentationSearch`Private`nb$, "Copy"]; 
+         NotebookClose[DocumentationSearch`Private`nb$]; Null], 
+        Delimiter, "\<\"Copy web URL\"\>":>
+        Module[{DocumentationSearch`Private`nb$}, 
+         DocumentationSearch`Private`nb$ = NotebookPut[
+            Notebook[{
+              Cell[
+               BoxData[
+                MakeBoxes[
+                 Hyperlink[
+                 "http://reference.wolfram.com/language/BradleyAshby/\
+NotebookWorkspaces/ref/SaveWorkspace.html"], StandardForm]], "Input", 
+               TextClipboardType -> "PlainText"]}, Visible -> False]]; 
+         SelectionMove[DocumentationSearch`Private`nb$, All, Notebook]; 
+         FrontEndTokenExecute[DocumentationSearch`Private`nb$, "Copy"]; 
+         NotebookClose[DocumentationSearch`Private`nb$]; 
+         Null], "\<\"Go to web URL\"\>":>FrontEndExecute[{
+          NotebookLocate[{
+            URL[If[
+               TrueQ[DocumentationBuild`Make`Private`wsmlinkQ$555332], 
+               "http://reference.wolfram.com/system-modeler/", 
+               "http://reference.wolfram.com/language/"] <> 
+             "BradleyAshby/NotebookWorkspaces/ref/SaveWorkspace" <> ".html"], 
+            None}]}]},
+        Appearance->None,
+        MenuAppearance->Automatic,
+        MenuStyle->"URLMenu"],
+       MouseAppearanceTag["LinkHand"]]],
+      LineSpacing->{1.4, 0},ExpressionUUID->
+      "5bb2a5c6-7e95-4c7e-8efa-73b8d4330dcf"]
+    }], "AnchorBar",
+     CacheGraphics->False,ExpressionUUID->
+     "a8261ce9-c7d1-4577-8074-59ee1f3d1779"]}
+  }]], "AnchorBarGrid",
+ CellID->1,ExpressionUUID->"636e394d-d2ed-47f0-be33-bb66396aa5f0"],
+
+Cell["BradleyAshby`NotebookWorkspaces`", "ContextNameCell",ExpressionUUID->"a61c500a-dad8-428b-85bb-ce6ef302192a"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[GridBox[{
+   {Cell[TextData[{
+     Cell[
+     "SaveWorkspace", "ObjectName",ExpressionUUID->
+      "01e1bbeb-7610-46fe-b539-beabbd972ed2"],
+     Cell[BoxData[
+      TemplateBox[{8},
+       "Spacer1"]],ExpressionUUID->"41cca738-1094-4fd0-a1bf-2c53ec9affc8"],
+     Cell[BoxData[
+     ""], "ObjectNameTranslation",ExpressionUUID->
+      "abf3808b-7a23-453b-913d-c98cce7a402b"]
+    }],ExpressionUUID->"01e5b019-d25c-47f0-8345-b4e7e4ea58ec"], 
+    "\[SpanFromLeft]"}
+  }]], "ObjectNameGrid",ExpressionUUID->"35d76e6f-28ab-48c6-a243-\
+75ed5797770b"],
+
+Cell[BoxData[GridBox[{
+   {"", Cell[TextData[{
+     Cell[BoxData[
+      RowBox[{"SaveWorkspace", "[", "]"}]], "InlineFormula",
+      FontFamily->"Source Sans Pro",ExpressionUUID->
+      "6df0c7c0-65e4-4b5f-a3a0-c5800bdea769"],
+     " \[LineSeparator]saves open notebooks and records them as part of the \
+active workspace."
+    }],ExpressionUUID->"8766f80a-0fd1-4b48-a9a3-6501cdc9204d"]}
+  }]], "Usage",
+ CellID->1910642188,ExpressionUUID->"8596a37a-8e10-4651-a95d-f7df428612fa"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[Cell[BoxData[
+ ButtonBox[Cell[TextData[{
+   Cell[BoxData[
+    DynamicBox[ToBoxes[
+      If[
+       MatchQ[
+        CurrentValue[
+         EvaluationNotebook[], {TaggingRules, "Openers", "NotesSection"}, 
+         Closed], 
+        Alternatives[Open, True]], 
+       Style[
+        Graphics[{
+          Thickness[0.18], 
+          RGBColor[0.8509803921568627, 0.396078431372549, 0], 
+          Line[{{-1.8, 0.5}, {0, 0}, {1.8, 0.5}}]}, AspectRatio -> 1, 
+         PlotRange -> {{-3, 4}, {-1, 1}}, ImageSize -> 20], Magnification -> 
+        0.68 Inherited], 
+       Rotate[
+        Style[
+         Graphics[{
+           Thickness[0.18], 
+           RGBColor[0.8509803921568627, 0.396078431372549, 0], 
+           Line[{{-1.8, 0.5}, {0, 0}, {1.8, 0.5}}]}, AspectRatio -> 1, 
+          PlotRange -> {{-3, 4}, {-1, 1}}, ImageSize -> 20], Magnification -> 
+         0.68 Inherited], Rational[1, 2] Pi, {-1.65, -1}]]],
+     ImageSizeCache->{14., {0.45000000000000107`, 13.549999999999999`}}]],
+    ExpressionUUID->"caf738f7-11b7-4b5e-b839-1c1691c69e45"],
+   Cell[BoxData[
+    TemplateBox[{1},
+     "Spacer1"]],ExpressionUUID->"db728089-f639-4a5f-8401-145c5ea35b11"],
+   "Details and Options"
+  }], "NotesFrameText",ExpressionUUID->"85ab9a3f-1f4a-439e-a426-25621b1ac5d6"],
+  Appearance->{Automatic, None, "Normal", Automatic},
+  BaseStyle->None,
+  ButtonFunction:>(FrontEndExecute[{
+     FrontEnd`SelectionMove[
+      FrontEnd`SelectedNotebook[], All, ButtonCell], 
+     FrontEndToken["OpenCloseGroup"], 
+     FrontEnd`SelectionMove[
+      FrontEnd`SelectedNotebook[], After, CellContents]}]& ),
+  Evaluator->None,
+  Method->
+   "Preemptive"]],ExpressionUUID->"e0c5c3e2-62a2-46b0-8195-af54c73dbb44"]], \
+"NotesSection",
+ WholeCellGroupOpener->True,
+ CellGroupingRules->{"SectionGrouping", 50},
+ CacheGraphics->False,
+ CellID->1426314702,ExpressionUUID->"e2734762-bdc6-4a18-bf38-9d8ac9c00fb2"],
+
+Cell["Saving the workspace is normally done using the palette.", "Notes",
+ CellID->704778504,ExpressionUUID->"3424f2e1-2bb5-4097-80f5-e442284f5da1"],
+
+Cell["SaveWorkspace takes the following option:", "Notes",
+ CellID->840280125,ExpressionUUID->"86fcf572-1397-49db-938c-a29a22ec7764"],
+
+Cell[BoxData[GridBox[{
+   {Cell["      ", "TableRowIcon",ExpressionUUID->
+     "667af6c4-f18e-440a-af5b-34ffc1328e7e"], "\"\<SaveAll\>\"", 
+    TemplateBox[{
+      Cell[
+       TextData["False"]], "paclet:ref/False"},
+     "RefLink",
+     BaseStyle->{"3ColumnTableMod"}], Cell["\<\
+whether to save notebooks that have not been modified since last save\
+\>", "TableText",ExpressionUUID->"50f74f3f-1ece-45f4-98a1-2f5d87334bc4"]}
+  }]], "3ColumnTableMod",
+ GridBoxOptions->{
+ GridBoxBackground->{"Columns" -> {{None}}, "Rows" -> {{None}}},
+ GridBoxDividers->{"Rows" -> {{True, True}}}},
+ CellID->2121204509,ExpressionUUID->"c818846e-f005-427e-b071-d1ed6a633763"],
+
+Cell[TextData[{
+ "Notebooks are saved using ",
+ Cell[BoxData[
+  TemplateBox[{
+    Cell[
+     TextData["NotebookSave"]], "paclet:ref/NotebookSave"},
+   "RefLink",
+   BaseStyle->{"InlineFormula"}]], "InlineFormula",
+  FontFamily->"Source Sans Pro",ExpressionUUID->
+  "60805ccc-5d1d-4918-821d-322957bcb571"],
+ " if it is already associated with a file."
+}], "Notes",
+ CellID->1578766736,ExpressionUUID->"26e5744c-165f-4f5a-8c18-a20cef95f8fa"],
+
+Cell["\<\
+Unsaved notebooks are stored in a directory at $BaseSaveDirectory / \
+WorkspaceName.\
+\>", "Notes",
+ CellID->2006603341,ExpressionUUID->"7a457aea-12cb-4928-a614-6703eda7d8ed"],
+
+Cell[TextData[{
+ "All open notebooks are saved unless they are system notebooks or are in ",
+ Cell[BoxData[
+  TemplateBox[{
+    Cell[
+     TextData["ExcludedNotebooks"]], 
+    "paclet:BradleyAshby/NotebookWorkspaces/ref/ExcludedNotebooks", 
+    "BradleyAshby Package Symbol"},
+   "PackageLink",
+   BaseStyle->"InlineFormula"]], "InlineFormula",
+  FontFamily->"Source Sans Pro",ExpressionUUID->
+  "37e4e6df-bb9c-4dd4-bd64-4ff878205941"],
+ "."
+}], "Notes",
+ CellID->1990648757,ExpressionUUID->"1b418b6e-1805-475d-9dd1-22be71411fd1"],
+
+Cell[TextData[{
+ "Notebook Workspaces considers system notebooks as any notebook located in \
+",
+ Cell[BoxData[
+  TagBox[
+   TemplateBox[{
+     Cell[
+      TextData[
+       StyleBox[
+       "$BaseDirectory", "SymbolsRefLink", ShowStringCharacters -> True, 
+        FontFamily -> "Source Sans Pro"]]], "paclet:ref/$BaseDirectory"},
+    "RefLink",
+    BaseStyle->{"InlineFormula"}],
+   MouseAppearanceTag["LinkHand"]]], "InlineFormula",
+  FontFamily->"Source Sans Pro",ExpressionUUID->
+  "b3ca9af5-5834-4064-8323-1bd216c0e381"],
+ ", ",
+ Cell[BoxData[
+  TagBox[
+   TemplateBox[{
+     Cell[
+      TextData[
+       StyleBox[
+       "$InstallationDirectory", "SymbolsRefLink", ShowStringCharacters -> 
+        True, FontFamily -> "Source Sans Pro"]]], 
+     "paclet:ref/$InstallationDirectory"},
+    "RefLink",
+    BaseStyle->{"InlineFormula"}],
+   MouseAppearanceTag["LinkHand"]]], "InlineFormula",
+  FontFamily->"Source Sans Pro",ExpressionUUID->
+  "1a4a67ca-105a-4169-8f3b-7f91f7eaa9b0"],
+ ", or ",
+ Cell[BoxData[
+  TagBox[
+   TemplateBox[{
+     Cell[
+      TextData[
+       StyleBox[
+       "$UserBasePacletsDirectory", "SymbolsRefLink", ShowStringCharacters -> 
+        True, FontFamily -> "Source Sans Pro"]]], 
+     "paclet:ref/$UserBasePacletsDirectory"},
+    "RefLink",
+    BaseStyle->{"InlineFormula"}],
+   MouseAppearanceTag["LinkHand"]]], "InlineFormula",
+  FontFamily->"Source Sans Pro",ExpressionUUID->
+  "d1c432cb-7dc4-4c82-bf14-d79c18a59935"],
+ "."
+}], "Notes",
+ CellID->1057460122,ExpressionUUID->"e44f36b9-731d-48f7-843c-d89cfb1a6730"]
+}, Dynamic[CurrentValue[
+ EvaluationNotebook[], {TaggingRules, "Openers", "NotesSection"}, Closed]]]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+ Cell[BoxData[
+  DynamicBox[ToBoxes[
+    If[
+     MatchQ[
+      CurrentValue[
+       EvaluationNotebook[], {
+       TaggingRules, "Openers", "PrimaryExamplesSection"}, Open], 
+      Alternatives[True, Open]], 
+     Style[
+      Graphics[{
+        Thickness[0.18], 
+        RGBColor[0.8509803921568627, 0.396078431372549, 0], 
+        Line[{{-1.8, 0.5}, {0, 0}, {1.8, 0.5}}]}, AspectRatio -> 1, 
+       PlotRange -> {{-3, 4}, {-1, 1}}, ImageSize -> 20], Magnification -> 
+      0.68 Inherited], 
+     Rotate[
+      Style[
+       Graphics[{
+         Thickness[0.18], 
+         RGBColor[0.8509803921568627, 0.396078431372549, 0], 
+         Line[{{-1.8, 0.5}, {0, 0}, {1.8, 0.5}}]}, AspectRatio -> 1, 
+        PlotRange -> {{-3, 4}, {-1, 1}}, ImageSize -> 20], Magnification -> 
+       0.68 Inherited], Rational[1, 2] Pi, {-1.65, -1}]]],
+   ImageSizeCache->{14., {5., 9.}}]],ExpressionUUID->
+  "7ede1ffe-5111-4260-a33e-f5f74f893c1c"],
+ Cell[BoxData[
+  TemplateBox[{1},
+   "Spacer1"]],ExpressionUUID->"51926fa5-0eec-447d-856d-fdac7e0e12f7"],
+ "Examples",
+ "\[NonBreakingSpace]\[NonBreakingSpace]",
+ Cell["(1)", "ExampleCount",ExpressionUUID->
+  "797bc6f2-71ee-483b-b19a-b585e93bd4a8"]
+}], "PrimaryExamplesSection",
+ WholeCellGroupOpener->True,
+ CacheGraphics->False,
+ CellTags->"PrimaryExamplesSection",
+ CellID->1858728700,ExpressionUUID->"891b2ec9-346a-4441-92cf-dc3ce1bfc895"],
+
+Cell[BoxData[
+ RowBox[{"Needs", "[", "\"\<BradleyAshby`NotebookWorkspaces`\>\"", 
+  "]"}]], "Input", "ExampleInitialization",
+ CellLabel->"In[1]:=",
+ CellID->940105264,ExpressionUUID->"3a302c07-f5b3-42cf-912a-a0f3f735a3e6"],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+ Cell[BoxData[
+  DynamicBox[ToBoxes[
+    If[
+     MatchQ[
+      CurrentValue[
+       EvaluationNotebook[], {TaggingRules, "Openers", "ExampleSection", "0"},
+        Closed], 
+      Alternatives[Open, True]], 
+     Style[
+      Graphics[{
+        Thickness[0.18], 
+        RGBColor[0.8509803921568627, 0.396078431372549, 0], 
+        Line[{{-1.8, 0.5}, {0, 0}, {1.8, 0.5}}]}, AspectRatio -> 1, 
+       PlotRange -> {{-3, 4}, {-1, 1}}, ImageSize -> 20], Magnification -> 
+      0.68 Inherited], 
+     Rotate[
+      Style[
+       Graphics[{
+         Thickness[0.18], 
+         RGBColor[0.8509803921568627, 0.396078431372549, 0], 
+         Line[{{-1.8, 0.5}, {0, 0}, {1.8, 0.5}}]}, AspectRatio -> 1, 
+        PlotRange -> {{-3, 4}, {-1, 1}}, ImageSize -> 20], Magnification -> 
+       0.68 Inherited], Rational[1, 2] Pi, {-1.65, -1}]]],
+   ImageSizeCache->{14., {5., 9.}}]],ExpressionUUID->
+  "1d473d18-89c2-4388-a730-d91e8cc1c52c"],
+ Cell[BoxData[
+  TemplateBox[{1},
+   "Spacer1"]],ExpressionUUID->"bcaa0c66-5d7f-4afb-8cee-b406cf5bda29"],
+ "Basic Examples",
+ "\[NonBreakingSpace]\[NonBreakingSpace]",
+ Cell["(1)", "ExampleCount",ExpressionUUID->
+  "56606b8a-356e-4c81-8f25-b5672a18d15b"]
+}], "ExampleSection", "ExampleSection",
+ WholeCellGroupOpener->True,
+ CacheGraphics->False,
+ CellID->208647991,ExpressionUUID->"7d1fff25-3ca5-446d-9511-268a9284b627"],
+
+Cell["Save the current workspace:", "ExampleText",
+ CellID->1081003818,ExpressionUUID->"2f2c32ad-d535-4344-9cb1-2d6a4ee46c58"],
+
+Cell[BoxData[
+ RowBox[{"SaveWorkspace", "[", "]"}]], "Input",
+ CellProlog:>Needs["BradleyAshby`NotebookWorkspaces`"],
+ CellLabel->"In[1]:=",
+ CellID->1443494220,ExpressionUUID->"e8d6251f-7e86-4636-a8ca-ce94b2dfa33c"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"WorkspaceMetadata", "[", "\"\<PrimaryWorkspace\>\"", "]"}]], "Input",\
+
+ CellProlog:>Needs["BradleyAshby`NotebookWorkspaces`"],
+ CellLabel->"In[2]:=",
+ CellID->1310371482,ExpressionUUID->"158f28d8-8ebc-4d36-b2e2-1d3a47e28eef"],
+
+Cell[BoxData[
+ RowBox[{"\[LeftAssociation]", 
+  RowBox[{
+   RowBox[{"\<\"FEPID\"\>", "\[Rule]", "77112"}], ",", 
+   RowBox[{"\<\"TaskUUID\"\>", 
+    "\[Rule]", "\<\"1ffbba47-27b3-4a97-b4e7-611dfad9ce86\"\>"}], ",", 
+   RowBox[{"\<\"Event\"\>", "\[Rule]", "\<\"Workspace Set\"\>"}], ",", 
+   RowBox[{"\<\"SaveInformation\"\>", "\[Rule]", 
+    RowBox[{"\[LeftAssociation]", 
+     RowBox[{
+      RowBox[{"\<\"LastSaved\"\>", "\[Rule]", 
+       TemplateBox[{
+         RowBox[{"\"Mon 26 Sep 2022 12:22:15\"", 
+           StyleBox[
+            RowBox[{"\"GMT\"", "\[InvisibleSpace]", 
+              StyleBox[
+               RowBox[{"-", "5"}], NumberMarks -> False, StripOnInput -> 
+               False]}], FontColor -> GrayLevel[0.5]]}], 
+         RowBox[{"DateObject", "[", 
+           RowBox[{
+             RowBox[{"{", 
+               
+               RowBox[{
+                "2022", ",", "9", ",", "26", ",", "12", ",", "22", ",", 
+                 "15.429173`7.940917633674783"}], "}"}], ",", "\"Instant\"", 
+             ",", "\"Gregorian\"", ",", 
+             RowBox[{"-", "5.`"}]}], "]"}]},
+        "DateObject",
+        Editable->False]}], ",", 
+      RowBox[{"\<\"SaveTrigger\"\>", "\[Rule]", "\<\"ManualSave\"\>"}]}], 
+     "\[RightAssociation]"}]}], ",", 
+   RowBox[{"\<\"Timestamp\"\>", "\[Rule]", 
+    TemplateBox[{
+      RowBox[{"\"Mon 26 Sep 2022 12:22:15\"", 
+        StyleBox[
+         RowBox[{"\"GMT\"", "\[InvisibleSpace]", 
+           StyleBox[
+            RowBox[{"-", "5"}], NumberMarks -> False, StripOnInput -> 
+            False]}], FontColor -> GrayLevel[0.5]]}], 
+      RowBox[{"DateObject", "[", 
+        RowBox[{
+          RowBox[{"{", 
+            
+            RowBox[{"2022", ",", "9", ",", "26", ",", "12", ",", "22", ",", 
+              "15.446997`7.941419047270142"}], "}"}], ",", "\"Instant\"", ",",
+           "\"Gregorian\"", ",", 
+          RowBox[{"-", "5.`"}]}], "]"}]},
+     "DateObject",
+     Editable->False]}]}], "\[RightAssociation]"}]], "Output",
+ CellLabel->"Out[2]=",
+ CellID->1677085034,ExpressionUUID->"2076f695-14dd-4c31-b33d-979c1374a4e7"]
+}, Open  ]]
+}, Dynamic[CurrentValue[
+ EvaluationNotebook[], {TaggingRules, "Openers", "ExampleSection", "0"}, 
+  Closed]]]]
+}, Dynamic[CurrentValue[
+ EvaluationNotebook[], {TaggingRules, "Openers", "PrimaryExamplesSection"}, 
+  Closed]]]],
+
+Cell[BoxData[GridBox[{
+   {
+    DynamicBox[FEPrivate`ImportImage[
+      FrontEnd`FileName[{"Documentation", "FooterIcons"}, 
+       "RelatedFunction.png"]],
+     ImageSizeCache->{50., {27., 33.}}], GridBox[{
+      {
+       StyleBox[
+        RowBox[{"See", " ", "Also"}], "SeeAlsoSection"]},
+      {Cell[TextData[{
+        Cell[BoxData[
+         TemplateBox[{
+           Cell[
+            TextData["$CurrentWorkspace"]], 
+           "paclet:BradleyAshby/NotebookWorkspaces/ref/$CurrentWorkspace", 
+           "BradleyAshby Package Symbol"},
+          "PackageLink",
+          BaseStyle->"InlineFormula"]], "InlineFormula",
+         FontFamily->"Source Sans Pro",ExpressionUUID->
+         "4d34b810-a1fe-40cc-932c-8bbe45310367"],
+        "\[NonBreakingSpace]",
+        StyleBox[
+        "\[MediumSpace]\[FilledVerySmallSquare]\[MediumSpace]", 
+         "InlineSeparator"],
+        " ",
+        Cell[BoxData[
+         TemplateBox[{
+           Cell[
+            TextData["LoadWorkspace"]], 
+           "paclet:BradleyAshby/NotebookWorkspaces/ref/LoadWorkspace", 
+           "BradleyAshby Package Symbol"},
+          "PackageLink",
+          BaseStyle->"InlineFormula"]], "InlineFormula",
+         FontFamily->"Source Sans Pro",ExpressionUUID->
+         "0e625af6-1c8f-43f2-9f55-c55d5a753792"],
+        "\[NonBreakingSpace]",
+        StyleBox[
+        "\[MediumSpace]\[FilledVerySmallSquare]\[MediumSpace]", 
+         "InlineSeparator"],
+        " ",
+        Cell[BoxData[
+         TemplateBox[{
+           Cell[
+            TextData["CloseWorkspace"]], 
+           "paclet:BradleyAshby/NotebookWorkspaces/ref/CloseWorkspace", 
+           "BradleyAshby Package Symbol"},
+          "PackageLink",
+          BaseStyle->"InlineFormula"]], "InlineFormula",
+         FontFamily->"Source Sans Pro",ExpressionUUID->
+         "5bb95c89-66de-4580-b476-64fc9bc648c2"],
+        "\[NonBreakingSpace]",
+        StyleBox[
+        "\[MediumSpace]\[FilledVerySmallSquare]\[MediumSpace]", 
+         "InlineSeparator"],
+        " ",
+        Cell[BoxData[
+         TemplateBox[{
+           Cell[
+            TextData["ExcludedNotebooks"]], 
+           "paclet:BradleyAshby/NotebookWorkspaces/ref/ExcludedNotebooks", 
+           "BradleyAshby Package Symbol"},
+          "PackageLink",
+          BaseStyle->"InlineFormula"]], "InlineFormula",
+         FontFamily->"Source Sans Pro",ExpressionUUID->
+         "fea92a97-88d2-4017-a329-01773c274167"]
+       }], "SeeAlso",ExpressionUUID->"09499b88-bb5d-4974-9f73-2b47ec5235b4"]}
+     }]}
+  }]], "SeeAlsoSection",ExpressionUUID->"d6b3b312-de54-4e8b-a600-\
+2b3b3f7773df"],
+
+Cell[BoxData[GridBox[{
+   {
+    DynamicBox[FEPrivate`ImportImage[
+      FrontEnd`FileName[{"Documentation", "FooterIcons"}, "RelatedGuide.png"]],
+     ImageSizeCache->{50., {27., 33.}}], GridBox[{
+      {
+       StyleBox[
+        RowBox[{"Related", " ", "Guides"}], "MoreAboutSection"]},
+      {
+       RowBox[{"\[FilledVerySmallSquare]", Cell[BoxData[
+         TemplateBox[{
+           Cell[
+            TextData["Notebook Workspaces"]], 
+           "paclet:BradleyAshby/NotebookWorkspaces/guide/NotebookWorkspaces"},
+          
+          "RefLinkPlain",
+          BaseStyle->{"MoreAbout"}]], "MoreAbout",ExpressionUUID->
+         "76ba8288-e397-4698-b2a1-82e33db887e7"]}]},
+      {
+       RowBox[{"\[FilledVerySmallSquare]", Cell[BoxData[
+         TemplateBox[{
+           Cell[
+            TextData["Using the Notebook Workspaces palette"]], 
+           "paclet:BradleyAshby/NotebookWorkspaces/guide/\
+UsingTheNotebookWorkspacesPalette"},
+          "RefLinkPlain",
+          BaseStyle->{"MoreAbout"}]], "MoreAbout",ExpressionUUID->
+         "657c8432-d063-4595-a7a4-0f59688783e5"]}]}
+     }]}
+  }]], "MoreAboutSection",ExpressionUUID->"6a80862d-de24-4869-bc81-\
+102891fbaaf2"],
+
+Cell[" ", "FooterCell",ExpressionUUID->"0f622276-8080-42e5-a8b4-d8c6b6fae906"]
+},
+Saveable->False,
+ScreenStyleEnvironment->"Working",
+WindowSize->{900, 794},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
+WindowTitle->"SaveWorkspace",
+TaggingRules->{
+ "ModificationHighlight" -> False, "ColorType" -> "", "LinkTrails" -> "", 
+  "HasOptions" -> True, "ExampleCounter" -> 1, 
+  "Openers" -> {
+   "PrimaryExamplesSection" -> Open, "ExampleSection" -> {"0" -> Open}, 
+    "NotesSection" -> Closed}, "NewStyles" -> True, 
+  "CitationPopupData" -> $Failed, "ShowCitation" -> False, "RootCaptions" -> 
+  "", "Metadata" -> {
+   "built" -> "{2022, 9, 26, 14, 19, 29.712925}", 
+    "history" -> {"", "", "", ""}, "context" -> 
+    "BradleyAshby`NotebookWorkspaces`", "keywords" -> {}, 
+    "specialkeywords" -> {}, "tutorialcollectionlinks" -> {}, "index" -> True,
+     "label" -> "Bradley Ashby/ Notebook Workspaces Symbol", "language" -> 
+    "en", "paclet" -> "BradleyAshby/NotebookWorkspaces", "status" -> "None", 
+    "summary" -> 
+    "SaveWorkspace[] saves open notebooks and records them as part of the \
+active workspace.", "synonyms" -> {}, "tabletags" -> {}, "title" -> 
+    "SaveWorkspace", "titlemodifier" -> "", "windowtitle" -> "SaveWorkspace", 
+    "type" -> "Symbol", "uri" -> 
+    "BradleyAshby/NotebookWorkspaces/ref/SaveWorkspace"}},
+FrontEndVersion->"13.1 for Mac OS X x86 (64-bit) (June 16, 2022)",
+StyleDefinitions->FrontEnd`FileName[{"Wolfram"}, "Reference.nb", 
+  CharacterEncoding -> "UTF-8"],
+ExpressionUUID->"49abe24d-f345-4da8-aab7-ecf02a8a4dbd"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{
+ "PrimaryExamplesSection"->{
+  Cell[13423, 358, 1390, 37, 36, "PrimaryExamplesSection",ExpressionUUID->"891b2ec9-346a-4441-92cf-dc3ce1bfc895",
+   CellTags->"PrimaryExamplesSection",
+   CellID->1858728700]}
+ }
+*)
+(*CellTagsIndex
+CellTagsIndex->{
+ {"PrimaryExamplesSection", 24859, 659}
+ }
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[585, 21, 5933, 139, 57, "AnchorBarGrid",ExpressionUUID->"636e394d-d2ed-47f0-be33-bb66396aa5f0",
+ CellID->1],
+Cell[6521, 162, 114, 0, 23, "ContextNameCell",ExpressionUUID->"a61c500a-dad8-428b-85bb-ce6ef302192a"],
+Cell[CellGroupData[{
+Cell[6660, 166, 556, 14, 60, "ObjectNameGrid",ExpressionUUID->"35d76e6f-28ab-48c6-a243-75ed5797770b"],
+Cell[7219, 182, 479, 10, 112, "Usage",ExpressionUUID->"8596a37a-8e10-4651-a95d-f7df428612fa",
+ CellID->1910642188]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[7735, 197, 1899, 47, 37, "NotesSection",ExpressionUUID->"e2734762-bdc6-4a18-bf38-9d8ac9c00fb2",
+ CellGroupingRules->{"SectionGrouping", 50},
+ CellID->1426314702],
+Cell[9637, 246, 148, 1, 70, "Notes",ExpressionUUID->"3424f2e1-2bb5-4097-80f5-e442284f5da1",
+ CellID->704778504],
+Cell[9788, 249, 133, 1, 70, "Notes",ExpressionUUID->"86fcf572-1397-49db-938c-a29a22ec7764",
+ CellID->840280125],
+Cell[9924, 252, 659, 14, 70, "3ColumnTableMod",ExpressionUUID->"c818846e-f005-427e-b071-d1ed6a633763",
+ CellID->2121204509],
+Cell[10586, 268, 439, 12, 70, "Notes",ExpressionUUID->"26e5744c-165f-4f5a-8c18-a20cef95f8fa",
+ CellID->1578766736],
+Cell[11028, 282, 185, 4, 70, "Notes",ExpressionUUID->"7a457aea-12cb-4928-a614-6703eda7d8ed",
+ CellID->2006603341],
+Cell[11216, 288, 530, 14, 70, "Notes",ExpressionUUID->"1b418b6e-1805-475d-9dd1-22be71411fd1",
+ CellID->1990648757],
+Cell[11749, 304, 1547, 48, 70, "Notes",ExpressionUUID->"e44f36b9-731d-48f7-843c-d89cfb1a6730",
+ CellID->1057460122]
+}, Dynamic[CurrentValue[EvaluationNotebook[], {TaggingRules, "Openers", "NotesSection"}, Closed]]]],
+Cell[CellGroupData[{
+Cell[13423, 358, 1390, 37, 36, "PrimaryExamplesSection",ExpressionUUID->"891b2ec9-346a-4441-92cf-dc3ce1bfc895",
+ CellTags->"PrimaryExamplesSection",
+ CellID->1858728700],
+Cell[14816, 397, 223, 4, 31, "Input",ExpressionUUID->"3a302c07-f5b3-42cf-912a-a0f3f735a3e6",
+ CellID->940105264],
+Cell[CellGroupData[{
+Cell[15064, 405, 1367, 36, 31, "ExampleSection",ExpressionUUID->"7d1fff25-3ca5-446d-9511-268a9284b627",
+ CellID->208647991],
+Cell[16434, 443, 126, 1, 38, "ExampleText",ExpressionUUID->"2f2c32ad-d535-4344-9cb1-2d6a4ee46c58",
+ CellID->1081003818],
+Cell[16563, 446, 216, 4, 29, "Input",ExpressionUUID->"e8d6251f-7e86-4636-a8ca-ce94b2dfa33c",
+ CellID->1443494220],
+Cell[CellGroupData[{
+Cell[16804, 454, 250, 5, 29, "Input",ExpressionUUID->"158f28d8-8ebc-4d36-b2e2-1d3a47e28eef",
+ CellID->1310371482],
+Cell[17057, 461, 2089, 50, 100, "Output",ExpressionUUID->"2076f695-14dd-4c31-b33d-979c1374a4e7",
+ CellID->1677085034]
+}, Open  ]]
+}, Dynamic[CurrentValue[EvaluationNotebook[], {TaggingRules, "Openers", "ExampleSection", "0"}, Closed]]]]
+}, Dynamic[CurrentValue[EvaluationNotebook[], {TaggingRules, "Openers", "PrimaryExamplesSection"}, Closed]]]],
+Cell[19388, 520, 2591, 68, 114, "SeeAlsoSection",ExpressionUUID->"d6b3b312-de54-4e8b-a600-2b3b3f7773df"],
+Cell[21982, 590, 1179, 30, 124, "MoreAboutSection",ExpressionUUID->"6a80862d-de24-4869-bc81-102891fbaaf2"],
+Cell[23164, 622, 78, 0, 24, "FooterCell",ExpressionUUID->"0f622276-8080-42e5-a8b4-d8c6b6fae906"]
+}
+]
+*)
+
+(* End of internal cache information *)
+

@@ -1,0 +1,488 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 13.1' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     19089,        478]
+NotebookOptionsPosition[     14712,        390]
+NotebookOutlinePosition[     16434,        432]
+CellTagsIndexPosition[     16391,        429]
+WindowTitle->Notebook Workspaces
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[GridBox[{
+   {GridBox[{
+      {
+       ItemBox[Cell[BoxData[
+         RowBox[{
+          TemplateBox[{12},
+           "Spacer1"], Cell[
+          "BRADLEY ASHBY/ NOTEBOOK WORKSPACES GUIDE", "PacletNameCell",
+           TextAlignment->Center,ExpressionUUID->
+           "13df6345-ea9f-4760-b48a-c0ce1f66ed23"], 
+          TemplateBox[{8},
+           "Spacer1"]}]],
+         TextAlignment->Center,ExpressionUUID->
+         "083cb929-f154-4f3d-b3f3-6271198a1c1c"],
+        Background->RGBColor[0.85098, 0.396078, 0],
+        ItemSize->Full], ""}
+     },
+     GridBoxAlignment->{"Rows" -> {{Center}}},
+     GridBoxItemSize->{"Columns" -> {Full, 
+         Scaled[0.02]}, "Rows" -> {{2.5}}}], Cell[TextData[{
+     Cell[BoxData[
+      TagBox[
+       ActionMenuBox[
+        FrameBox[Cell[TextData[{
+          "Functions",
+          " ",
+          Cell[BoxData[
+           GraphicsBox[
+            {GrayLevel[0.66667], Thickness[0.13], 
+             LineBox[{{-1.8, 0.5}, {0, 0}, {1.8, 0.5}}]},
+            AspectRatio->1,
+            ImageSize->20,
+            PlotRange->{{-3, 4}, {-1, 1}}]],ExpressionUUID->
+           "0e406df5-070b-4364-a7b6-787d6835e696"]
+         }],ExpressionUUID->"e8375df8-0ffe-4123-b084-5edc8e4affa0"],
+         StripOnInput->False], {"\<\"AddNotebookToGeneral\"\>":>
+        Documentation`HelpLookup[
+        "paclet:BradleyAshby/NotebookWorkspaces/ref/AddNotebookToGeneral"], "\
+\<\"AddToExcludedNotebooks\"\>":>Documentation`HelpLookup[
+        "paclet:BradleyAshby/NotebookWorkspaces/ref/AddToExcludedNotebooks"], \
+"\<\"CleanWorkspace\"\>":>Documentation`HelpLookup[
+        "paclet:BradleyAshby/NotebookWorkspaces/ref/CleanWorkspace"], \
+"\<\"CloseWorkspace\"\>":>Documentation`HelpLookup[
+        "paclet:BradleyAshby/NotebookWorkspaces/ref/CloseWorkspace"], \
+"\<\"CurrentWorkspace\"\>":>Documentation`HelpLookup[
+        "paclet:BradleyAshby/NotebookWorkspaces/ref/CurrentWorkspace"], \
+"\<\"ExcludedNotebooks\"\>":>Documentation`HelpLookup[
+        "paclet:BradleyAshby/NotebookWorkspaces/ref/ExcludedNotebooks"], \
+"\<\"GeneralNotebooks\"\>":>Documentation`HelpLookup[
+        "paclet:BradleyAshby/NotebookWorkspaces/ref/GeneralNotebooks"], \
+"\<\"LoadWorkspace\"\>":>Documentation`HelpLookup[
+        "paclet:BradleyAshby/NotebookWorkspaces/ref/LoadWorkspace"], \
+"\<\"RemoveFromExcludedNotebooks\"\>":>Documentation`HelpLookup[
+        "paclet:BradleyAshby/NotebookWorkspaces/ref/\
+RemoveFromExcludedNotebooks"], "\<\"RemoveNotebookFromGeneral\"\>":>
+        Documentation`HelpLookup[
+        "paclet:BradleyAshby/NotebookWorkspaces/ref/\
+RemoveNotebookFromGeneral"], "\<\"RemoveWorkspace\"\>":>
+        Documentation`HelpLookup[
+        "paclet:BradleyAshby/NotebookWorkspaces/ref/RemoveWorkspace"], \
+"\<\"SaveWorkspace\"\>":>Documentation`HelpLookup[
+        "paclet:BradleyAshby/NotebookWorkspaces/ref/SaveWorkspace"], \
+"\<\"SaveWorkspaceAs\"\>":>Documentation`HelpLookup[
+        "paclet:BradleyAshby/NotebookWorkspaces/ref/SaveWorkspaceAs"], \
+"\<\"WorkspaceMetadata\"\>":>Documentation`HelpLookup[
+        "paclet:BradleyAshby/NotebookWorkspaces/ref/WorkspaceMetadata"]},
+        Appearance->None,
+        MenuAppearance->Automatic,
+        MenuStyle->"GuideFunction"],
+       MouseAppearanceTag["LinkHand"]]],
+      LineSpacing->{1.4, 0},ExpressionUUID->
+      "a4ddde7d-d389-4bb7-a635-7f0427603b75"],
+     "\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\
+\[ThickSpace]",
+     Cell[BoxData[
+      TagBox[
+       ActionMenuBox[
+        FrameBox[Cell[TextData[{
+          "Related Guides",
+          " ",
+          Cell[BoxData[
+           GraphicsBox[
+            {GrayLevel[0.66667], Thickness[0.13], 
+             LineBox[{{-1.8, 0.5}, {0, 0}, {1.8, 0.5}}]},
+            AspectRatio->1,
+            ImageSize->20,
+            PlotRange->{{-3, 4}, {-1, 1}}]],ExpressionUUID->
+           "a1aa87c8-fd1c-4d9d-b141-1bca078d336a"]
+         }],ExpressionUUID->"0b53770d-bd59-4957-9e8c-8be686f69af4"],
+         StripOnInput->
+          False], {"\<\"Using the Notebook Workspaces palette\"\>":>
+        Documentation`HelpLookup[
+        "paclet:BradleyAshby/NotebookWorkspaces/guide/\
+UsingTheNotebookWorkspacesPalette"]},
+        Appearance->None,
+        MenuAppearance->Automatic,
+        MenuStyle->"GuideMoreAbout"],
+       MouseAppearanceTag["LinkHand"]]],
+      LineSpacing->{1.4, 0},ExpressionUUID->
+      "49e2f6f9-64b0-428b-b2bc-d795e4ff79cd"],
+     "\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\
+\[ThickSpace]",
+     Cell[BoxData[
+      TagBox[
+       ActionMenuBox[
+        FrameBox[Cell[TextData[{
+          "URL",
+          " ",
+          Cell[BoxData[
+           GraphicsBox[
+            {GrayLevel[0.66667], Thickness[0.13], 
+             LineBox[{{-1.8, 0.5}, {0, 0}, {1.8, 0.5}}]},
+            AspectRatio->1,
+            ImageSize->20,
+            PlotRange->{{-3, 4}, {-1, 1}}]],ExpressionUUID->
+           "92bf4ab6-b17c-43bf-8fca-8f65d0c76468"]
+         }],ExpressionUUID->"c410f3c0-d675-4e41-a522-ce4e04914b00"],
+         StripOnInput->
+          False], {"\<\"BradleyAshby/NotebookWorkspaces/guide/\
+NotebookWorkspaces\"\>":>
+        None, "\<\"Copy Wolfram Documentation Center URL\"\>":>
+        Module[{DocumentationSearch`Private`nb$}, 
+         DocumentationSearch`Private`nb$ = NotebookPut[
+            Notebook[{
+              Cell[
+              "BradleyAshby/NotebookWorkspaces/guide/NotebookWorkspaces"]}, 
+             Visible -> False]]; 
+         SelectionMove[DocumentationSearch`Private`nb$, All, Notebook]; 
+         FrontEndTokenExecute[DocumentationSearch`Private`nb$, "Copy"]; 
+         NotebookClose[DocumentationSearch`Private`nb$]; Null], 
+        Delimiter, "\<\"Copy web URL\"\>":>
+        Module[{DocumentationSearch`Private`nb$}, 
+         DocumentationSearch`Private`nb$ = NotebookPut[
+            Notebook[{
+              Cell[
+               BoxData[
+                MakeBoxes[
+                 Hyperlink[
+                 "http://reference.wolfram.com/language/BradleyAshby/\
+NotebookWorkspaces/guide/NotebookWorkspaces.html"], StandardForm]], "Input", 
+               TextClipboardType -> "PlainText"]}, Visible -> False]]; 
+         SelectionMove[DocumentationSearch`Private`nb$, All, Notebook]; 
+         FrontEndTokenExecute[DocumentationSearch`Private`nb$, "Copy"]; 
+         NotebookClose[DocumentationSearch`Private`nb$]; 
+         Null], "\<\"Go to web URL\"\>":>FrontEndExecute[{
+          NotebookLocate[{
+            URL[If[
+               TrueQ[DocumentationBuild`Make`Private`wsmlinkQ$547851], 
+               "http://reference.wolfram.com/system-modeler/", 
+               "http://reference.wolfram.com/language/"] <> 
+             "BradleyAshby/NotebookWorkspaces/guide/NotebookWorkspaces" <> 
+             ".html"], None}]}]},
+        Appearance->None,
+        MenuAppearance->Automatic,
+        MenuStyle->"URLMenu"],
+       MouseAppearanceTag["LinkHand"]]],
+      LineSpacing->{1.4, 0},ExpressionUUID->
+      "2db3f053-7480-425d-a5c6-f3c84d46b982"]
+    }], "AnchorBar",
+     CacheGraphics->False,ExpressionUUID->
+     "74f679ef-2b97-4930-a878-a6c6c2b988ba"]}
+  }]], "AnchorBarGrid",
+ CellID->1,ExpressionUUID->"1c3a4b14-de32-432d-be96-7834d2fc7d63"],
+
+Cell[CellGroupData[{
+
+Cell["Notebook Workspaces", "GuideTitle",
+ CellID->2134775997,ExpressionUUID->"9588b6c3-d013-401f-945f-177a52e4bfad"],
+
+Cell["\<\
+Notebook Workspaces is primarily driven through a palette interface but the \
+functions are also available.\
+\>", "GuideAbstract",
+ CellID->1170891150,ExpressionUUID->"eb12e53a-fb48-4bf2-b714-042c16605450"],
+
+Cell["\t", "GuideDelimiterSubsection",ExpressionUUID->"655876fb-3f0c-4928-bc7f-a663dbdcce3b"],
+
+Cell[CellGroupData[{
+
+Cell["Saving and loading workspaces", "GuideFunctionsSubsection",
+ CellID->1779634172,ExpressionUUID->"da8023c3-75b1-4f11-8913-a2bce32e1cb2"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  TemplateBox[{
+    Cell[
+     TextData["SaveWorkspace"]], 
+    "paclet:BradleyAshby/NotebookWorkspaces/ref/SaveWorkspace", 
+    "BradleyAshby Package Symbol"},
+   "PackageLink",
+   BaseStyle->"InlineFunctionSans"]], "InlineFunctionSans",ExpressionUUID->
+  "59e2ff4d-7cf7-4c49-8780-49c2dd953011"],
+ " ",
+ StyleBox["\[LongDash]", "GuideEmDash"],
+ " save all notebooks under the current workspace"
+}], "GuideText",
+ CellID->58858846,ExpressionUUID->"e4c76a9b-9a7e-4a5c-97c7-fe47e313db2a"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  TemplateBox[{
+    Cell[
+     TextData["SaveWorkspaceAs"]], 
+    "paclet:BradleyAshby/NotebookWorkspaces/ref/SaveWorkspaceAs", 
+    "BradleyAshby Package Symbol"},
+   "PackageLink",
+   BaseStyle->"InlineFunctionSans"]], "InlineFunctionSans",ExpressionUUID->
+  "ac34d7e3-926a-4abd-a272-d5a24c61fd3f"],
+ " ",
+ StyleBox["\[LongDash]", "GuideEmDash"],
+ " save all notebooks under a different name"
+}], "GuideText",
+ CellID->279435408,ExpressionUUID->"9509e338-f1ae-45ec-aa3c-98b28ce409fe"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  TemplateBox[{
+    Cell[
+     TextData["LoadWorkspace"]], 
+    "paclet:BradleyAshby/NotebookWorkspaces/ref/LoadWorkspace", 
+    "BradleyAshby Package Symbol"},
+   "PackageLink",
+   BaseStyle->"InlineFunctionSans"]], "InlineFunctionSans",ExpressionUUID->
+  "05e276a2-146f-4d24-9c30-45266a8d0bdb"],
+ " ",
+ StyleBox["\[LongDash]", "GuideEmDash"],
+ " load a named workspace and open its notebooks"
+}], "GuideText",
+ CellID->1398147102,ExpressionUUID->"a7d1bff2-dba4-4d6a-813b-d264995008b3"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  TemplateBox[{
+    Cell[
+     TextData["CloseWorkspace"]], 
+    "paclet:BradleyAshby/NotebookWorkspaces/ref/CloseWorkspace", 
+    "BradleyAshby Package Symbol"},
+   "PackageLink",
+   BaseStyle->"InlineFunctionSans"]], "InlineFunctionSans",ExpressionUUID->
+  "62b2d4c3-cb04-4593-9e30-3c9a1f1b8a5c"],
+ " ",
+ StyleBox["\[LongDash]", "GuideEmDash"],
+ " close the current workspace and its notebooks"
+}], "GuideText",
+ CellID->342743089,ExpressionUUID->"19f5dba6-b8ad-47c8-b756-e85aea6ad924"],
+
+Cell[TextData[ButtonBox["CurrentWorkspace",
+ BaseStyle->"Link",
+ ButtonData->
+  "paclet:BradleyAshby/NotebookWorkspaces/ref/CurrentWorkspace"]], \
+"InlineGuideFunctionListing",
+ CellID->635349879,ExpressionUUID->"a031ca09-4cfd-4ffa-998b-30f876ad1872"],
+
+Cell["\t", "GuideDelimiterSubsection",
+ CellID->1917335196,ExpressionUUID->"9b4b0b6d-0abb-4853-a93e-5735e9c1ffc8"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Manage workspaces", "GuideFunctionsSubsection",
+ CellID->1660515937,ExpressionUUID->"7c2c3401-f2a9-498d-9e7f-53228b75332b"],
+
+Cell[TextData[{
+ ButtonBox["WorkspaceMetadata",
+  BaseStyle->"Link",
+  ButtonData->
+   "paclet:BradleyAshby/NotebookWorkspaces/ref/WorkspaceMetadata"],
+ "\[NonBreakingSpace]",
+ StyleBox["\[FilledVerySmallSquare]", "InlineSeparator"],
+ " ",
+ ButtonBox["RemoveWorkspace",
+  BaseStyle->"Link",
+  ButtonData->"paclet:BradleyAshby/NotebookWorkspaces/ref/RemoveWorkspace"],
+ "\[NonBreakingSpace]",
+ StyleBox["\[FilledVerySmallSquare]", "InlineSeparator"],
+ " ",
+ ButtonBox["CleanWorkspace",
+  BaseStyle->"Link",
+  ButtonData->"paclet:BradleyAshby/NotebookWorkspaces/ref/CleanWorkspace"]
+}], "InlineGuideFunctionListing",
+ CellID->1426595244,ExpressionUUID->"9ea172e4-7e65-4c29-9ac7-08a99e9787a6"],
+
+Cell["\t", "GuideDelimiterSubsection",
+ CellID->2071649914,ExpressionUUID->"8cbea269-de89-45da-b62d-3247bd458ac8"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Managing the General space", "GuideFunctionsSubsection",
+ CellID->1982881559,ExpressionUUID->"311cd4a0-f8d0-4d26-850b-0dcb1bc56917"],
+
+Cell[TextData[{
+ ButtonBox["GeneralNotebooks",
+  BaseStyle->"Link",
+  ButtonData->"paclet:BradleyAshby/NotebookWorkspaces/ref/GeneralNotebooks"],
+ "\[NonBreakingSpace]",
+ StyleBox["\[FilledVerySmallSquare]", "InlineSeparator"],
+ " ",
+ ButtonBox["AddNotebookToGeneral",
+  BaseStyle->"Link",
+  ButtonData->
+   "paclet:BradleyAshby/NotebookWorkspaces/ref/AddNotebookToGeneral"],
+ "\[NonBreakingSpace]",
+ StyleBox["\[FilledVerySmallSquare]", "InlineSeparator"],
+ " ",
+ ButtonBox["RemoveNotebookFromGeneral",
+  BaseStyle->"Link",
+  ButtonData->
+   "paclet:BradleyAshby/NotebookWorkspaces/ref/RemoveNotebookFromGeneral"]
+}], "InlineGuideFunctionListing",
+ CellID->1646707880,ExpressionUUID->"37a03a8d-074d-44da-abcc-3e32e7b26f51"],
+
+Cell["\t", "GuideDelimiterSubsection",
+ CellID->1067735787,ExpressionUUID->"83955a04-9d99-4e23-81ac-7bde5d60f60e"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Managing excluded notebooks", "GuideFunctionsSubsection",
+ CellID->1639127967,ExpressionUUID->"c48aae72-5648-4ade-afaf-cec8bb477bad"],
+
+Cell[TextData[{
+ ButtonBox["ExcludedNotebooks",
+  BaseStyle->"Link",
+  ButtonData->
+   "paclet:BradleyAshby/NotebookWorkspaces/ref/ExcludedNotebooks"],
+ "\[NonBreakingSpace]",
+ StyleBox["\[FilledVerySmallSquare]", "InlineSeparator"],
+ " ",
+ ButtonBox["AddToExcludedNotebooks",
+  BaseStyle->"Link",
+  ButtonData->
+   "paclet:BradleyAshby/NotebookWorkspaces/ref/AddToExcludedNotebooks"],
+ "\[NonBreakingSpace]",
+ StyleBox["\[FilledVerySmallSquare]", "InlineSeparator"],
+ " ",
+ ButtonBox["RemoveFromExcludedNotebooks",
+  BaseStyle->"Link",
+  ButtonData->
+   "paclet:BradleyAshby/NotebookWorkspaces/ref/RemoveFromExcludedNotebooks"]
+}], "InlineGuideFunctionListing",
+ CellID->1597580271,ExpressionUUID->"62afe075-e377-4aed-8bd1-313e6cd3df66"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[BoxData[GridBox[{
+   {
+    DynamicBox[FEPrivate`ImportImage[
+      FrontEnd`FileName[{"Documentation", "FooterIcons"}, "RelatedGuide.png"]],
+     ImageSizeCache->{50., {27., 33.}}], GridBox[{
+      {
+       StyleBox[
+        RowBox[{"Related", " ", "Guides"}], "GuideMoreAboutSection"]},
+      {
+       RowBox[{"\[FilledVerySmallSquare]", Cell[BoxData[
+         TemplateBox[{
+           Cell[
+            TextData["Using the Notebook Workspaces palette"]], 
+           "paclet:BradleyAshby/NotebookWorkspaces/guide/\
+UsingTheNotebookWorkspacesPalette"},
+          "RefLinkPlain",
+          BaseStyle->{"GuideMoreAbout"}]], "GuideMoreAbout",ExpressionUUID->
+         "cabbe053-f310-41ae-aae3-6a8f4d52c351"]}]}
+     }]}
+  }]], "GuideMoreAboutSection",ExpressionUUID->"a338e296-f211-4cff-8b4e-\
+009a3995aaa0"],
+
+Cell[" ", "FooterCell",ExpressionUUID->"f67ecb8b-4bb0-4b66-bde1-16ace9a1eb6f"]
+},
+Saveable->False,
+ScreenStyleEnvironment->"Working",
+WindowSize->{900, 830},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
+WindowTitle->"Notebook Workspaces",
+TaggingRules->{
+ "ModificationHighlight" -> False, "ColorType" -> "", "LinkTrails" -> "", 
+  "ExampleCounter" -> 1, 
+  "Openers" -> {
+   "PrimaryExamplesSection" -> Open, "ExampleSection" -> {"0" -> Open}}, 
+  "NewStyles" -> True, "CitationPopupData" -> {"", ""}, "ShowCitation" -> 
+  False, "RootCaptions" -> "", 
+  "Metadata" -> {
+   "built" -> "{2022, 9, 26, 14, 19, 1.738595}", 
+    "history" -> {"", "", "", ""}, "context" -> 
+    "BradleyAshby`NotebookWorkspaces`", "keywords" -> {}, 
+    "specialkeywords" -> {}, "tutorialcollectionlinks" -> {}, "index" -> True,
+     "label" -> "Bradley Ashby/ Notebook Workspaces Guide", "language" -> 
+    "en", "paclet" -> "BradleyAshby/NotebookWorkspaces", "status" -> "None", 
+    "summary" -> 
+    "Notebook Workspaces is primarily driven through a palette interface but \
+the functions are also available.", "synonyms" -> {}, "tabletags" -> 
+    DocumentationBuild`Make`Private`tabletaggingrules$547808, "title" -> 
+    "Notebook Workspaces", "titlemodifier" -> "", "windowtitle" -> 
+    "Notebook Workspaces", "type" -> "Guide", "uri" -> 
+    "BradleyAshby/NotebookWorkspaces/guide/NotebookWorkspaces"}},
+CacheGraphics->False,
+FrontEndVersion->"13.1 for Mac OS X x86 (64-bit) (June 16, 2022)",
+StyleDefinitions->FrontEnd`FileName[{"Wolfram"}, "Reference.nb", 
+  CharacterEncoding -> "UTF-8"],
+ExpressionUUID->"242c95c3-d0f5-4d80-adbf-f586412b1d8d"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[591, 21, 7209, 162, 57, "AnchorBarGrid",ExpressionUUID->"1c3a4b14-de32-432d-be96-7834d2fc7d63",
+ CellID->1],
+Cell[CellGroupData[{
+Cell[7825, 187, 117, 1, 61, "GuideTitle",ExpressionUUID->"9588b6c3-d013-401f-945f-177a52e4bfad",
+ CellID->2134775997],
+Cell[7945, 190, 216, 4, 38, "GuideAbstract",ExpressionUUID->"eb12e53a-fb48-4bf2-b714-042c16605450",
+ CellID->1170891150],
+Cell[8164, 196, 93, 0, 24, "GuideDelimiterSubsection",ExpressionUUID->"655876fb-3f0c-4928-bc7f-a663dbdcce3b"],
+Cell[CellGroupData[{
+Cell[8282, 200, 141, 1, 37, "GuideFunctionsSubsection",ExpressionUUID->"da8023c3-75b1-4f11-8913-a2bce32e1cb2",
+ CellID->1779634172],
+Cell[8426, 203, 517, 14, 29, "GuideText",ExpressionUUID->"e4c76a9b-9a7e-4a5c-97c7-fe47e313db2a",
+ CellID->58858846],
+Cell[8946, 219, 517, 14, 29, "GuideText",ExpressionUUID->"9509e338-f1ae-45ec-aa3c-98b28ce409fe",
+ CellID->279435408],
+Cell[9466, 235, 518, 14, 29, "GuideText",ExpressionUUID->"a7d1bff2-dba4-4d6a-813b-d264995008b3",
+ CellID->1398147102],
+Cell[9987, 251, 519, 14, 29, "GuideText",ExpressionUUID->"19f5dba6-b8ad-47c8-b756-e85aea6ad924",
+ CellID->342743089],
+Cell[10509, 267, 251, 5, 26, "InlineGuideFunctionListing",ExpressionUUID->"a031ca09-4cfd-4ffa-998b-30f876ad1872",
+ CellID->635349879],
+Cell[10763, 274, 114, 1, 24, "GuideDelimiterSubsection",ExpressionUUID->"9b4b0b6d-0abb-4853-a93e-5735e9c1ffc8",
+ CellID->1917335196]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[10914, 280, 129, 1, 37, "GuideFunctionsSubsection",ExpressionUUID->"7c2c3401-f2a9-498d-9e7f-53228b75332b",
+ CellID->1660515937],
+Cell[11046, 283, 690, 18, 26, "InlineGuideFunctionListing",ExpressionUUID->"9ea172e4-7e65-4c29-9ac7-08a99e9787a6",
+ CellID->1426595244],
+Cell[11739, 303, 114, 1, 24, "GuideDelimiterSubsection",ExpressionUUID->"8cbea269-de89-45da-b62d-3247bd458ac8",
+ CellID->2071649914]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[11890, 309, 138, 1, 37, "GuideFunctionsSubsection",ExpressionUUID->"311cd4a0-f8d0-4d26-850b-0dcb1bc56917",
+ CellID->1982881559],
+Cell[12031, 312, 724, 19, 26, "InlineGuideFunctionListing",ExpressionUUID->"37a03a8d-074d-44da-abcc-3e32e7b26f51",
+ CellID->1646707880],
+Cell[12758, 333, 114, 1, 24, "GuideDelimiterSubsection",ExpressionUUID->"83955a04-9d99-4e23-81ac-7bde5d60f60e",
+ CellID->1067735787]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[12909, 339, 139, 1, 37, "GuideFunctionsSubsection",ExpressionUUID->"c48aae72-5648-4ade-afaf-cec8bb477bad",
+ CellID->1639127967],
+Cell[13051, 342, 738, 20, 26, "InlineGuideFunctionListing",ExpressionUUID->"62afe075-e377-4aed-8bd1-313e6cd3df66",
+ CellID->1597580271]
+}, Open  ]]
+}, Open  ]],
+Cell[13816, 366, 811, 20, 114, "GuideMoreAboutSection",ExpressionUUID->"a338e296-f211-4cff-8b4e-009a3995aaa0"],
+Cell[14630, 388, 78, 0, 24, "FooterCell",ExpressionUUID->"f67ecb8b-4bb0-4b66-bde1-16ace9a1eb6f"]
+}
+]
+*)
+
+(* End of internal cache information *)
+

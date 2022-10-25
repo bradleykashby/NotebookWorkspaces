@@ -1,0 +1,52 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 13.1' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[      1293,         44]
+NotebookOptionsPosition[       770,         26]
+NotebookOutlinePosition[      1332,         46]
+CellTagsIndexPosition[      1289,         43]
+WindowFrame->Palette*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[
+ DynamicBox[ToBoxes[
+  BradleyAshby`NotebookWorkspaces`Palette`palettecontents, StandardForm],
+  ImageSizeCache->{338., {181., 188.}}]],ExpressionUUID->"f8d76f35-634c-492a-\
+9414-1233a1c91207"]
+},
+NotebookDynamicExpression:>Refresh[
+ Needs["BradleyAshby`NotebookWorkspaces`" -> None]; Null, None],
+WindowSize->Fit,
+WindowMargins->{{Automatic, 331}, {Automatic, 31}},
+WindowElements->{},
+TaggingRules->{"NotebookWorkspacesPaletteQ" -> True},
+FrontEndVersion->"13.1 for Mac OS X x86 (64-bit) (June 16, 2022)",
+StyleDefinitions->"Palette.nb",
+ExpressionUUID->"aa196c1a-3d78-4cd4-b0fc-b487b9937dbf"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[559, 20, 207, 4, 371, InheritFromParent,ExpressionUUID->"f8d76f35-634c-492a-9414-1233a1c91207"]
+}
+]
+*)
+

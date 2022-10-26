@@ -128,6 +128,34 @@ UpdateDynamicsUsing[box_BoxObject]:=(
 	)
 
 
+SetAttributes[UpdatePalette,{Listable,HoldAll}]
+
+UpdatePalette[sym_]:=(
+	If[FindDynamicsUsing[sym]=={},
+		reinitializePalette[]];
+		
+	UpdateDynamicsUsing[sym];
+	)
+
+reinitializePalette[]:=With[{
+	palette=Select[Notebooks[],
+			AbsoluteCurrentValue[#,{TaggingRules,"NotebookWorkspacesPaletteQ"}]&]},
+		
+		If[palette!={},
+			NotebookPut[NotebookGet[#],#]&/@palette]
+	]
+
+
+createPaletteNB[]:=
+	CreatePalette[
+		PaletteNotebook[
+			Dynamic[BradleyAshby`NotebookWorkspaces`Palette`palettecontents],
+			
+			NotebookDynamicExpression:>Refresh[Needs["BradleyAshby`NotebookWorkspaces`"->None];,None],
+			TaggingRules->{"NotebookWorkspacesPaletteQ"->True}],
+		WindowSize->Fit]
+
+
 End[]
 
 EndPackage[]

@@ -30,7 +30,7 @@ $FEPID=SystemInformation["FrontEnd", "ProcessID"];
 $localworkspacerecord="NotebookWorkspaces/WorkspaceRecord";
 $WorkspaceMetadata/:Set[$WorkspaceMetadata,value_]:=(
 	LocalSymbol[$localworkspacerecord]=value;
-	UpdateDynamicsUsing[$WorkspaceMetadata];
+	UpdatePalette[$WorkspaceMetadata];
 	value)
 $WorkspaceMetadata:=LocalSymbol[$localworkspacerecord]
 
@@ -77,7 +77,7 @@ SetWorkspace[workspace_String,log_String:"Workspace Set"]:=Enclose[
 
 setWorkspace[workspace_String,log_String:"Workspace Set"]:=(
 	InitializationValue[$CurrentWorkspace,"FrontEndSession"]=$CurrentWorkspace=workspace;
-	UpdateDynamicsUsing[$CurrentWorkspace];
+	UpdatePalette[$CurrentWorkspace];
 	setupForRestart[];
 	ResourceFunction["EnsureDirectory"][WorkspaceSaveDirectory[workspace]];
 	
@@ -108,7 +108,7 @@ UnsetWorkspace[log_String:"UnsetWorkspace"]:=
 		
 		Quiet[TaskAbort[#];TaskRemove[#];&/@tasks];
 		InitializationValue[$CurrentWorkspace,"FrontEndSession"]=$CurrentWorkspace=None;
-		UpdateDynamicsUsing[$CurrentWorkspace];
+		UpdatePalette[$CurrentWorkspace];
 		$WorkspaceTaskUUID=None;
 		
 		removeWorkspaceMetadata[#,log]&/@Keys[localspaces];

@@ -5,6 +5,7 @@ BeginPackage["BradleyAshby`NotebookWorkspaces`GeneralWorkspace`"]
 
 $GeneralWorkspace
 $GeneralNotebooks
+$GeneralNotebookUUIDs
 initializeGeneralWorkspace
 
 Begin["`Private`"]

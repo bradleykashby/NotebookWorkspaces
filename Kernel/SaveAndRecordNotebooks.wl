@@ -104,14 +104,23 @@ systemNotebookQ[nb_NotebookObject]:=TrueQ@With[{dir=Quiet@NotebookDirectory@nb},
 
 recordableNotebooks[workspace_String]/;(workspace==$GeneralWorkspace):=$GeneralNotebooks;
 
-recordableNotebooks[HoldPattern[workspace_:$CurrentWorkspace]]:=Select[Notebooks[],
-		And[
-			TrueQ[CurrentValue[#,Visible]],
-			Not[MemberQ[$ExcludedNotebooks,Information[#,"WindowTitle"]]],
-			Not[MemberQ[$GeneralNotebooks,#]],
-			Not[("DocumentType"/.NotebookInformation[#])=="Help"],
-			Not[systemNotebookQ[#]]
-        ]&];
+recordableNotebooks[HoldPattern[workspace_:$CurrentWorkspace]]:=With[
+	{general=$GeneralNotebookUUIDs,
+	excluded=$ExcludedNotebooks},
+
+		Select[Notebooks[],
+			Module[{title,type,uuid},
+				{title,type,uuid}=Information[#,
+					{"WindowTitle","DocumentType","ExpressionUUID"}];	
+				
+				And[
+					Not[MemberQ[excluded,title]],
+					Not[MemberQ[general,uuid]],
+					Not[type=="Help"],
+					TrueQ[CurrentValue[#,Visible]],
+					Not[systemNotebookQ[#]]
+			        ]
+				]&]];
 
 
 SaveAndRecordNotebooks::duplicates="Duplicate notebooks saved. Not all will be recovered.";
@@ -135,9 +144,15 @@ saveAndRecordNotebooks[allq_Symbol:False,workspace_String,workspacelastsaved_]:=
 			saveablenotebooks=recordablenotebooks,
 			
 			saveablenotebooks=Select[recordablenotebooks,
+				Module[{modifiedq,modtime},
+				{modifiedq,modtime}=Information[#,
+					{"ModifiedInMemory","MemoryModificationTime"}];	
+				
 				And[
-					Information[#,"ModifiedInMemory"],
-					workspacelastsaved<Information[#,"MemoryModificationTime"]]&]
+					modifiedq,
+					workspacelastsaved<modtime
+			        ]
+				]&]
 			];
 		
 		opennotebooks=<|"Untitled"->{},"Saved"->{},"Timestamp"->Now,"Workspace"->workspace,"FEPID"->$FEPID|>;
@@ -146,8 +161,8 @@ saveAndRecordNotebooks[allq_Symbol:False,workspace_String,workspacelastsaved_]:=
 		RecordNotebook[#,workspace]&/@recordablenotebooks;
 
 		If[!DuplicateFreeQ[Flatten@Lookup[opennotebooks,{"Untitled","Saved"}]],
-		Message[SaveAndRecordNotebooks::duplicates]
-		];
+			Message[SaveAndRecordNotebooks::duplicates]
+			];
 		
 		Put[opennotebooks,WorkspaceNotebooksFile[workspace]];
 		

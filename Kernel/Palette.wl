@@ -59,7 +59,7 @@ saveWorkspaceAsButtonFunc[]:=
 currentSpaceInfo[workspace_String]:=Splice[{
 				Style[workspace,"Author"],
 				Row[{
-					Button["Save notebooks",SaveWorkspace[]],
+					Button["Save notebooks",SaveWorkspace[True]],
 					Button["Close workspace",CloseWorkspace[]]}],
 				Row[{
 					"Last saved: ",

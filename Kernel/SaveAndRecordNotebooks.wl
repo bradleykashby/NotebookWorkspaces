@@ -120,15 +120,25 @@ SaveAndRecordNotebooks::opennotebooks="Too few open notebooks. Notebooks saved b
 SaveAndRecordNotebooks[allq_Symbol:False]/;BooleanQ[allq]:=SaveAndRecordNotebooks[allq,$CurrentWorkspace]
 SaveAndRecordNotebooks[allq_Symbol:False,_Symbol]:=Failure["NoWorkspace",<|"MessageTemplate"->"No workspace loaded"|>]
 
-SaveAndRecordNotebooks[allq_Symbol:False,workspace_String]:=(
-		saveAndRecordNotebooks[allq,#]&/@DeleteDuplicates[{$GeneralWorkspace,workspace}]
-		);
+SaveAndRecordNotebooks[allq_Symbol:False,workspace_String]:=With[
+			{workspacelastsaved=Lookup[WorkspaceMetadata[workspace,"SaveInformation"],"LastSaved"]},
+		
+		saveAndRecordNotebooks[allq,#,workspacelastsaved]&/@DeleteDuplicates[{$GeneralWorkspace,workspace}]
+		];
 
-saveAndRecordNotebooks[allq_Symbol:False,workspace_String]:=Module[{recordablenotebooks,saveablenotebooks},
+saveAndRecordNotebooks[allq_Symbol:False,workspace_String,workspacelastsaved_]:=Module[{
+			recordablenotebooks,
+			saveablenotebooks},
 
 		recordablenotebooks=recordableNotebooks[workspace];
-		saveablenotebooks=Select[recordablenotebooks,
-							Or[Information[#,"ModifiedInMemory"],allq]&];
+		If[Or[allq,MissingQ[workspacelastsaved]],
+			saveablenotebooks=recordablenotebooks,
+			
+			saveablenotebooks=Select[recordablenotebooks,
+				And[
+					Information[#,"ModifiedInMemory"],
+					workspacelastsaved<Information[#,"MemoryModificationTime"]]&]
+			];
 		
 		opennotebooks=<|"Untitled"->{},"Saved"->{},"Timestamp"->Now,"Workspace"->workspace,"FEPID"->$FEPID|>;
 

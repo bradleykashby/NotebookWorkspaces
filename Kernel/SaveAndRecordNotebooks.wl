@@ -65,7 +65,9 @@ SaveNotebook[nb_NotebookObject,workspace_String]/;FailureQ[Quiet[NotebookFileNam
 		},
 		
 		If[!MissingQ@nbtitle,
-			filepath=FileNameJoin[{WorkspaceSaveDirectory[workspace],nbtitle<>".nb"}];
+			filepath=FileNameJoin[{
+				WorkspaceSaveDirectory[workspace],
+				ResourceFunction["SlugifyString"][nbtitle]<>".nb"}];
 			Export[filepath,nb,OverwriteTarget->True]
 			]
 	]; 
@@ -78,8 +80,11 @@ SaveNotebook[nb_NotebookObject,workspace_String]/;!FailureQ[Quiet[NotebookFileNa
 
 (* Make a list of open notebooks to recover in case of crash *)
 	(* Untitled/unsaved notebooks *)
-RecordNotebook[nb_NotebookObject,workspace_String]/;FailureQ[Quiet[NotebookFileName[nb]]]:=With[{
-	filepath=FileNameJoin[{WorkspaceSaveDirectory[workspace],Information[nb,"WindowTitle"]<>".nb"}]},
+RecordNotebook[nb_NotebookObject,workspace_String]/;FailureQ[Quiet[NotebookFileName[nb]]]:=
+	With[{
+		filepath=FileNameJoin[{
+			WorkspaceSaveDirectory[workspace],
+			ResourceFunction["SlugifyString"][Information[nb,"WindowTitle"]]<>".nb"}]},
 	
 		AppendTo[opennotebooks["Untitled"],filepath]
 	];

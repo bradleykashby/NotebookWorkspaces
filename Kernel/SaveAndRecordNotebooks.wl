@@ -81,12 +81,14 @@ SaveNotebook[nb_NotebookObject,workspace_String]/;!FailureQ[Quiet[NotebookFileNa
 (* Make a list of open notebooks to recover in case of crash *)
 	(* Untitled/unsaved notebooks *)
 RecordNotebook[nb_NotebookObject,workspace_String]/;FailureQ[Quiet[NotebookFileName[nb]]]:=
-	With[{
-		filepath=FileNameJoin[{
-			WorkspaceSaveDirectory[workspace],
-			ResourceFunction["SlugifyString"][Information[nb,"WindowTitle"]]<>".nb"}]},
-	
-		AppendTo[opennotebooks["Untitled"],filepath]
+	Module[{nbtitle=Quiet[Information[nb,"WindowTitle"]],filepath},
+		
+		If[!MissingQ@nbtitle,
+			filepath=FileNameJoin[{
+				WorkspaceSaveDirectory[workspace],
+				ResourceFunction["SlugifyString"][nbtitle]<>".nb"}];
+			AppendTo[opennotebooks["Untitled"],filepath]
+			]		
 	];
 
 	(* Notebooks with an existing save location *)

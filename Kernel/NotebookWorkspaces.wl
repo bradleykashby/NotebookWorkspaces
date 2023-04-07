@@ -18,6 +18,7 @@ RemoveFromExcludedNotebooks
 AddNotebookToGeneral
 RemoveNotebookFromGeneral
 GeneralNotebooks
+RebuildWorkspaceMetadata
 
 Begin["`Private`"]
 

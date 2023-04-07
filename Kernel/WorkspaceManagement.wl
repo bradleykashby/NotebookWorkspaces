@@ -150,6 +150,26 @@ removeWorkspaceMetadata[workspace_String,log_String]/;workspaceExistQ[workspace]
 	recordWorkspaceMetadata[workspace,<|"FEPID"->None,"TaskUUID"->None,"Event"->log|>]
 
 
+RebuildWorkspaceMetadata[]:=Module[
+	{allworkspacefiles=FileNames["notebooksrecord",$BaseSaveDirectory,2],
+	restoredata=<||>},
+
+	Scan[
+		With[{filedata=Get[#]},
+			AppendTo[restoredata,
+				Lookup[filedata,"Workspace"]-><|
+					"SaveInformation"-><|"LastSaved"->Lookup[filedata,"Timestamp"]|>,
+					"FEPID"->Lookup[filedata,"FEPID"],
+					"TaskUUID"->None,
+					"Event"->"RebuildWorkspaceMetadata",
+					"Timestamp"->Now|>]
+			]&,allworkspacefiles];
+
+	$WorkspaceMetadata=Merge[{WorkspaceMetadata[],KeyDrop[restoredata,$GeneralWorkspace]},First]
+
+]
+
+
 workspaceExistQ[_Symbol]:=False;
 workspaceExistQ[workspace_String]/;workspace==$GeneralWorkspace:=FileExistsQ[WorkspaceNotebooksFile[$GeneralWorkspace]];
 workspaceExistQ[workspace_String]:=KeyExistsQ[WorkspaceMetadata[],workspace];
@@ -186,7 +206,7 @@ activeWorkspacePID[workspace_String]/;workspaceExistQ[workspace]:=Module[{worksp
 		oldfepid===fepid, fepid,
 		
 		(* if the old fepid points to a different active process *)
-		!(oldfepid===fepid), oldfepid,
+		And[!(oldfepid===fepid),StringContainsQ[oldfeprocess,"Mathematica"|"Wolfram",IgnoreCase->True]], oldfepid,
 		
 		(*Anything else, call it False and hope for the best *)
 		True, False]
@@ -342,7 +362,7 @@ CleanWorkspace[]:=
 			Abort[]
 		];
 		
-		SaveWorkspace[]
+		SaveWorkspace[True,"CleanWorkspace[]"]
 				
 	]/;workspaceExistQ[$CurrentWorkspace]
 

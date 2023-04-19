@@ -3,17 +3,17 @@
 (*** Wolfram Notebook File ***)
 (* http://www.wolfram.com/nb *)
 
-(* CreatedBy='Mathematica 13.1' *)
+(* CreatedBy='Mathematica 13.2' *)
 
 (*CacheID: 234*)
 (* Internal cache information:
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[      1176,         42]
+NotebookDataLength[      1257,         44]
 NotebookOptionsPosition[       713,         25]
-NotebookOutlinePosition[      1216,         44]
-CellTagsIndexPosition[      1173,         41]
+NotebookOutlinePosition[      1297,         46]
+CellTagsIndexPosition[      1254,         43]
 WindowFrame->Palette*)
 
 (* Beginning of Notebook Content *)
@@ -24,12 +24,14 @@ Cell[BoxData[
   ImageSizeCache->{338., {181., 188.}}]]]
 },
 NotebookDynamicExpression:>Refresh[
- Needs["BradleyAshby`NotebookWorkspaces`" -> None]; Null, None],
+ Needs["BradleyAshby`NotebookWorkspaces`" -> None]; 
+  BradleyAshby`NotebookWorkspaces`Palette`Private`reinitializePalette[]; Null,
+   None],
 WindowSize->Fit,
 WindowMargins->{{Automatic, 0}, {Automatic, 0}},
 WindowElements->{},
 TaggingRules->{"NotebookWorkspacesPaletteQ" -> True},
-FrontEndVersion->"13.1 for Mac OS X x86 (64-bit) (June 16, 2022)",
+FrontEndVersion->"13.2 for Mac OS X x86 (64-bit) (November 18, 2022)",
 StyleDefinitions->"Palette.nb"
 ]
 (* End of Notebook Content *)
@@ -43,7 +45,7 @@ CellTagsIndex->{}
 *)
 (*NotebookFileOutline
 Notebook[{
-Cell[559, 20, 150, 3, 16, InheritFromParent,ExpressionUUID->"1a41ca91-3d06-48de-8833-e45b7ea75312"]
+Cell[559, 20, 150, 3, 16, InheritFromParent,ExpressionUUID->"489df2a5-4b65-4c98-8d54-a47f2947c0c3"]
 }
 ]
 *)

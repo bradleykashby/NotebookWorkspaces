@@ -37,7 +37,7 @@ $WorkspaceMetadata:=LocalSymbol[$localworkspacerecord]
 WorkspaceMetadata[]:=(
 	$WorkspaceMetadata/.{
 		assoc_Association:>assoc,
-		_:>initializeMetadata[]
+		_LocalSymbol:>initializeMetadata[]
 		}
 	)
 

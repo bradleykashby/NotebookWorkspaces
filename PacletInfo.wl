@@ -7,7 +7,7 @@ PacletObject[
     "Creator" -> "Bradley Ashby",
     "License" -> "MIT",
     "PublisherID" -> "BradleyAshby",
-    "Version" -> "0.8.0",
+    "Version" -> "0.8.1",
     "WolframVersion" -> "13.1+",
     "Extensions" -> {
       {

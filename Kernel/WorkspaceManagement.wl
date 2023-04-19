@@ -171,8 +171,7 @@ RebuildWorkspaceMetadata[]:=Module[
 
 
 workspaceExistQ[_Symbol]:=False;
-workspaceExistQ[workspace_String]/;workspace==$GeneralWorkspace:=FileExistsQ[WorkspaceNotebooksFile[$GeneralWorkspace]];
-workspaceExistQ[workspace_String]:=KeyExistsQ[WorkspaceMetadata[],workspace];
+workspaceExistQ[workspace_String]:=FileExistsQ[WorkspaceNotebooksFile[workspace]];
 
 
 workspaceLastSaved[]:=With[{saveinfo=WorkspaceMetadata[All,"SaveInformation"]},
@@ -318,7 +317,7 @@ LoadWorkspace[workspace_String]/;workspaceExistQ[workspace]:=(
 		]
 )
 
-LoadWorkspace[workspace_String]/;!workspaceExistQ[workspace]:=SaveWorkspaceAs[workspace]
+LoadWorkspace[workspace_String]/;!workspaceExistQ[workspace]:=Failure["WorkspaceDNE",<|"MessageTemplate"->"The named workspace does not exist."|>]
 
 loadWorkspace[workspace_String]:=(		
 		SetWorkspace[workspace];

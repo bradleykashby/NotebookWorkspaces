@@ -69,7 +69,7 @@ currentSpaceInfo[workspace_String]:=Splice[{
 currentSpaceInfo[workspace_]:=Style["No workspace loaded","Author"]
 
 
-workspacesTab:=
+workspacesTab[workspacemetadata_Association]:=
 	Column[{
 		currentSpaceInfo[$CurrentWorkspace],
 		Spacer[1],
@@ -79,6 +79,8 @@ workspacesTab:=
 		Style["Save to new workspace","Author"],
 		Button["Save current state as...",saveWorkspaceAsButtonFunc[],Method->"Queued"]
 	}]
+
+workspacesTab[_]:=Column[{Style["Workpace metadata not loaded","Author"]}]
 
 
 generalTab:=Column[{
@@ -110,7 +112,7 @@ configureTab:=Column[{
 
 
 palettecontents=Panel[TabView[{
-		"Workspaces"->Dynamic[workspacesTab,TrackedSymbols:>{$WorkspaceMetadata,$CurrentWorkspace}],
+		"Workspaces"->Dynamic[workspacesTab[WorkspaceMetadata[]],TrackedSymbols:>{$WorkspaceMetadata,$CurrentWorkspace}],
 		"General space"->Dynamic[generalTab,TrackedSymbols:>{$GeneralNotebooks}],
 		"Configuration"->Dynamic[configureTab,TrackedSymbols:>{
 			$DefaultWorkspace,$SaveFrequency,$BaseSaveDirectory,$ExcludedNotebooks}]
@@ -151,7 +153,10 @@ createPaletteNB[]:=
 		PaletteNotebook[
 			Dynamic[BradleyAshby`NotebookWorkspaces`Palette`palettecontents],
 			
-			NotebookDynamicExpression:>Refresh[Needs["BradleyAshby`NotebookWorkspaces`"->None];,None],
+			NotebookDynamicExpression:>
+				Refresh[(Needs["BradleyAshby`NotebookWorkspaces`"->None];
+					BradleyAshby`NotebookWorkspaces`Palette`Private`reinitializePalette[];),
+				None],
 			TaggingRules->{"NotebookWorkspacesPaletteQ"->True}],
 		WindowSize->Fit]
 

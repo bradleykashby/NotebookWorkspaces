@@ -58,34 +58,42 @@ RemoveFromExcludedNotebooks[nb_String]:=With[{excluded=$ExcludedNotebooks},
 
 
 	(* Untitled/unsaved notebooks *)
-SaveNotebook[nb_NotebookObject,workspace_String]/;FailureQ[Quiet[NotebookFileName[nb]]]:=
+SaveNotebook[nb_NotebookObject,workspace_String]/;!FileExistsQ[Quiet[NotebookFileName[nb]]]:=
 	Module[{
 		nbtitle=Quiet[Information[nb,"WindowTitle"]],
 		filepath
 		},
 		
 		If[!MissingQ@nbtitle,
-			filepath=FileNameJoin[{WorkspaceSaveDirectory[workspace],nbtitle<>".nb"}];
+			filepath=FileNameJoin[{
+				WorkspaceSaveDirectory[workspace],
+				ResourceFunction["SlugifyString"][nbtitle,"ForceLowerCase"->False]<>".nb"}];
 			Export[filepath,nb,OverwriteTarget->True]
 			]
 	]; 
 
 	(* Notebooks with an existing save location *)
-SaveNotebook[nb_NotebookObject,workspace_String]/;!FailureQ[Quiet[NotebookFileName[nb]]]:=(
+SaveNotebook[nb_NotebookObject,workspace_String]/;FileExistsQ[Quiet[NotebookFileName[nb]]]:=(
 	NotebookSave[nb];
 	)
 
 
 (* Make a list of open notebooks to recover in case of crash *)
 	(* Untitled/unsaved notebooks *)
-RecordNotebook[nb_NotebookObject,workspace_String]/;FailureQ[Quiet[NotebookFileName[nb]]]:=With[{
-	filepath=FileNameJoin[{WorkspaceSaveDirectory[workspace],Information[nb,"WindowTitle"]<>".nb"}]},
-	
-		AppendTo[opennotebooks["Untitled"],filepath]
+RecordNotebook[nb_NotebookObject,workspace_String]/;!FileExistsQ[Quiet[NotebookFileName[nb]]]:=
+	Module[{nbtitle=Quiet[Information[nb,"WindowTitle"]],filepath},
+		
+		If[!MissingQ@nbtitle,
+			filepath=FileNameJoin[{
+				WorkspaceSaveDirectory[workspace],
+				ResourceFunction["SlugifyString"][nbtitle,"ForceLowerCase"->False]<>".nb"}];
+			AppendTo[opennotebooks["Untitled"],filepath]
+			]		
 	];
 
 	(* Notebooks with an existing save location *)
-RecordNotebook[nb_NotebookObject,workspace_String]/;!FailureQ[Quiet[NotebookFileName[nb]]]:=AppendTo[opennotebooks["Saved"],NotebookFileName[nb]];
+RecordNotebook[nb_NotebookObject,workspace_String]/;FileExistsQ[Quiet[NotebookFileName[nb]]]:=
+	AppendTo[opennotebooks["Saved"],NotebookFileName[nb]];
 
 
 systemNotebookQ[nb_NotebookObject]:=TrueQ@With[{dir=Quiet@NotebookDirectory@nb},

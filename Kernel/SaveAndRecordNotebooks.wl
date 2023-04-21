@@ -209,6 +209,7 @@ reopenNotebooks[notebooksfile_,workspace_]:=
 		Scan[
 			Block[{nb=CreateDocument[{},WindowSelected->False]},
 				NotebookPut[Import[#],nb];
+				SelectionMove[nb,Before,Notebook];
 				AppendTo[notebooklist,nb]
 				]&,
 			untitledlist];

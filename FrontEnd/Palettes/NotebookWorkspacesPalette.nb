@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[      1257,         44]
-NotebookOptionsPosition[       713,         25]
-NotebookOutlinePosition[      1297,         46]
-CellTagsIndexPosition[      1254,         43]
+NotebookDataLength[      1443,         49]
+NotebookOptionsPosition[       770,         26]
+NotebookOutlinePosition[      1482,         51]
+CellTagsIndexPosition[      1439,         48]
 WindowFrame->Palette*)
 
 (* Beginning of Notebook Content *)
@@ -21,7 +21,8 @@ Notebook[{
 Cell[BoxData[
  DynamicBox[ToBoxes[
   BradleyAshby`NotebookWorkspaces`Palette`palettecontents, StandardForm],
-  ImageSizeCache->{338., {181., 188.}}]]]
+  ImageSizeCache->{338., {181., 188.}}]],ExpressionUUID->"10ab9375-8062-455a-\
+842b-4f759801e093"]
 },
 NotebookDynamicExpression:>Refresh[
  Needs["BradleyAshby`NotebookWorkspaces`" -> None]; 
@@ -30,9 +31,13 @@ NotebookDynamicExpression:>Refresh[
 WindowSize->Fit,
 WindowMargins->{{Automatic, 0}, {Automatic, 0}},
 WindowElements->{},
-TaggingRules->{"NotebookWorkspacesPaletteQ" -> True},
+Visible->True,
+TaggingRules->{
+ "WelcomeScreenSettings" -> {"FEStarting" -> False}, 
+  "NotebookWorkspacesPaletteQ" -> True},
 FrontEndVersion->"13.2 for Mac OS X x86 (64-bit) (November 18, 2022)",
-StyleDefinitions->"Palette.nb"
+StyleDefinitions->"Palette.nb",
+ExpressionUUID->"9a5450d8-d784-493f-94f7-b40ae12e8a95"
 ]
 (* End of Notebook Content *)
 
@@ -45,9 +50,8 @@ CellTagsIndex->{}
 *)
 (*NotebookFileOutline
 Notebook[{
-Cell[559, 20, 150, 3, 16, InheritFromParent,ExpressionUUID->"489df2a5-4b65-4c98-8d54-a47f2947c0c3"]
+Cell[559, 20, 207, 4, 371, InheritFromParent,ExpressionUUID->"10ab9375-8062-455a-842b-4f759801e093"]
 }
 ]
 *)
 
-(* End of internal cache information *)

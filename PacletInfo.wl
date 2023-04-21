@@ -3,11 +3,11 @@
 PacletObject[
   <|
     "Name" -> "BradleyAshby/NotebookWorkspaces",
-    "Description" -> "Workspaces for auto-saving and quickly switching between notebooks",
+    "Description" -> "Workspaces for auto-saving and quickly switching between sets of notebooks",
     "Creator" -> "Bradley Ashby",
     "License" -> "MIT",
     "PublisherID" -> "BradleyAshby",
-    "Version" -> "0.9.1",
+    "Version" -> "1.0.0",
     "WolframVersion" -> "13.1+",
     "Extensions" -> {
       {

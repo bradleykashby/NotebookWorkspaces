@@ -7,6 +7,7 @@ palettecontents
 ManageExcludedNotebooks
 UpdatePalette
 $PaletteDynamicBoxes
+UpdateDynamicsUsing
 
 Begin["`Private`"]
 
@@ -55,6 +56,11 @@ nameWorkspaceDialog[workspace_String:""]:=DialogInput[{workspacename=workspace,e
 saveWorkspaceAsButtonFunc[]:=
 		With[{newname=nameWorkspaceDialog[]},SaveWorkspaceAs[newname]];
 
+
+currentSpaceInfo[workspace_String]/;StringQ[$WorkspaceStatus]:=Splice[{
+				Style[workspace,"Author"],
+				$WorkspaceStatus
+			}]
 
 currentSpaceInfo[workspace_String]:=Splice[{
 				Style[workspace,"Author"],
@@ -112,7 +118,7 @@ configureTab:=Column[{
 
 
 palettecontents=Panel[TabView[{
-		"Workspaces"->Dynamic[workspacesTab[WorkspaceMetadata[]],TrackedSymbols:>{$WorkspaceMetadata,$CurrentWorkspace}],
+		"Workspaces"->Dynamic[workspacesTab[WorkspaceMetadata[]],TrackedSymbols:>{$WorkspaceMetadata,$CurrentWorkspace,$WorkspaceStatus}],
 		"General space"->Dynamic[generalTab,TrackedSymbols:>{$GeneralNotebooks}],
 		"Configuration"->Dynamic[configureTab,TrackedSymbols:>{
 			$DefaultWorkspace,$SaveFrequency,$BaseSaveDirectory,$ExcludedNotebooks}]

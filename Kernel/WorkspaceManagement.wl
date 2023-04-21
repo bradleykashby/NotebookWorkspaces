@@ -11,6 +11,7 @@ $FEPID
 activeWorkspacePID
 validateWorkspaceName
 workspaceLastSaved
+$WorkspaceStatus=None;
 
 Begin["`Private`"]
 
@@ -30,7 +31,7 @@ $FEPID=SystemInformation["FrontEnd", "ProcessID"];
 $localworkspacerecord="NotebookWorkspaces/WorkspaceRecord";
 $WorkspaceMetadata/:Set[$WorkspaceMetadata,value_]:=(
 	LocalSymbol[$localworkspacerecord]=value;
-	UpdatePalette[$WorkspaceMetadata];
+	UpdateDynamicsUsing[$WorkspaceMetadata];
 	value)
 $WorkspaceMetadata:=LocalSymbol[$localworkspacerecord]
 
@@ -218,22 +219,33 @@ activeWorkspacePID[workspace_String]/;!workspaceExistQ[workspace]:=False
 activeWorkspaceQ[workspace_]:=IntegerQ@activeWorkspacePID@workspace
 
 
+SetAttributes[WithStatusUpdate,{HoldAll}]
+
+WithStatusUpdate[status_String,expr_]:=WithCleanup[
+	$WorkspaceStatus=status;UpdateDynamicsUsing[$WorkspaceStatus],		
+		expr,
+	$WorkspaceStatus=None;UpdateDynamicsUsing[$WorkspaceStatus]
+	]
+
+
 Options[SaveWorkspace]={"SaveAll"->False};
 
 SaveWorkspace[allq_Symbol:False,None]:=SaveWorkspace["TaskUUIDMissing","SaveAll"->allq]
 
 SaveWorkspace[allq_Symbol:False,log_String:"ManualSave"]:=SaveWorkspace[log,"SaveAll"->allq];
 
-SaveWorkspace[log_String:"ManualSave",opts:OptionsPattern[]]:=Module[{resp},
-	If[workspaceExistQ[$CurrentWorkspace],
-		resp=SaveAndRecordNotebooks[OptionValue["SaveAll"],$CurrentWorkspace];
-		recordWorkspaceMetadata[$CurrentWorkspace,<|"SaveInformation"-><|"LastSaved"->Now,"SaveTrigger"->log|>|>];
-		
-		SelectFirst[resp,#["Workspace"]==$CurrentWorkspace&],
-		
-		Failure["NoWorkspace",<|"MessageTemplate"->"No workspace selected. Load a workspace or use SaveWorkspaceAs"|>]
+SaveWorkspace[log_String:"ManualSave",opts:OptionsPattern[]]:=WithStatusUpdate["Saving...",
+		Module[{resp},
+			If[workspaceExistQ[$CurrentWorkspace],
+				resp=SaveAndRecordNotebooks[OptionValue["SaveAll"],$CurrentWorkspace];
+				recordWorkspaceMetadata[$CurrentWorkspace,<|"SaveInformation"-><|"LastSaved"->Now,"SaveTrigger"->log|>|>];
+				
+				SelectFirst[resp,#["Workspace"]==$CurrentWorkspace&],
+				
+				Failure["NoWorkspace",<|"MessageTemplate"->"No workspace selected. Load a workspace or use SaveWorkspaceAs"|>]
+				]
+			]
 		]
-	]
 
 
 (* set the space but don't reopen any notebooks *)
@@ -319,11 +331,11 @@ LoadWorkspace[workspace_String]/;workspaceExistQ[workspace]:=(
 
 LoadWorkspace[workspace_String]/;!workspaceExistQ[workspace]:=Failure["WorkspaceDNE",<|"MessageTemplate"->"The named workspace does not exist."|>]
 
-loadWorkspace[workspace_String]:=(		
+loadWorkspace[workspace_String]:=WithStatusUpdate["Workspace loading...",		
 		SetWorkspace[workspace];
 		ReopenNotebooks[workspace];
 		SaveWorkspace[True,"SaveOnLoad"];
-)
+	]
 
 
 RemoveWorkspace[workspace_String]:=Module[{FEPID=activeWorkspacePID[workspace]},

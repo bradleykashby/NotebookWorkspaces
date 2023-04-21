@@ -205,7 +205,7 @@ activeWorkspacePID[workspace_String]/;workspaceExistQ[workspace]:=Module[{worksp
 		oldfepid===fepid, fepid,
 		
 		(* if the old fepid points to a different active process *)
-		And[!(oldfepid===fepid),StringContainsQ[oldfeprocess,"Mathematica"|"Wolfram",IgnoreCase->True]], oldfepid,
+		And[!(oldfepid===fepid),StringContainsQ[oldfeprocess["Program"],"Mathematica"|"Wolfram",IgnoreCase->True]], oldfepid,
 		
 		(*Anything else, call it False and hope for the best *)
 		True, False]

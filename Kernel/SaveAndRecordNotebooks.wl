@@ -103,7 +103,8 @@ systemNotebookQ[nb_NotebookObject]:=TrueQ@With[{dir=Quiet@NotebookDirectory@nb},
 			Alternatives[
 				$BaseDirectory,
 				$InstallationDirectory,
-				$UserBasePacletsDirectory
+				$UserBasePacletsDirectory,
+				PacletManager`$SystemDocumentationDirectory
 			]
 		]
 	]
@@ -156,9 +157,10 @@ saveAndRecordNotebooks[allq_Symbol:False,workspace_String,workspacelastsaved_]:=
 				{modifiedq,modtime}=Information[#,
 					{"ModifiedInMemory","MemoryModificationTime"}];	
 				
-				And[
+				And[		
 					modifiedq,
-					workspacelastsaved<modtime
+					workspacelastsaved<modtime,
+					TrueQ[AbsoluteCurrentValue[#,Saveable]]
 			        ]
 				]&]
 			];

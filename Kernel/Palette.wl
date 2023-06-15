@@ -8,6 +8,7 @@ ManageExcludedNotebooks
 UpdatePalette
 $PaletteDynamicBoxes
 UpdateDynamicsUsing
+nameWorkspaceDialog
 
 Begin["`Private`"]
 
@@ -40,7 +41,7 @@ excludedbuttons:=
 
 nameWorkspaceDialog[workspace_String:""]:=DialogInput[{workspacename=workspace,error=Spacer[1]},
 		Column[{
-			TextCell["Enter a name for the workspace: "],
+			TextCell["Enter a name for the new workspace: "],
 			InputField[Dynamic[workspacename],String,BoxID->"namefield"],
 			Item[Dynamic[error],ItemSize->Automatic],
 			Row[{

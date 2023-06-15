@@ -30,9 +30,9 @@ GeneralNotebooks[]:=$GeneralNotebooks
 initializeGeneralWorkspace[]/;!ListQ[$GeneralNotebookUUIDs]:=(
 	InitializationValue[$GeneralNotebookUUIDs,"FrontEndSession"]=$GeneralNotebookUUIDs={};
 	UpdateDynamicsUsing[$GeneralNotebooks];
-	If[FileExistsQ[WorkspaceSaveDirectory[$GeneralWorkspace]],
+	If[workspaceExistQ[$GeneralWorkspace],
 		ReopenNotebooks[$GeneralWorkspace],
-		ResourceFunction["EnsureDirectory"][WorkspaceSaveDirectory[$GeneralWorkspace]]
+		CreateWorkspace[$GeneralWorkspace]
 	]
 );
 

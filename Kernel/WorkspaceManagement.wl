@@ -4,6 +4,7 @@ BeginPackage["BradleyAshby`NotebookWorkspaces`WorkspaceManagement`"]
 
 
 $WorkspaceMetadata
+CreateWorkspace
 WorkspaceSaveDirectory
 WorkspaceNotebooksFile
 workspaceExistQ
@@ -69,18 +70,41 @@ WorkspaceSaveDirectory[workspace_String]:= FileNameJoin[{$BaseSaveDirectory,work
 WorkspaceNotebooksFile[workspace_String]:=FileNameJoin[{WorkspaceSaveDirectory[workspace],"notebooksrecord"}]
 
 
-SetWorkspace[workspace_String,log_String:"Workspace Set"]:=Enclose[
-	Confirm[validateWorkspaceName[workspace]];
+CreateWorkspace[workspace_String,log_String:"Workspace created"]/;!workspaceExistQ[workspace]:=
+	Enclose[
+		Confirm[validateWorkspaceName[workspace]];
+		ResourceFunction["EnsureDirectory"][WorkspaceSaveDirectory[workspace]];
+		initializeWorkspaceNotebooksFile[workspace];
+		initializeWorkspaceMetadata[workspace,log];
+		
+		Success["WorkspaceCreated",
+			<|"MessageTemplate"->"Workspace `x` was created.",
+			"MessageParameters"-><|"x"->workspace|>,
+			"TimeStamp"->DateString[]|>]
+		
+	,"Expression"]
+
+CreateWorkspace[workspace_String,log_String:"Workspace created"]/;workspaceExistQ[workspace]:=
+	Failure["WorkspaceExists",
+		<|"MessageTemplate"->"The workspace \"`x`\" already exists.",
+		"MessageParameters"-><|"x"->workspace|>,
+		"TimeStamp"->DateString[]|>]
+
+
+initializeWorkspaceNotebooksFile[workspace_String]:=
+	Put[<|"Untitled"->{},"Saved"->{},"Timestamp"->Now,"Workspace"->workspace|>,WorkspaceNotebooksFile[workspace]]
+
+
+SetWorkspace[workspace_String,log_String:"Workspace Set"]/;workspaceExistQ[workspace]:=(
 	UnsetWorkspace["Unset:"<>log];
 	setWorkspace[workspace,log];
 	$CurrentWorkspace
-	,"Expression"]
+	)
 
 setWorkspace[workspace_String,log_String:"Workspace Set"]:=(
 	InitializationValue[$CurrentWorkspace,"FrontEndSession"]=$CurrentWorkspace=workspace;
 	UpdatePalette[$CurrentWorkspace];
 	setupForRestart[];
-	ResourceFunction["EnsureDirectory"][WorkspaceSaveDirectory[workspace]];
 	
 	initializeGeneralWorkspace[];
 	
@@ -116,6 +140,25 @@ UnsetWorkspace[log_String:"UnsetWorkspace"]:=
 	]
 
 
+initializeWorkspaceMetadata[workspace_String,log_String:"Workspace created"]:=
+	Module[{workspaces=WorkspaceMetadata[]},
+		
+		AppendTo[workspaces,
+			workspace-><|
+				"FEPID"->None,
+				"Timestamp"->Now,
+				"TaskUUID"->None,
+				"SaveInformation"-><|
+					"LastSaved"->"Never",
+					"SaveTrigger"->"None"|>,
+				"Event"->log
+				|>];
+		
+		$WorkspaceMetadata=workspaces;
+			
+		]
+
+
 recordWorkspaceMetadata[log_String:"NoneGiven"]:=
 	recordWorkspaceMetadata[$CurrentWorkspace,
 		<|
@@ -144,10 +187,7 @@ recordWorkspaceMetadata[workspace_String,log_Association]:=
 	];
 
 
-removeWorkspaceMetadata[workspace_String]/;workspaceExistQ[workspace]:=
-	recordWorkspaceMetadata[workspace,<|"FEPID"->None,"TaskUUID"->None,"Event"->"Metadata Cleared"|>]
-
-removeWorkspaceMetadata[workspace_String,log_String]/;workspaceExistQ[workspace]:=
+removeWorkspaceMetadata[workspace_String,log_String:"Metadata Cleared"]/;workspaceExistQ[workspace]:=
 	recordWorkspaceMetadata[workspace,<|"FEPID"->None,"TaskUUID"->None,"Event"->log|>]
 
 
@@ -234,54 +274,44 @@ SaveWorkspace[allq_Symbol:False,None]:=SaveWorkspace["TaskUUIDMissing","SaveAll"
 
 SaveWorkspace[allq_Symbol:False,log_String:"ManualSave"]:=SaveWorkspace[log,"SaveAll"->allq];
 
-SaveWorkspace[log_String:"ManualSave",opts:OptionsPattern[]]:=WithStatusUpdate["Saving...",
-		Module[{resp},
-			If[workspaceExistQ[$CurrentWorkspace],
-				resp=SaveAndRecordNotebooks[OptionValue["SaveAll"],$CurrentWorkspace];
-				recordWorkspaceMetadata[$CurrentWorkspace,<|"SaveInformation"-><|"LastSaved"->Now,"SaveTrigger"->log|>|>];
-				
-				SelectFirst[resp,#["Workspace"]==$CurrentWorkspace&],
-				
-				Failure["NoWorkspace",<|"MessageTemplate"->"No workspace selected. Load a workspace or use SaveWorkspaceAs"|>]
-				]
+SaveWorkspace[log_String:"ManualSave",opts:OptionsPattern[]]/;workspaceExistQ[$CurrentWorkspace]:=
+	WithStatusUpdate["Saving...",
+		With[{resp=SaveAndRecordNotebooks[OptionValue["SaveAll"],$CurrentWorkspace]},
+			recordWorkspaceMetadata[$CurrentWorkspace,<|"SaveInformation"-><|"LastSaved"->Now,"SaveTrigger"->log|>|>];
+			SelectFirst[resp,#["Workspace"]==$CurrentWorkspace&]
 			]
 		]
 
+SaveWorkspace[log_String:"ManualSave",opts:OptionsPattern[]]/;!workspaceExistQ[$CurrentWorkspace]:=
+	WithStatusUpdate["Saving...",
+		With[{newname=nameWorkspaceDialog[]},
+			If[newname==$Canceled,
+				Return[Failure["NoWorkspace",<|"MessageTemplate"->"No workspace selected. Load a workspace or use SaveWorkspaceAs"|>]]];
+				
+			SaveWorkspaceAs[newname]]
+		
+		]
 
-(* set the space but don't reopen any notebooks *)
-SaveWorkspaceAs[newname_String]:=Enclose[
-	SaveWorkspaceAs[$CurrentWorkspace,Confirm[validateWorkspaceName[newname]]];
-	,"Expression"]
-	
-SaveWorkspaceAs[workspace_,newname_String]/;(workspace==$CurrentWorkspace):=
-	saveWorkspaceAs0[workspace,newname]
-(*SaveWorkspaceAs[workspace_String,newname_String]/;workspaceExistQ[workspace]:=
-	not the current workspace, but exists:	not implemented;
-	copyWorkspace[workspace,newname]*)
 
-saveWorkspaceAs0[workspace_,newname_String]/;(!workspaceExistQ[newname]):=
-	saveWorkspaceAs[workspace,newname];
-	
-saveWorkspaceAs0[workspace_,newname_String]/;(workspaceExistQ[newname]):=
+SaveWorkspaceAs[newname_String]/;(workspaceExistQ[newname]):=
 	With[{resp=overwriteConfirm[newname]},
 		If[TrueQ@resp,
-			saveWorkspaceAs[workspace,newname],
+			RemoveWorkspace[newname];
+			DeleteDirectory[WorkspaceSaveDirectory[newname],DeleteContents->True];
+			SaveWorkspaceAs[newname],
 			Abort[]
 		]	
-]
+	]
+
+SaveWorkspaceAs[newname_String]/;(!workspaceExistQ[newname]):=Enclose[
+	Confirm[CreateWorkspace[newname]];
+	SetWorkspace[newname];
+	SaveWorkspace["SaveWorkspaceAs","SaveAll"->True];
+	,"Expression"]
 
 overwriteConfirm[newworkspace_String]:=
 	ChoiceDialog["The workspace \""<>newworkspace<>"\" already exists. Overwrite?",
 		{"Cancel"->False,"Overwrite"->True},Modal->True];
-
-saveWorkspaceAs[workspace_,newname_String]:=
-	(
-	SetWorkspace[newname];
-	SaveWorkspace[];
-	)
-
-(*copyWorkspace[workspace_String,newname_String]/;workspaceExistQ[workspace]:=;*)
-(*copy directory, etc. don't forget to confirm overwrite*)
 
 
 CloseWorkspace[]:=closeWorkspace[$CurrentWorkspace]
@@ -378,8 +408,13 @@ CleanWorkspace[]:=
 	]/;workspaceExistQ[$CurrentWorkspace]
 
 
+validateWorkspaceName[workspacename_String]/;workspaceExistQ[workspacename]:=
+	Failure["WorkspaceExists",
+		<|"MessageTemplate"->"The workspace \"`x`\" already exists.",
+		"MessageParameters"-><|"x"->workspacename|>,
+		"TimeStamp"->DateString[]|>]
+
 validateWorkspaceName[workspacename_String]:=Enclose[
-	Confirm[If[workspacename=="GeneralWorkspace",Failure["NameReserved",<|"MessageTemplate"->"The name \"GeneralWorkspace\" is reserved. Select another."|>]]];
 	Confirm[If[!StringFreeQ[workspacename,Except[{WordCharacter,WhitespaceCharacter}]],Failure["BadName",<|"MessageTemplate"->"Workspace names can only contain letters, numbers, and spaces."|>]]];
 	workspacename
 	,"Expression"]

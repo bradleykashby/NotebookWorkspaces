@@ -19,7 +19,7 @@ Needs["BradleyAshby`NotebookWorkspaces`GeneralWorkspace`"]
 Needs["BradleyAshby`NotebookWorkspaces`SaveAndRecordNotebooks`"]
 
 
-workspaceslist:=Keys@ReverseSortBy[WorkspaceMetadata[],#["Timestamp"]&];
+workspaceslist:=Keys@ReverseSortBy[KeyDrop[$GeneralWorkspace]@WorkspaceMetadata[],#["Timestamp"]&];
 
 
 sortedgeneral:=SortBy[GeneralNotebooks[],

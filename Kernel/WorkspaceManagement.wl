@@ -43,9 +43,10 @@ WorkspaceMetadata[]:=(
 		}
 	)
 
+WorkspaceMetadata[workspace_String,___]/;!MemberQ[Keys[WorkspaceMetadata[]],workspace]:=Missing["WorkspaceNotInMetadata",workspace]
 WorkspaceMetadata[workspace_String]:=Lookup[WorkspaceMetadata[],workspace]
 WorkspaceMetadata[workspace_String,All]:=WorkspaceMetadata[workspace]
-WorkspaceMetadata[workspace_String,value_String]/;workspaceExistQ[workspace]:=With[
+WorkspaceMetadata[workspace_String,value_String]:=With[
 	{spacedata=WorkspaceMetadata[workspace]},
 		Lookup[spacedata,value]
 		]
@@ -206,7 +207,7 @@ RebuildWorkspaceMetadata[]:=Module[
 					"Timestamp"->Now|>]
 			]&,allworkspacefiles];
 
-	$WorkspaceMetadata=Merge[{WorkspaceMetadata[],KeyDrop[restoredata,$GeneralWorkspace]},First]
+	$WorkspaceMetadata=Merge[{WorkspaceMetadata[],restoredata},First]
 
 ]
 
@@ -278,7 +279,8 @@ SaveWorkspace[log_String:"ManualSave",opts:OptionsPattern[]]/;workspaceExistQ[$C
 	WithStatusUpdate["Saving...",
 		With[{resp=SaveAndRecordNotebooks[OptionValue["SaveAll"],$CurrentWorkspace]},
 			recordWorkspaceMetadata[$CurrentWorkspace,<|"SaveInformation"-><|"LastSaved"->Now,"SaveTrigger"->log|>|>];
-			SelectFirst[resp,#["Workspace"]==$CurrentWorkspace&]
+			recordWorkspaceMetadata[$GeneralWorkspace,<|"SaveInformation"-><|"LastSaved"->Now,"SaveTrigger"->log,"ActiveWorkspace"->$CurrentWorkspace|>|>];
+			resp
 			]
 		]
 

@@ -138,11 +138,13 @@ SaveAndRecordNotebooks::opennotebooks="Too few open notebooks. Notebooks saved b
 SaveAndRecordNotebooks[allq_Symbol:False]/;BooleanQ[allq]:=SaveAndRecordNotebooks[allq,$CurrentWorkspace]
 SaveAndRecordNotebooks[allq_Symbol:False,_Symbol]:=Failure["NoWorkspace",<|"MessageTemplate"->"No workspace loaded"|>]
 
-SaveAndRecordNotebooks[allq_Symbol:False,workspace_String]:=With[
-			{workspacelastsaved=Lookup[WorkspaceMetadata[workspace,"SaveInformation"],"LastSaved"]},
+SaveAndRecordNotebooks[allq_Symbol:False,workspace_String]:=
+	With[{
+		workspacelastsaved=Lookup[WorkspaceMetadata[workspace,"SaveInformation"],"LastSaved"]},
 		
-		saveAndRecordNotebooks[allq,#,workspacelastsaved]&/@DeleteDuplicates[{$GeneralWorkspace,workspace}]
-		];
+		saveAndRecordNotebooks[True,$GeneralWorkspace,workspacelastsaved];
+		saveAndRecordNotebooks[allq,workspace,workspacelastsaved]		
+		]
 
 saveAndRecordNotebooks[allq_Symbol:False,workspace_String,workspacelastsaved_]:=Module[{
 			recordablenotebooks,

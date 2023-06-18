@@ -19,6 +19,7 @@ AddNotebookToGeneral
 RemoveNotebookFromGeneral
 GeneralNotebooks
 RebuildWorkspaceMetadata
+AddNotebookToWorkspace
 
 Begin["`Private`"]
 

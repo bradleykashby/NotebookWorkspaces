@@ -7,6 +7,7 @@ $WorkspaceMetadata
 CreateWorkspace
 WorkspaceSaveDirectory
 WorkspaceNotebooksFile
+AddNotebookToWorkspace
 workspaceExistQ
 $FEPID
 activeWorkspacePID
@@ -161,23 +162,40 @@ initializeWorkspaceMetadata[workspace_String,log_String:"Workspace created"]:=
 
 
 recordWorkspaceMetadata[log_String:"NoneGiven"]:=
-	recordWorkspaceMetadata[$CurrentWorkspace,
-		<|
-		"FEPID"->$FEPID,
-		"Timestamp"->Now,
-		"TaskUUID"->$WorkspaceTaskUUID,
-		"Event"->log
-		|>
+	recordWorkspaceMetadata[$CurrentWorkspace,log]
+	
+recordWorkspaceMetadata[workspace_String,log_String:"NoneGiven"]:=
+	Module[{newlog},
+		newlog=<|"Timestamp"->Now,"Event"->log|>;
+		
+		(*if this is for the current workspace, log the FEPID and TaskUUID as well*)
+		If[workspace==$CurrentWorkspace,
+			AppendTo[newlog,<|
+				"FEPID"->$FEPID,
+				"TaskUUID"->$WorkspaceTaskUUID|>]
+			];
+			
+		recordWorkspaceMetadata[workspace,newlog]
 	]
 
 recordWorkspaceMetadata[workspace_String,log_Association]:=
 	Module[{
 		workspaces=WorkspaceMetadata[],
-		defaultentry=<|"FEPID"->$FEPID,"Timestamp"->Now,"TaskUUID"->$WorkspaceTaskUUID,"SaveInformation"-><|"LastSaved"->"Never","SaveTrigger"->"None"|>|>,
-		entry
-		},
+		entry,defaultentry},
+
+		(*automatically initialize if metadata is missing.
+		this should be made more explicit instead of automatic*)
+		defaultentry=<|
+			"FEPID"->$FEPID,
+			"Timestamp"->Now,
+			"TaskUUID"->$WorkspaceTaskUUID,
+			"SaveInformation"-><|
+				"LastSaved"->"Never",
+				"SaveTrigger"->"None"
+				|>
+			|>;
+		entry=Lookup[workspaces,workspace,defaultentry];
 		
-		entry=Lookup[workspaces,workspace]/._Missing->defaultentry;
 		entry=Append[entry,log];
 		entry=Append[entry,"Timestamp"->Now];
 		
@@ -408,6 +426,30 @@ CleanWorkspace[]:=
 		SaveWorkspace[True,"CleanWorkspace[]"]
 				
 	]/;workspaceExistQ[$CurrentWorkspace]
+
+
+AddNotebookToWorkspace[workspace_String,rest___]/;!workspaceExistQ[workspace]:=
+	Enclose[
+		Confirm[CreateWorkspace[workspace]];
+		AddNotebookToWorkspace[workspace,rest]
+	,"Expression"]
+
+AddNotebookToWorkspace[workspace_String]:=AddNotebookToWorkspace[workspace,EvaluationNotebook[]]
+
+AddNotebookToWorkspace[workspace_String,notebook_NotebookObject]:=
+	With[{nbtitle=Information[notebook,"WindowTitle"]},
+	
+		SaveNotebook[notebook,workspace];
+		RecordNotebookToWorkspace[notebook,workspace];
+		recordWorkspaceMetadata[workspace,nbtitle<>" added to workspace"];
+		Success["NotebookAdded",<|
+			"MessageTemplate":>"`notebook` has been added to `workspace`",
+			"MessageParameters"-><|
+				"notebook"->nbtitle,
+				"workspace"->workspace|>,
+			"TimeStamp"->DateString[]
+			|>]
+	]
 
 
 validateWorkspaceName[workspacename_String]/;workspaceExistQ[workspacename]:=

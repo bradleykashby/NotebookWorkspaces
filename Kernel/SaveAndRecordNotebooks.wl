@@ -88,14 +88,14 @@ RecordNotebookToWorkspace[nb_NotebookObject,workspace_String]/;workspaceExistQ[w
 	]
 
 
-RecordWorkspaceNotebooks[nblist:{_NotebookObject..},workspace_String]:=
-	Module[{groupoednotebooks,untitled,saved,workspacerecord},
+RecordWorkspaceNotebooks[nblist:{_NotebookObject...},workspace_String]:=
+	Module[{groupednotebooks,untitled,saved,workspacerecord},
 		
-		groupoednotebooks=GroupBy[nblist,
+		groupednotebooks=GroupBy[nblist,
 			(FileExistsQ[Quiet[NotebookFileName[#]]]&)->
 				(notebookFile[#,workspace]&)];
-		untitled=Lookup[groupoednotebooks,False,{}];
-		saved=Lookup[groupoednotebooks,True,{}];
+		untitled=Lookup[groupednotebooks,False,{}];
+		saved=Lookup[groupednotebooks,True,{}];
 		
 		workspacerecord=<|
 			"Untitled"->untitled,
@@ -105,6 +105,11 @@ RecordWorkspaceNotebooks[nblist:{_NotebookObject..},workspace_String]:=
 			"FEPID"->$FEPID|>;
 		
 		Put[workspacerecord,WorkspaceNotebooksFile[workspace]];
+		
+		(*if this is the general space, remove uuids for closed notebooks*)
+		If[workspace==$GeneralWorkspace,
+			PruneGeneralNotebookUUIDs[]
+		];
 		
 		workspacerecord			
 	]
@@ -149,25 +154,26 @@ systemNotebookQ[nb_NotebookObject]:=TrueQ@With[{dir=Quiet@NotebookDirectory@nb},
 ];
 
 
-recordableNotebooks[workspace_String]/;(workspace==$GeneralWorkspace):=$GeneralNotebooks;
+recordableNotebooks[workspace_String]/;(workspace==$GeneralWorkspace):=GeneralNotebooks[]
 
-recordableNotebooks[HoldPattern[workspace_:$CurrentWorkspace]]:=With[
-	{general=$GeneralNotebookUUIDs,
-	excluded=$ExcludedNotebooks},
-
-		Select[Notebooks[],
+recordableNotebooks[HoldPattern[workspace_:$CurrentWorkspace]]:=
+	With[
+		{excluded=$ExcludedNotebooks},
+	
+		Select[Complement[Notebooks[],GeneralNotebooks[]],
 			Module[{title,type,uuid},
 				{title,type,uuid}=Information[#,
 					{"WindowTitle","DocumentType","ExpressionUUID"}];	
 				
 				And[
 					Not[MemberQ[excluded,title]],
-					Not[MemberQ[general,uuid]],
 					Not[type=="Help"],
 					TrueQ[CurrentValue[#,Visible]],
 					Not[systemNotebookQ[#]]
 			        ]
-				]&]];
+			]&
+		]
+	]
 
 
 SaveAndRecordNotebooks::duplicates="Duplicate notebooks saved. Not all will be recovered.";

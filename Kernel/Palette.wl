@@ -120,7 +120,7 @@ configureTab:=Column[{
 
 palettecontents=Panel[TabView[{
 		"Workspaces"->Dynamic[workspacesTab[WorkspaceMetadata[]],TrackedSymbols:>{$WorkspaceMetadata,$CurrentWorkspace,$WorkspaceStatus}],
-		"General space"->Dynamic[generalTab,TrackedSymbols:>{$GeneralNotebooks}],
+		"General space"->Dynamic[generalTab,TrackedSymbols:>{$GeneralNotebookUUIDs}],
 		"Configuration"->Dynamic[configureTab,TrackedSymbols:>{
 			$DefaultWorkspace,$SaveFrequency,$BaseSaveDirectory,$ExcludedNotebooks}]
 		}],BaseStyle->{FontSize->12}]

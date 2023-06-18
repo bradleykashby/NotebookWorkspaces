@@ -27,7 +27,7 @@ Needs["BradleyAshby`NotebookWorkspaces`Palette`"]
 
 $WorkspaceTaskUUID=None;
 $FEPID=SystemInformation["FrontEnd", "ProcessID"];
-
+$FEPersistenceLocation=SelectFirst[$PersistencePath,#["Type"]=="FrontEndSession"&];
 
 
 $localworkspacerecord="NotebookWorkspaces/WorkspaceRecord";
@@ -52,6 +52,14 @@ WorkspaceMetadata[workspace_String,value_String]:=With[
 		Lookup[spacedata,value]
 		]
 WorkspaceMetadata[All,value_String]:=Lookup[value]/@WorkspaceMetadata[]
+
+
+$localcurrentworkspace="NotebookWorkspaces/$CurrentWorkspace";
+$CurrentWorkspace/:Set[$CurrentWorkspace,value_]:=(
+	LocalSymbol[$localcurrentworkspace]=value;
+	UpdateDynamicsUsing[$CurrentWorkspace];
+	value)
+$CurrentWorkspace:=LocalSymbol[$localcurrentworkspace]
 
 
 initializeMetadata[]:=(
@@ -104,7 +112,7 @@ SetWorkspace[workspace_String,log_String:"Workspace Set"]/;workspaceExistQ[works
 	)
 
 setWorkspace[workspace_String,log_String:"Workspace Set"]:=(
-	InitializationValue[$CurrentWorkspace,"FrontEndSession"]=$CurrentWorkspace=workspace;
+	$CurrentWorkspace=workspace;
 	UpdatePalette[$CurrentWorkspace];
 	setupForRestart[];
 	
@@ -116,8 +124,11 @@ setWorkspace[workspace_String,log_String:"Workspace Set"]:=(
 	)
 
 
+WorkspaceRestart::FESessionPersistenceMissing="FrontEndSession PersistenceLocation not found. Notebook Workspaces may not automatically restart after kernel quit.";
+setupForRestart[]/;MissingQ[$FEPersistenceLocation]:=Message[WorkspaceRestart::FESessionPersistenceMissing]
+
 setupForRestart[]:=(
-	InitializationValue[WorkspacesRestarted,"FrontEndSession",MergingFunction->ReleaseHold]=Hold[(
+	InitializationValue[WorkspacesRestarted,$FEPersistenceLocation,MergingFunction->ReleaseHold]=Hold[(
 		Needs["BradleyAshby`NotebookWorkspaces`"->None];
 		$CurrentWorkspace
 		)]
@@ -134,7 +145,7 @@ UnsetWorkspace[log_String:"UnsetWorkspace"]:=
 		tasks=Cases[spaces,KeyValuePattern["TaskUUID"->uuid_String]/;taskExistQ[uuid]:>uuid];
 		
 		Quiet[TaskAbort[#];TaskRemove[#];&/@tasks];
-		InitializationValue[$CurrentWorkspace,"FrontEndSession"]=$CurrentWorkspace=None;
+		$CurrentWorkspace=None;
 		UpdatePalette[$CurrentWorkspace];
 		$WorkspaceTaskUUID=None;
 		
@@ -400,7 +411,7 @@ removeWorkspace[workspace_String]:=(
 )
 
 
-CleanWorkspace[]:=
+CleanWorkspace[]/;workspaceExistQ[$CurrentWorkspace]:=
 	Module[{dir=WorkspaceSaveDirectory[$CurrentWorkspace],files,choice},
 		
 		choice=ChoiceDialog[
@@ -425,7 +436,7 @@ CleanWorkspace[]:=
 		
 		SaveWorkspace[True,"CleanWorkspace[]"]
 				
-	]/;workspaceExistQ[$CurrentWorkspace]
+	]
 
 
 AddNotebookToWorkspace[workspace_String,rest___]/;!workspaceExistQ[workspace]:=
@@ -523,19 +534,16 @@ SaveWorkspaceTask[workspace_String,fepid_Integer]:=With[{currentspace={$CurrentW
 taskExistQ[uuid_String]:=Cases[Tasks[],TaskObject@KeyValuePattern["TaskUUID"->uuid]]/.{{}->False,_->True}
 
 
-feRestartedQ:=!ValueQ@$CurrentWorkspace;
-
-
-RestartWorkspaces[]/;!feRestartedQ:=With[{
-	iscurrent=TrueQ[WorkspaceMetadata[$CurrentWorkspace,"FEPID"]==$FEPID]
-	},
-
-	If[iscurrent,
-		setWorkspace[$CurrentWorkspace,"Reset after Quit"]
-		]
+RestartWorkspaces[]:=
+	With[{
+		iscurrent=TrueQ[WorkspaceMetadata[$CurrentWorkspace,"FEPID"]==$FEPID]
+		},
+	
+		If[iscurrent,
+			setWorkspace[$CurrentWorkspace,"Reset after Quit"],
+			$CurrentWorkspace=None
+			]
 	]
-
-RestartWorkspaces[]/;feRestartedQ:=Nothing;
 
 
 SessionSubmit[ScheduledTask[RestartWorkspaces[],{Quantity[1,"Seconds"],1}]]

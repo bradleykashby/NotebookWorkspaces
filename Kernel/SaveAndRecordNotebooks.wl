@@ -4,6 +4,7 @@ BeginPackage["BradleyAshby`NotebookWorkspaces`SaveAndRecordNotebooks`"]
 
 SaveNotebook
 RecordNotebookToWorkspace
+RecordWorkspaceNotebooks
 SaveAndRecordNotebooks
 ReopenNotebooks
 closeNotebooks
@@ -129,7 +130,7 @@ unsavedNotebookFile[nb_NotebookObject,workspace_String]:=
 		nbtitle=nbtitle/._Missing->Information[nb,"ExpressionUUID"];
 		(*the differentiator helps prevents overwriting if a notebook is being added when the space is not current*)
 		If[workspace!=$CurrentWorkspace,
-			differentiator="_"<>Hash[Information[EvaluationNotebook[],"ExpressionUUID"],"Expression","HexString"]];
+			differentiator="_"<>Hash[Information[nb,"ExpressionUUID"],"Expression","HexString"]];
 		
 		filepath=FileNameJoin[{
 			WorkspaceSaveDirectory[workspace],

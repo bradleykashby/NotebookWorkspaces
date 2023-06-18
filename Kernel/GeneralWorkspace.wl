@@ -7,6 +7,7 @@ $GeneralWorkspace
 initializeGeneralWorkspace
 PruneGeneralNotebookUUIDs
 $GeneralNotebookUUIDs
+AddNotebookToGeneralList
 
 Begin["`Private`"]
 
@@ -49,9 +50,15 @@ PruneGeneralNotebookUUIDs[]:=
 
 
 SetAttributes[AddNotebookToGeneral,Listable];
-AddNotebookToGeneral[nb_NotebookObject]:=AddNotebookToGeneral[Information[nb,"ExpressionUUID"]]
+AddNotebookToGeneral[nb_NotebookObject]:=
+	AddNotebookToWorkspace[$GeneralWorkspace,nb]
 
-AddNotebookToGeneral[nbuuid_String]:=
+
+SetAttributes[AddNotebookToGeneral,Listable];
+AddNotebookToGeneralList[nb_NotebookObject]:=
+	AddNotebookToGeneralList[Information[nb,"ExpressionUUID"]]
+
+AddNotebookToGeneralList[nbuuid_String]:=
 	Module[{newlist},
 		initializeGeneralWorkspace[];
 		newlist=DeleteDuplicates[Append[$GeneralNotebookUUIDs,nbuuid]];
@@ -62,12 +69,33 @@ AddNotebookToGeneral[nbuuid_String]:=
 
 
 RemoveNotebookFromGeneral[nb_NotebookObject]:=RemoveNotebookFromGeneral[Information[nb,"ExpressionUUID"]]
+
 RemoveNotebookFromGeneral[nbuuid_String]:=(
 	initializeGeneralWorkspace[];
 	$GeneralNotebookUUIDs=DeleteCases[$GeneralNotebookUUIDs,nbuuid];
 
 	GeneralNotebooks[]
 )
+
+
+(*inverse of RecordNotebookToWorkspace, currently only used in GeneralWorkspace*)
+removeNotebookFromGeneralRecord[nb_NotebookObject]:=
+	With[{workspace=$GeneralWorkspace},
+		Module[{key,filepath=notebookFile[nb,workspace],oldrecord,newrecord,newlist},
+			
+			key=Switch[FileExistsQ[Quiet[NotebookFileName[nb]]],
+				True,"Saved",
+				False,"Untitled"];
+			
+			oldrecord=Get@WorkspaceNotebooksFile[workspace];
+			newlist=DeleteCases[Lookup[oldrecord,key,{}],filepath];
+			newrecord=Append[oldrecord,key->newlist];
+			
+			Put[newrecord,WorkspaceNotebooksFile[workspace]];
+			
+			newrecord
+		]
+	]
 
 
 End[];

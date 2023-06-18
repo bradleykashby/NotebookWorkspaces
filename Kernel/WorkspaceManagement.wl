@@ -7,7 +7,6 @@ $WorkspaceMetadata
 CreateWorkspace
 WorkspaceSaveDirectory
 WorkspaceNotebooksFile
-AddNotebookToWorkspace
 workspaceExistQ
 $FEPID
 activeWorkspacePID
@@ -453,6 +452,9 @@ AddNotebookToWorkspace[workspace_String,notebook_NotebookObject]:=
 		SaveNotebook[notebook,workspace];
 		RecordNotebookToWorkspace[notebook,workspace];
 		recordWorkspaceMetadata[workspace,nbtitle<>" added to workspace"];
+		If[workspace==$GeneralWorkspace,
+			initializeGeneralWorkspace[];AddNotebookToGeneralList[notebook]];
+		
 		Success["NotebookAdded",<|
 			"MessageTemplate":>"`notebook` has been added to `workspace`",
 			"MessageParameters"-><|

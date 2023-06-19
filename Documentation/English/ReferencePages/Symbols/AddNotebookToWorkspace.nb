@@ -1,0 +1,1354 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 13.3' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     54837,       1346]
+NotebookOptionsPosition[     45658,       1149]
+NotebookOutlinePosition[     46485,       1176]
+CellTagsIndexPosition[     46405,       1171]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["AddNotebookToWorkspace", "ObjectName",
+ CellID->632460730,ExpressionUUID->"0831c457-2820-4dc0-98a1-a940b1be8350"],
+
+Cell[TextData[{
+ Cell["   ", "ModInfo",ExpressionUUID->"b1a6c495-fe73-46da-8187-46e33369f8e2"],
+ Cell[BoxData[
+  RowBox[{"AddNotebookToWorkspace", "[", 
+   RowBox[{
+    StyleBox["workspace", "TI"], ",", 
+    StyleBox["nb", "TI"]}], "]"}]], "InlineFormula",ExpressionUUID->
+  "86d140a1-019d-4de5-972c-cdb6691f664e"],
+ " \[LineSeparator]add the notebook ",
+ Cell[BoxData[
+  StyleBox["nb", "TI"]], "InlineFormula",ExpressionUUID->
+  "593e4f7b-b35b-421f-b763-b8f10e883175"],
+ " to the list of notebooks opened as part of ",
+ Cell[BoxData[
+  StyleBox["workspace", "TI"]], "InlineFormula",ExpressionUUID->
+  "06d97817-28b8-4245-a2e7-fe9d7bdd183c"],
+ ".\n",
+ Cell["   ", "ModInfo",ExpressionUUID->"575149e1-fac3-4d1c-af44-4a4b019c003e"],
+ Cell[BoxData[
+  RowBox[{"AddNotebookToWorkspace", "[", "workspace", "]"}]], "InlineFormula",
+  ExpressionUUID->"9b7ecc00-ddef-4698-a9ae-b1dbca32e97b"],
+ "\[LineSeparator]add the ",
+ Cell[BoxData[
+  ButtonBox["EvaluationNotebook",
+   BaseStyle->"Link"]], "InlineFormula",ExpressionUUID->
+  "2614541f-c443-490e-aefa-1038411f6951"],
+ " to ",
+ Cell[BoxData[
+  StyleBox["workspace", "TI"]], "InlineFormula",ExpressionUUID->
+  "0849dd02-6d93-40a4-a179-2403fd08b6e0"],
+ "."
+}], "Usage",
+ CellChangeTimes->{{3.896179609833218*^9, 3.8961796248227377`*^9}, {
+  3.896179751931778*^9, 3.896179776551077*^9}, {3.896179874377544*^9, 
+  3.896179886481688*^9}, {3.896179962020282*^9, 3.896179983908806*^9}, {
+  3.89618009458884*^9, 3.8961801063806133`*^9}, {3.896181751569532*^9, 
+  3.8961817978268747`*^9}},
+ CellID->1870920107,ExpressionUUID->"a3837ca9-6073-40d9-a3d5-8fb185c9d322"],
+
+Cell[TextData[{
+ "The argument ",
+ Cell[BoxData[
+  StyleBox["nb", "TI"]], "InlineFormula",ExpressionUUID->
+  "53d3aa21-764b-4cc1-874b-2a6277a6d515"],
+ " should be a ",
+ Cell[BoxData[
+  ButtonBox["NotebookObject",
+   BaseStyle->"Link"]], "InlineFormula",ExpressionUUID->
+  "f461972c-4dc1-4af3-8c7d-7d878fad9d5b"],
+ "."
+}], "Notes",
+ CellChangeTimes->{{3.873199656241688*^9, 3.873199685246003*^9}},
+ CellID->1242679651,ExpressionUUID->"99ee11fe-a4cb-411f-aadc-ae614f864853"],
+
+Cell[TextData[{
+ "Use ",
+ Cell[BoxData[
+  ButtonBox["AddNotebookToWorkspace",
+   BaseStyle->"Link",
+   ButtonData->
+    "paclet:BradleyAshby/NotebookWorkspaces/ref/AddNotebookToWorkspace"]], 
+  "InlineFormula",ExpressionUUID->"57713412-157b-4ee6-ba75-3193437fe1d4"],
+ " to move notebooks to other workspaces without having to switch between \
+them."
+}], "Notes",
+ CellChangeTimes->{{3.896180929665559*^9, 3.896180971688471*^9}, {
+  3.896181009673275*^9, 3.896181010596765*^9}},
+ CellID->98926864,ExpressionUUID->"88275487-cf90-47df-b456-e24989e4e756"],
+
+Cell["\<\
+Notebooks already saved to a file can belong to multiple workspaces at once. \
+Changes made in each workspace will be saved to the same file.\
+\>", "Notes",
+ CellChangeTimes->{{3.896181037714932*^9, 3.896181103885591*^9}},
+ CellID->631975225,ExpressionUUID->"71be7720-cce9-40bb-80bf-d56becb58263"],
+
+Cell[TextData[{
+ "If ",
+ Cell[BoxData[
+  StyleBox["nb", "TI"]], "InlineFormula",ExpressionUUID->
+  "adba2d79-7e54-4f9e-93c8-8b31b398822e"],
+ " has not yet been saved and is not associated with a file, a separate copy \
+of the current state is stored in the ",
+ Cell[BoxData[
+  StyleBox["workspace", "TI"]], "InlineFormula",ExpressionUUID->
+  "c0a2af6e-537a-4404-b07d-f78839f97d02"],
+ ". Unsaved notebooks are unique to each workspace and changes made in one \
+workspace will not be reflected in another."
+}], "Notes",
+ CellChangeTimes->{{3.896179993675688*^9, 3.896179996240139*^9}, {
+   3.896180028349166*^9, 3.896180133942687*^9}, {3.896180278808063*^9, 
+   3.896180353239349*^9}, {3.896180428618712*^9, 3.896180559211093*^9}, {
+   3.896180625948103*^9, 3.8961806289855824`*^9}, 3.896180670769422*^9, {
+   3.896180706907683*^9, 3.896180720429055*^9}, {3.896180770110359*^9, 
+   3.896180788853641*^9}, {3.896181227666581*^9, 3.896181265554401*^9}},
+ CellID->1432689968,ExpressionUUID->"1c763fe7-da9f-4b7c-adb1-2768df0a7851"],
+
+Cell[TextData[{
+ "To have an unsaved notebook be shared between workspaces, add it to the \
+general workspace with ",
+ Cell[BoxData[
+  ButtonBox["AddNotebookToGeneral",
+   BaseStyle->"Link",
+   ButtonData->
+    "paclet:BradleyAshby/NotebookWorkspaces/ref/AddNotebookToGeneral"]], 
+  "InlineFormula",ExpressionUUID->"ff41b193-61f4-493b-9c73-f9dd005842aa"],
+ "."
+}], "Notes",
+ CellChangeTimes->{{3.896181299079259*^9, 3.8961813191949663`*^9}, {
+  3.896181530048675*^9, 3.896181555802311*^9}},
+ CellID->2104180217,ExpressionUUID->"6afae9d6-ce1c-4ceb-8abf-b7f82f7e30e2"],
+
+Cell[TextData[{
+ "If ",
+ Cell[BoxData[
+  StyleBox["workspace", "TI"]], "InlineFormula",ExpressionUUID->
+  "59eb855e-4e6a-437b-91e4-dda452ccb9b3"],
+ " is the ",
+ Cell[BoxData[
+  ButtonBox["$CurrentWorkspace",
+   BaseStyle->"Link",
+   ButtonData->
+    "paclet:BradleyAshby/NotebookWorkspaces/ref/$CurrentWorkspace"]], 
+  "InlineFormula",ExpressionUUID->"4dbf5012-0123-48dc-9bff-fb008aeedcaf"],
+ ", ",
+ Cell[BoxData[
+  ButtonBox["AddNotebookToWorkspace",
+   BaseStyle->"Link",
+   ButtonData->
+    "paclet:BradleyAshby/NotebookWorkspaces/ref/AddNotebookToWorkspace"]], 
+  "InlineFormula",ExpressionUUID->"e31a3b64-618a-407a-b9f8-10377807fa1d"],
+ " will have little effect."
+}], "Notes",
+ CellChangeTimes->{{3.896179993675688*^9, 3.896179996240139*^9}, {
+   3.896180028349166*^9, 3.896180133942687*^9}, {3.896180278808063*^9, 
+   3.896180297746451*^9}, {3.896180919132287*^9, 3.8961809275021477`*^9}, 
+   3.896180987983837*^9, {3.8961816249320717`*^9, 3.896181639215749*^9}},
+ CellID->1098678975,ExpressionUUID->"f87b8387-e337-4800-be42-cd91bc39f53d"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  ButtonBox["AddNotebookToWorkspace",
+   BaseStyle->"Link",
+   ButtonData->
+    "paclet:BradleyAshby/NotebookWorkspaces/ref/AddNotebookToWorkspace"]], 
+  "InlineFormula",ExpressionUUID->"f3b09b67-fa1d-458b-951f-6feaecf8ebf0"],
+ " will create a new workspace, if necessary."
+}], "Notes",
+ CellChangeTimes->{{3.8961818694979057`*^9, 3.8961818928550777`*^9}},
+ CellID->1514392968,ExpressionUUID->"58abd863-db3a-4cc0-831a-93b8a988c845"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+ "See Also",
+ Cell[BoxData[
+  TemplateBox[{"SeeAlso", 
+    Cell[
+     BoxData[
+      FrameBox[
+       Cell[
+       "Insert links to any related reference (function) pages.", 
+        "MoreInfoText"], BaseStyle -> "IFrameBox"]], "MoreInfoTextOuter"]},
+   "MoreInfoOpenerButtonTemplate"]],ExpressionUUID->
+  "d3a41b49-3b44-4c14-8ffe-b35f1cdeb5c4"]
+}], "SeeAlsoSection",
+ CellID->1433135919,ExpressionUUID->"d4a2c00a-e9a8-4ab8-ad47-fa523af9f2f0"],
+
+Cell[TextData[{
+ Cell[BoxData["AddNotebookToGeneral"], "InlineSeeAlsoFunction",
+  TaggingRules->{"PageType" -> "Function"},ExpressionUUID->
+  "cbc4fe38-d02c-4831-8e3c-ebd8be8fa81f"],
+ StyleBox[" \[FilledVerySmallSquare] ", "InlineSeparator"],
+ Cell[BoxData["AddToExcludedNotebooks"], "InlineSeeAlsoFunction",
+  TaggingRules->{"PageType" -> "Function"},
+  CellTags->"3975f20d-fddf-45e2-8749-200c4b60d900",ExpressionUUID->
+  "867eacb5-4797-4012-b2c4-8dbf2f498cbd"],
+ StyleBox[" \[FilledVerySmallSquare] ", "InlineSeparator"],
+ Cell[BoxData["SaveWorkspaceAs"], "InlineSeeAlsoFunction",
+  TaggingRules->{"PageType" -> "Function"},
+  CellTags->"910d0959-28d6-4eeb-952e-1bb2df9d2d2a",ExpressionUUID->
+  "ebc57c8b-ad11-44ef-b2ed-a3b1f4615ab0"],
+ Cell[BoxData[
+  RowBox[{
+  Cell[TextData[StyleBox[
+   " \[FilledVerySmallSquare] ", "InlineSeparator"]],ExpressionUUID->
+    "6a8eddb3-24da-42a6-8cea-5d2265cad625"], 
+   DynamicModuleBox[{$CellContext`nbobj$$ = NotebookObject[
+    "73eb6ef0-03c3-4c91-abc0-f753954bd6d9", 
+     "56a4f604-4a61-4e38-8f87-9ec1d7b66501"], $CellContext`cellobj$$ = 
+    CellObject[
+    "3f1c0625-e0c4-426e-b18e-2bac58c3815b", 
+     "1fd4a5fc-8452-4559-a205-3df0ee9dbdec"]}, 
+    TemplateBox[{
+      GraphicsBox[{{
+         Thickness[0.06], 
+         StrokeForm[
+          Hue[0.4167, 0.406, 0.502]], 
+         CircleBox[{0, 0}]}, {
+         Thickness[0.06], 
+         StrokeForm[
+          Hue[0.4167, 0.406, 0.502]], 
+         LineBox[{{0, 0.62}, {0, -0.62}}]}, {
+         Thickness[0.06], 
+         StrokeForm[
+          Hue[0.4167, 0.406, 0.502]], 
+         LineBox[{{-0.62, 0}, {0.62, 0}}]}}, 
+       ImagePadding -> {{1., 1.}, {2.4, 1.}}, ImageSize -> 16, 
+       PlotRange -> {{-1.06, 1.06}, {-1.06, 1.06}}, 
+       BaselinePosition -> (Center -> 
+        Center)], $CellContext`nbobj$$, $CellContext`cellobj$$},
+     "InlineListingAddButton"],
+    Initialization:>($CellContext`nbobj$$ = 
+      EvaluationNotebook[]; $CellContext`cellobj$$ = EvaluationCell[])]}]], 
+  "InlineListingAddButton",ExpressionUUID->
+  "3f1c0625-e0c4-426e-b18e-2bac58c3815b"]
+}], "SeeAlso",
+ CellChangeTimes->{{3.896181272150566*^9, 3.8961812855576973`*^9}, {
+  3.8961815892638073`*^9, 3.896181611905415*^9}},
+ CellID->538805881,ExpressionUUID->"e89678af-8023-4fda-94bb-c01b8ce0e431"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+ "Tech Notes",
+ Cell[BoxData[
+  TemplateBox[{"TechNotes", 
+    Cell[
+     BoxData[
+      FrameBox[
+       Cell["Insert links to related tech notes.", "MoreInfoText"], BaseStyle -> 
+       "IFrameBox"]], "MoreInfoTextOuter"]},
+   "MoreInfoOpenerButtonTemplate"]],ExpressionUUID->
+  "61f46718-1586-4f2d-aec8-73667a8b1af6"]
+}], "TechNotesSection",
+ CellID->1919386215,ExpressionUUID->"d4d9b986-9917-4ff6-a04e-e826e95ff40e"],
+
+Cell["XXXX", "Tutorials",
+ CellID->1772253918,ExpressionUUID->"536616ed-b15c-4cfe-91d6-fc180cbcd327"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Related Guides", "MoreAboutSection",
+ CellID->673415936,ExpressionUUID->"bb1d8f6d-436a-4a3d-a07a-085fa7f43ddb"],
+
+Cell[TextData[ButtonBox["Notebook Workspaces",
+ BaseStyle->"Link",
+ ButtonData->
+  "paclet:BradleyAshby/NotebookWorkspaces/guide/NotebookWorkspaces"]], \
+"MoreAbout",
+ CellChangeTimes->{{3.8726125516253853`*^9, 3.872612557921821*^9}, {
+  3.8732085401640987`*^9, 3.873208540166934*^9}},
+ CellID->1884288521,ExpressionUUID->"63344ae5-a09a-413a-8272-b23401b1416f"],
+
+Cell[TextData[ButtonBox["Using the Notebook Workspaces palette",
+ BaseStyle->"Link",
+ ButtonData->
+  "paclet:BradleyAshby/NotebookWorkspaces/guide/\
+UsingTheNotebookWorkspacesPalette"]], "MoreAbout",
+ CellChangeTimes->{{3.8726125516253853`*^9, 3.872612557921821*^9}, {
+  3.873208542479659*^9, 3.873208553797262*^9}},
+ CellID->1093320927,ExpressionUUID->"5515fc90-7a7e-4335-85bd-05678a1a26b3"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+ "Related Links",
+ Cell[BoxData[
+  TemplateBox[{"RelatedLinks", 
+    Cell[
+     BoxData[
+      FrameBox[
+       Cell[
+       "Insert links to any related page, including web pages.", 
+        "MoreInfoText"], BaseStyle -> "IFrameBox"]], "MoreInfoTextOuter"]},
+   "MoreInfoOpenerButtonTemplate"]],ExpressionUUID->
+  "c454343c-1e0d-4c25-9667-037052b2b9d5"]
+}], "RelatedLinksSection",
+ CellID->1550053690,ExpressionUUID->"a358b411-9d1f-4e4b-a3c6-5c1728c85ed8"],
+
+Cell["XXXX", "RelatedLinks",
+ CellID->628246073,ExpressionUUID->"84f8ffd6-9590-41f2-bed0-b98c123f42d5"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+ "Examples Initialization",
+ Cell[BoxData[
+  TemplateBox[{"ExamplesInitialization", 
+    Cell[
+     BoxData[
+      FrameBox[
+       Cell[
+       "Input that is to be evaluated before any examples are run, e.g. \
+Needs[\[Ellipsis]].", "MoreInfoText"], BaseStyle -> "IFrameBox"]], 
+     "MoreInfoTextOuter"]},
+   "MoreInfoOpenerButtonTemplate"]],ExpressionUUID->
+  "d38caa99-014f-40c9-ba99-634028987a1d"]
+}], "ExamplesInitializationSection",
+ CellID->1902140259,ExpressionUUID->"8d042ba2-5642-47e4-b248-c4bc6fbc3361"],
+
+Cell[BoxData[
+ RowBox[{"Needs", "[", "\"\<BradleyAshby`NotebookWorkspaces`\>\"", 
+  "]"}]], "ExampleInitialization",
+ CellID->1829763771,ExpressionUUID->"6256f8a3-c4c4-4bab-b9b8-90fe6f243d3d"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ InterpretationBox[GridBox[{
+    {
+     StyleBox[
+      RowBox[{"Basic", " ", "Examples"}], "PrimaryExamplesSection"], 
+     ButtonBox[
+      RowBox[{
+       RowBox[{"More", " ", "Examples"}], " ", "\[RightTriangle]"}],
+      BaseStyle->"ExtendedExamplesLink",
+      ButtonData:>"ExtendedExamples"]}
+   }],
+  $Line = 0; Null]], "PrimaryExamplesSection",
+ CellID->873874157,ExpressionUUID->"2f7a7fad-5313-4b33-972c-279b4e0fdfa1"],
+
+Cell["Add the current notebook to a different workspace:", "ExampleText",
+ CellChangeTimes->{{3.89618193843574*^9, 3.896181949956045*^9}},
+ CellID->229012885,ExpressionUUID->"5e275eb8-df71-42b5-ad9a-cccdfa767746"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"AddNotebookToWorkspace", "[", "\"\<test space\>\"", "]"}]], "Input",\
+
+ CellChangeTimes->{{3.896181958754188*^9, 3.896181979477375*^9}},
+ CellLabel->"In[2]:=",
+ CellID->393347205,ExpressionUUID->"6a2b9af7-adf6-44f0-a2fc-177758be987e"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{
+   TagBox["Success",
+    "SummaryHead"], "[", 
+   DynamicModuleBox[{Typeset`open$$ = False, Typeset`embedState$$ = "Ready"}, 
+    
+    TemplateBox[{
+      PaneSelectorBox[{False -> GridBox[{{
+            PaneBox[
+             ButtonBox[
+              DynamicBox[
+               FEPrivate`FrontEndResource["FEBitmaps", "SummaryBoxOpener"]], 
+              ButtonFunction :> (Typeset`open$$ = True), Appearance -> None, 
+              BaseStyle -> {}, Evaluator -> Automatic, Method -> 
+              "Preemptive"], Alignment -> {Center, Center}, ImageSize -> 
+             Dynamic[{
+               Automatic, 
+                3.5 (CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
+                 Magnification])}]], 
+            FrameBox[
+             StyleBox["\"\[Checkmark]\"", 
+              Directive[
+               RGBColor[
+               0.3607843137254902, 0.596078431372549, 0.3803921568627451], 
+               25], StripOnInput -> False], ContentPadding -> False, 
+             FrameStyle -> None, FrameMargins -> {{0, 0}, {0, 0}}, 
+             StripOnInput -> False], 
+            GridBox[{{
+               RowBox[{
+                 TagBox[
+                  TemplateBox[{"\"Message\"", "\": \""}, "RowDefault"], 
+                  "SummaryItemAnnotation"], "\[InvisibleSpace]", 
+                 TagBox[
+                 "\"AddNotebookToWorkspace.nb has been added to test space\"",
+                   "SummaryItem"]}]}, {
+               RowBox[{
+                 TagBox[
+                  TemplateBox[{"\"TimeStamp\"", "\": \""}, "RowDefault"], 
+                  "SummaryItemAnnotation"], "\[InvisibleSpace]", 
+                 TagBox["\"Mon 19 Jun 2023 11:46:20\"", "SummaryItem"]}]}}, 
+             GridBoxAlignment -> {
+              "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, AutoDelete -> 
+             False, GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+             GridBoxSpacings -> {"Columns" -> {{2}}, "Rows" -> {{Automatic}}},
+              BaseStyle -> {
+              ShowStringCharacters -> False, NumberMarks -> False, 
+               PrintPrecision -> 3, ShowSyntaxStyles -> False}]}}, 
+          GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Top}}}, 
+          AutoDelete -> False, 
+          GridBoxItemSize -> {
+           "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+          BaselinePosition -> {1, 1}], True -> GridBox[{{
+            PaneBox[
+             ButtonBox[
+              DynamicBox[
+               FEPrivate`FrontEndResource["FEBitmaps", "SummaryBoxCloser"]], 
+              ButtonFunction :> (Typeset`open$$ = False), Appearance -> None, 
+              BaseStyle -> {}, Evaluator -> Automatic, Method -> 
+              "Preemptive"], Alignment -> {Center, Center}, ImageSize -> 
+             Dynamic[{
+               Automatic, 
+                3.5 (CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
+                 Magnification])}]], 
+            FrameBox[
+             StyleBox["\"\[Checkmark]\"", 
+              Directive[
+               RGBColor[
+               0.3607843137254902, 0.596078431372549, 0.3803921568627451], 
+               25], StripOnInput -> False], ContentPadding -> False, 
+             FrameStyle -> None, FrameMargins -> {{0, 0}, {0, 0}}, 
+             StripOnInput -> False], 
+            GridBox[{{
+               RowBox[{
+                 TagBox[
+                  TemplateBox[{"\"Message\"", "\": \""}, "RowDefault"], 
+                  "SummaryItemAnnotation"], "\[InvisibleSpace]", 
+                 TagBox[
+                 "\"AddNotebookToWorkspace.nb has been added to test space\"",
+                   "SummaryItem"]}]}, {
+               RowBox[{
+                 TagBox[
+                  TemplateBox[{"\"TimeStamp\"", "\": \""}, "RowDefault"], 
+                  "SummaryItemAnnotation"], "\[InvisibleSpace]", 
+                 TagBox["\"Mon 19 Jun 2023 11:46:20\"", "SummaryItem"]}]}, {
+               RowBox[{
+                 TagBox[
+                  TemplateBox[{"\"Tag\"", "\": \""}, "RowDefault"], 
+                  "SummaryItemAnnotation"], "\[InvisibleSpace]", 
+                 TagBox["\"NotebookAdded\"", "SummaryItem"]}]}}, 
+             GridBoxAlignment -> {
+              "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, AutoDelete -> 
+             False, GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+             GridBoxSpacings -> {"Columns" -> {{2}}, "Rows" -> {{Automatic}}},
+              BaseStyle -> {
+              ShowStringCharacters -> False, NumberMarks -> False, 
+               PrintPrecision -> 3, ShowSyntaxStyles -> False}]}}, 
+          GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Top}}}, 
+          AutoDelete -> False, 
+          GridBoxItemSize -> {
+           "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+          BaselinePosition -> {1, 1}]}, 
+       Dynamic[Typeset`open$$], ImageSize -> Automatic]},
+     "SummaryPanel"],
+    DynamicModuleValues:>{}], "]"}],
+  Success[
+  "NotebookAdded", <|
+   "MessageTemplate" :> "`notebook` has been added to `workspace`", 
+    "MessageParameters" -> <|
+     "notebook" -> "AddNotebookToWorkspace.nb", "workspace" -> "test space"|>,
+     "TimeStamp" -> "Mon 19 Jun 2023 11:46:20"|>],
+  Editable->False,
+  SelectWithContents->True,
+  Selectable->False]], "Output",
+ CellChangeTimes->{3.896181980245412*^9},
+ CellLabel->"Out[2]=",
+ CellID->1502572078,ExpressionUUID->"2b7330b0-49ac-4ef5-93fe-1b432c86db9b"]
+}, Open  ]],
+
+Cell["Add a different notebook to a workspace:", "ExampleText",
+ CellChangeTimes->{{3.896181986766817*^9, 3.896181999975032*^9}},
+ CellID->1468709873,ExpressionUUID->"93fb8b4a-f311-4c66-b90c-7e8430b7f8b1"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"AddNotebookToWorkspace", "[", 
+  RowBox[{"\"\<test space\>\"", ",", 
+   TemplateBox[<|
+    "obj" -> NotebookObject[
+      "921915f9-2803-4cad-ac41-38cf16b98b41", 
+       "68236d7e-a0b0-4343-a85a-3a838a01af93"], "label" -> 
+     "\"WorkspacePlanning.nb\"", "tooltip" -> 
+     "\"/Users/bashby/Desktop/WorkspacePlanning.nb\""|>,
+    "NotebookObjectUUIDs"]}], "]"}]], "Input",
+ CellChangeTimes->{{3.896182012915107*^9, 3.8961820211919127`*^9}},
+ CellLabel->"In[4]:=",
+ CellID->1108712378,ExpressionUUID->"cc5ebc9f-a212-492b-acc5-75c065e86409"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{
+   TagBox["Success",
+    "SummaryHead"], "[", 
+   DynamicModuleBox[{Typeset`open$$ = False, Typeset`embedState$$ = "Ready"}, 
+    
+    TemplateBox[{
+      PaneSelectorBox[{False -> GridBox[{{
+            PaneBox[
+             ButtonBox[
+              DynamicBox[
+               FEPrivate`FrontEndResource["FEBitmaps", "SummaryBoxOpener"]], 
+              ButtonFunction :> (Typeset`open$$ = True), Appearance -> None, 
+              BaseStyle -> {}, Evaluator -> Automatic, Method -> 
+              "Preemptive"], Alignment -> {Center, Center}, ImageSize -> 
+             Dynamic[{
+               Automatic, 
+                3.5 (CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
+                 Magnification])}]], 
+            FrameBox[
+             StyleBox["\"\[Checkmark]\"", 
+              Directive[
+               RGBColor[
+               0.3607843137254902, 0.596078431372549, 0.3803921568627451], 
+               25], StripOnInput -> False], ContentPadding -> False, 
+             FrameStyle -> None, FrameMargins -> {{0, 0}, {0, 0}}, 
+             StripOnInput -> False], 
+            GridBox[{{
+               RowBox[{
+                 TagBox[
+                  TemplateBox[{"\"Message\"", "\": \""}, "RowDefault"], 
+                  "SummaryItemAnnotation"], "\[InvisibleSpace]", 
+                 TagBox[
+                 "\"WorkspacePlanning.nb has been added to test space\"", 
+                  "SummaryItem"]}]}, {
+               RowBox[{
+                 TagBox[
+                  TemplateBox[{"\"TimeStamp\"", "\": \""}, "RowDefault"], 
+                  "SummaryItemAnnotation"], "\[InvisibleSpace]", 
+                 TagBox["\"Mon 19 Jun 2023 11:47:02\"", "SummaryItem"]}]}}, 
+             GridBoxAlignment -> {
+              "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, AutoDelete -> 
+             False, GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+             GridBoxSpacings -> {"Columns" -> {{2}}, "Rows" -> {{Automatic}}},
+              BaseStyle -> {
+              ShowStringCharacters -> False, NumberMarks -> False, 
+               PrintPrecision -> 3, ShowSyntaxStyles -> False}]}}, 
+          GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Top}}}, 
+          AutoDelete -> False, 
+          GridBoxItemSize -> {
+           "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+          BaselinePosition -> {1, 1}], True -> GridBox[{{
+            PaneBox[
+             ButtonBox[
+              DynamicBox[
+               FEPrivate`FrontEndResource["FEBitmaps", "SummaryBoxCloser"]], 
+              ButtonFunction :> (Typeset`open$$ = False), Appearance -> None, 
+              BaseStyle -> {}, Evaluator -> Automatic, Method -> 
+              "Preemptive"], Alignment -> {Center, Center}, ImageSize -> 
+             Dynamic[{
+               Automatic, 
+                3.5 (CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
+                 Magnification])}]], 
+            FrameBox[
+             StyleBox["\"\[Checkmark]\"", 
+              Directive[
+               RGBColor[
+               0.3607843137254902, 0.596078431372549, 0.3803921568627451], 
+               25], StripOnInput -> False], ContentPadding -> False, 
+             FrameStyle -> None, FrameMargins -> {{0, 0}, {0, 0}}, 
+             StripOnInput -> False], 
+            GridBox[{{
+               RowBox[{
+                 TagBox[
+                  TemplateBox[{"\"Message\"", "\": \""}, "RowDefault"], 
+                  "SummaryItemAnnotation"], "\[InvisibleSpace]", 
+                 TagBox[
+                 "\"WorkspacePlanning.nb has been added to test space\"", 
+                  "SummaryItem"]}]}, {
+               RowBox[{
+                 TagBox[
+                  TemplateBox[{"\"TimeStamp\"", "\": \""}, "RowDefault"], 
+                  "SummaryItemAnnotation"], "\[InvisibleSpace]", 
+                 TagBox["\"Mon 19 Jun 2023 11:47:02\"", "SummaryItem"]}]}, {
+               RowBox[{
+                 TagBox[
+                  TemplateBox[{"\"Tag\"", "\": \""}, "RowDefault"], 
+                  "SummaryItemAnnotation"], "\[InvisibleSpace]", 
+                 TagBox["\"NotebookAdded\"", "SummaryItem"]}]}}, 
+             GridBoxAlignment -> {
+              "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, AutoDelete -> 
+             False, GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+             GridBoxSpacings -> {"Columns" -> {{2}}, "Rows" -> {{Automatic}}},
+              BaseStyle -> {
+              ShowStringCharacters -> False, NumberMarks -> False, 
+               PrintPrecision -> 3, ShowSyntaxStyles -> False}]}}, 
+          GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Top}}}, 
+          AutoDelete -> False, 
+          GridBoxItemSize -> {
+           "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+          BaselinePosition -> {1, 1}]}, 
+       Dynamic[Typeset`open$$], ImageSize -> Automatic]},
+     "SummaryPanel"],
+    DynamicModuleValues:>{}], "]"}],
+  Success[
+  "NotebookAdded", <|
+   "MessageTemplate" :> "`notebook` has been added to `workspace`", 
+    "MessageParameters" -> <|
+     "notebook" -> "WorkspacePlanning.nb", "workspace" -> "test space"|>, 
+    "TimeStamp" -> "Mon 19 Jun 2023 11:47:02"|>],
+  Editable->False,
+  SelectWithContents->True,
+  Selectable->False]], "Output",
+ CellChangeTimes->{3.89618202262777*^9},
+ CellLabel->"Out[4]=",
+ CellID->612458475,ExpressionUUID->"5e8b2251-6da3-469c-ab85-e30eeb38f66d"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+ "More Examples",
+ Cell[BoxData[
+  TemplateBox[{"MoreExamples", 
+    Cell[
+     BoxData[
+      FrameBox[
+       Cell["Extended examples in standardized sections.", "MoreInfoText"], 
+       BaseStyle -> "IFrameBox"]], "MoreInfoTextOuter"]},
+   "MoreInfoOpenerButtonTemplate"]],ExpressionUUID->
+  "4ccfa512-cf3b-4d4a-93a5-b88aafea7920"]
+}], "ExtendedExamplesSection",
+ CellTags->"ExtendedExamples",
+ CellID->562294866,ExpressionUUID->"ea4242de-8030-47fc-b4e3-5aa374725bbc"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ InterpretationBox[Cell[
+  "Scope", "ExampleSection",ExpressionUUID->
+   "cd11a10e-d065-4dc8-ac85-1c9a62874971"],
+  $Line = 0; Null]], "ExampleSection",
+ CellID->1561766062,ExpressionUUID->"e731d30b-6768-4bac-bc97-cc975130a839"],
+
+Cell["A new workspace will be created if necessary:", "ExampleText",
+ CellChangeTimes->{{3.8961820751719503`*^9, 3.896182082776663*^9}},
+ CellID->700469254,ExpressionUUID->"cee2089c-6c76-49be-88f8-fee3dff1e139"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"MemberQ", "[", 
+  RowBox[{
+   RowBox[{"Keys", "[", 
+    RowBox[{"WorkspaceMetadata", "[", "]"}], "]"}], ",", 
+   "\"\<A New Workspace\>\""}], "]"}]], "Input",
+ CellChangeTimes->{{3.896182085252112*^9, 3.896182121884005*^9}},
+ CellLabel->"In[1]:=",
+ CellID->1618151841,ExpressionUUID->"cf0549cc-85c5-4dde-9b76-2c836ea2cd08"],
+
+Cell[BoxData["False"], "Output",
+ CellChangeTimes->{3.8961821229565*^9},
+ CellLabel->"Out[1]=",
+ CellID->472225220,ExpressionUUID->"6a38fb3f-35c9-476d-addc-bdfaa33609b3"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"AddNotebookToWorkspace", "[", 
+  RowBox[{"\"\<A New Workspace\>\"", ",", 
+   TemplateBox[<|
+    "obj" -> NotebookObject[
+      "921915f9-2803-4cad-ac41-38cf16b98b41", 
+       "68236d7e-a0b0-4343-a85a-3a838a01af93"], "label" -> 
+     "\"WorkspacePlanning.nb\"", "tooltip" -> 
+     "\"/Users/bashby/Desktop/WorkspacePlanning.nb\""|>,
+    "NotebookObjectUUIDs"]}], "]"}]], "Input",
+ CellChangeTimes->{{3.896182102106121*^9, 3.896182109170938*^9}},
+ CellLabel->"In[2]:=",
+ CellID->1131595816,ExpressionUUID->"c1db9633-ebd8-45de-a5e4-9ae679a4d704"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{
+   TagBox["Success",
+    "SummaryHead"], "[", 
+   DynamicModuleBox[{Typeset`open$$ = False, Typeset`embedState$$ = "Ready"}, 
+    
+    TemplateBox[{
+      PaneSelectorBox[{False -> GridBox[{{
+            PaneBox[
+             ButtonBox[
+              DynamicBox[
+               FEPrivate`FrontEndResource["FEBitmaps", "SummaryBoxOpener"]], 
+              ButtonFunction :> (Typeset`open$$ = True), Appearance -> None, 
+              BaseStyle -> {}, Evaluator -> Automatic, Method -> 
+              "Preemptive"], Alignment -> {Center, Center}, ImageSize -> 
+             Dynamic[{
+               Automatic, 
+                3.5 (CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
+                 Magnification])}]], 
+            FrameBox[
+             StyleBox["\"\[Checkmark]\"", 
+              Directive[
+               RGBColor[
+               0.3607843137254902, 0.596078431372549, 0.3803921568627451], 
+               25], StripOnInput -> False], ContentPadding -> False, 
+             FrameStyle -> None, FrameMargins -> {{0, 0}, {0, 0}}, 
+             StripOnInput -> False], 
+            GridBox[{{
+               RowBox[{
+                 TagBox[
+                  TemplateBox[{"\"Message\"", "\": \""}, "RowDefault"], 
+                  "SummaryItemAnnotation"], "\[InvisibleSpace]", 
+                 TagBox[
+                 "\"WorkspacePlanning.nb has been added to A New Workspace\"",
+                   "SummaryItem"]}]}, {
+               RowBox[{
+                 TagBox[
+                  TemplateBox[{"\"TimeStamp\"", "\": \""}, "RowDefault"], 
+                  "SummaryItemAnnotation"], "\[InvisibleSpace]", 
+                 TagBox["\"Mon 19 Jun 2023 11:48:47\"", "SummaryItem"]}]}}, 
+             GridBoxAlignment -> {
+              "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, AutoDelete -> 
+             False, GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+             GridBoxSpacings -> {"Columns" -> {{2}}, "Rows" -> {{Automatic}}},
+              BaseStyle -> {
+              ShowStringCharacters -> False, NumberMarks -> False, 
+               PrintPrecision -> 3, ShowSyntaxStyles -> False}]}}, 
+          GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Top}}}, 
+          AutoDelete -> False, 
+          GridBoxItemSize -> {
+           "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+          BaselinePosition -> {1, 1}], True -> GridBox[{{
+            PaneBox[
+             ButtonBox[
+              DynamicBox[
+               FEPrivate`FrontEndResource["FEBitmaps", "SummaryBoxCloser"]], 
+              ButtonFunction :> (Typeset`open$$ = False), Appearance -> None, 
+              BaseStyle -> {}, Evaluator -> Automatic, Method -> 
+              "Preemptive"], Alignment -> {Center, Center}, ImageSize -> 
+             Dynamic[{
+               Automatic, 
+                3.5 (CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
+                 Magnification])}]], 
+            FrameBox[
+             StyleBox["\"\[Checkmark]\"", 
+              Directive[
+               RGBColor[
+               0.3607843137254902, 0.596078431372549, 0.3803921568627451], 
+               25], StripOnInput -> False], ContentPadding -> False, 
+             FrameStyle -> None, FrameMargins -> {{0, 0}, {0, 0}}, 
+             StripOnInput -> False], 
+            GridBox[{{
+               RowBox[{
+                 TagBox[
+                  TemplateBox[{"\"Message\"", "\": \""}, "RowDefault"], 
+                  "SummaryItemAnnotation"], "\[InvisibleSpace]", 
+                 TagBox[
+                 "\"WorkspacePlanning.nb has been added to A New Workspace\"",
+                   "SummaryItem"]}]}, {
+               RowBox[{
+                 TagBox[
+                  TemplateBox[{"\"TimeStamp\"", "\": \""}, "RowDefault"], 
+                  "SummaryItemAnnotation"], "\[InvisibleSpace]", 
+                 TagBox["\"Mon 19 Jun 2023 11:48:47\"", "SummaryItem"]}]}, {
+               RowBox[{
+                 TagBox[
+                  TemplateBox[{"\"Tag\"", "\": \""}, "RowDefault"], 
+                  "SummaryItemAnnotation"], "\[InvisibleSpace]", 
+                 TagBox["\"NotebookAdded\"", "SummaryItem"]}]}}, 
+             GridBoxAlignment -> {
+              "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, AutoDelete -> 
+             False, GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+             GridBoxSpacings -> {"Columns" -> {{2}}, "Rows" -> {{Automatic}}},
+              BaseStyle -> {
+              ShowStringCharacters -> False, NumberMarks -> False, 
+               PrintPrecision -> 3, ShowSyntaxStyles -> False}]}}, 
+          GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Top}}}, 
+          AutoDelete -> False, 
+          GridBoxItemSize -> {
+           "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+          BaselinePosition -> {1, 1}]}, 
+       Dynamic[Typeset`open$$], ImageSize -> Automatic]},
+     "SummaryPanel"],
+    DynamicModuleValues:>{}], "]"}],
+  Success[
+  "NotebookAdded", <|
+   "MessageTemplate" :> "`notebook` has been added to `workspace`", 
+    "MessageParameters" -> <|
+     "notebook" -> "WorkspacePlanning.nb", "workspace" -> "A New Workspace"|>,
+     "TimeStamp" -> "Mon 19 Jun 2023 11:48:47"|>],
+  Editable->False,
+  SelectWithContents->True,
+  Selectable->False]], "Output",
+ CellChangeTimes->{3.896182127684729*^9},
+ CellLabel->"Out[2]=",
+ CellID->967612887,ExpressionUUID->"aa41a82d-0459-4ac1-9a5b-a77e11f1b8e0"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"MemberQ", "[", 
+  RowBox[{
+   RowBox[{"Keys", "[", 
+    RowBox[{"WorkspaceMetadata", "[", "]"}], "]"}], ",", 
+   "\"\<A New Workspace\>\""}], "]"}]], "Input",
+ CellLabel->"In[3]:=",
+ CellID->1923616725,ExpressionUUID->"15883280-8874-4d32-be0f-2f294f10908a"],
+
+Cell[BoxData["True"], "Output",
+ CellChangeTimes->{3.8961821315746613`*^9},
+ CellLabel->"Out[3]=",
+ CellID->587078280,ExpressionUUID->"9f623566-9bae-4d81-aa6b-51df7d7dfa35"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[BoxData[
+ InterpretationBox[Cell[
+  "Generalizations & Extensions", "ExampleSection",ExpressionUUID->
+   "f80c30e7-eb5f-435d-a587-a4dfa1adb793"],
+  $Line = 0; Null]], "ExampleSection",
+ CellID->2057070400,ExpressionUUID->"d34f2346-8f87-4d0a-a466-291fe492625e"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ InterpretationBox[Cell[
+  "Options", "ExampleSection",ExpressionUUID->
+   "f915af4c-d1a9-423b-abd8-d929038d0c03"],
+  $Line = 0; Null]], "ExampleSection",
+ CellID->842979747,ExpressionUUID->"96f934db-4236-4f85-8809-736b26d1ca9c"],
+
+Cell[BoxData[
+ InterpretationBox[Cell[
+  "XXXX", "ExampleSubsection",ExpressionUUID->
+   "43e9cd09-9a1f-4651-a70a-afaebf6c6499"],
+  $Line = 0; Null]], "ExampleSubsection",
+ CellID->1010988570,ExpressionUUID->"bf117621-e23b-4a98-9518-47fa95cb5716"],
+
+Cell[BoxData[
+ InterpretationBox[Cell[
+  "XXXX", "ExampleSubsection",ExpressionUUID->
+   "6d6e896d-3252-4ba0-9fdf-c8aafea6c24c"],
+  $Line = 0; Null]], "ExampleSubsection",
+ CellID->794280926,ExpressionUUID->"82ff0133-db27-453d-99d8-ec197834fed7"]
+}, Open  ]],
+
+Cell[BoxData[
+ InterpretationBox[Cell[
+  "Applications", "ExampleSection",ExpressionUUID->
+   "1864bdf1-cc91-4bfe-8852-29acdc504cfe"],
+  $Line = 0; Null]], "ExampleSection",
+ CellID->721173530,ExpressionUUID->"38e9f0f7-2b40-4c77-b1f8-705cf040fe9b"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ InterpretationBox[Cell[
+  "Properties & Relations", "ExampleSection",ExpressionUUID->
+   "1e76f61b-4bf0-4b70-8fe9-13db7036bf7e"],
+  $Line = 0; Null]], "ExampleSection",
+ CellID->365815042,ExpressionUUID->"9a9c2f5e-9a7b-41f9-ac8d-faa1c85d77f3"],
+
+Cell[TextData[{
+ "Adding a notebook to \"GeneralWorkspace\" is equivalent to ",
+ Cell[BoxData[
+  ButtonBox["AddNotebookToGeneral",
+   BaseStyle->"Link",
+   ButtonData->
+    "paclet:BradleyAshby/NotebookWorkspaces/ref/AddNotebookToGeneral"]], 
+  "InlineFormula",ExpressionUUID->"41ff62fb-5019-401b-8bbc-8f8df18ce73d"]
+}], "ExampleText",
+ CellChangeTimes->{{3.896182236298965*^9, 3.896182259767453*^9}, 
+   3.896182532258173*^9},
+ CellID->1742182514,ExpressionUUID->"61829a8e-7509-47d2-95c9-c17eee750b62"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"AddNotebookToWorkspace", "[", 
+  RowBox[{"\"\<GeneralWorkspace\>\"", ",", 
+   RowBox[{"EvaluationNotebook", "[", "]"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.896182224310172*^9, 3.896182280513733*^9}},
+ CellLabel->"In[1]:=",
+ CellID->1245217486,ExpressionUUID->"d48b9636-3e8f-4525-ba98-d64d01fad201"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{
+   TagBox["Success",
+    "SummaryHead"], "[", 
+   DynamicModuleBox[{Typeset`open$$ = False, Typeset`embedState$$ = "Ready"}, 
+    
+    TemplateBox[{
+      PaneSelectorBox[{False -> GridBox[{{
+            PaneBox[
+             ButtonBox[
+              DynamicBox[
+               FEPrivate`FrontEndResource["FEBitmaps", "SummaryBoxOpener"]], 
+              ButtonFunction :> (Typeset`open$$ = True), Appearance -> None, 
+              BaseStyle -> {}, Evaluator -> Automatic, Method -> 
+              "Preemptive"], Alignment -> {Center, Center}, ImageSize -> 
+             Dynamic[{
+               Automatic, 
+                3.5 (CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
+                 Magnification])}]], 
+            FrameBox[
+             StyleBox["\"\[Checkmark]\"", 
+              Directive[
+               RGBColor[
+               0.3607843137254902, 0.596078431372549, 0.3803921568627451], 
+               25], StripOnInput -> False], ContentPadding -> False, 
+             FrameStyle -> None, FrameMargins -> {{0, 0}, {0, 0}}, 
+             StripOnInput -> False], 
+            GridBox[{{
+               RowBox[{
+                 TagBox[
+                  TemplateBox[{"\"Message\"", "\": \""}, "RowDefault"], 
+                  "SummaryItemAnnotation"], "\[InvisibleSpace]", 
+                 TagBox[
+                 "\"AddNotebookToWorkspace.nb has been added to \
+GeneralWorkspace\"", "SummaryItem"]}]}, {
+               RowBox[{
+                 TagBox[
+                  TemplateBox[{"\"TimeStamp\"", "\": \""}, "RowDefault"], 
+                  "SummaryItemAnnotation"], "\[InvisibleSpace]", 
+                 TagBox["\"Mon 19 Jun 2023 11:51:23\"", "SummaryItem"]}]}}, 
+             GridBoxAlignment -> {
+              "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, AutoDelete -> 
+             False, GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+             GridBoxSpacings -> {"Columns" -> {{2}}, "Rows" -> {{Automatic}}},
+              BaseStyle -> {
+              ShowStringCharacters -> False, NumberMarks -> False, 
+               PrintPrecision -> 3, ShowSyntaxStyles -> False}]}}, 
+          GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Top}}}, 
+          AutoDelete -> False, 
+          GridBoxItemSize -> {
+           "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+          BaselinePosition -> {1, 1}], True -> GridBox[{{
+            PaneBox[
+             ButtonBox[
+              DynamicBox[
+               FEPrivate`FrontEndResource["FEBitmaps", "SummaryBoxCloser"]], 
+              ButtonFunction :> (Typeset`open$$ = False), Appearance -> None, 
+              BaseStyle -> {}, Evaluator -> Automatic, Method -> 
+              "Preemptive"], Alignment -> {Center, Center}, ImageSize -> 
+             Dynamic[{
+               Automatic, 
+                3.5 (CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
+                 Magnification])}]], 
+            FrameBox[
+             StyleBox["\"\[Checkmark]\"", 
+              Directive[
+               RGBColor[
+               0.3607843137254902, 0.596078431372549, 0.3803921568627451], 
+               25], StripOnInput -> False], ContentPadding -> False, 
+             FrameStyle -> None, FrameMargins -> {{0, 0}, {0, 0}}, 
+             StripOnInput -> False], 
+            GridBox[{{
+               RowBox[{
+                 TagBox[
+                  TemplateBox[{"\"Message\"", "\": \""}, "RowDefault"], 
+                  "SummaryItemAnnotation"], "\[InvisibleSpace]", 
+                 TagBox[
+                 "\"AddNotebookToWorkspace.nb has been added to \
+GeneralWorkspace\"", "SummaryItem"]}]}, {
+               RowBox[{
+                 TagBox[
+                  TemplateBox[{"\"TimeStamp\"", "\": \""}, "RowDefault"], 
+                  "SummaryItemAnnotation"], "\[InvisibleSpace]", 
+                 TagBox["\"Mon 19 Jun 2023 11:51:23\"", "SummaryItem"]}]}, {
+               RowBox[{
+                 TagBox[
+                  TemplateBox[{"\"Tag\"", "\": \""}, "RowDefault"], 
+                  "SummaryItemAnnotation"], "\[InvisibleSpace]", 
+                 TagBox["\"NotebookAdded\"", "SummaryItem"]}]}}, 
+             GridBoxAlignment -> {
+              "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, AutoDelete -> 
+             False, GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+             GridBoxSpacings -> {"Columns" -> {{2}}, "Rows" -> {{Automatic}}},
+              BaseStyle -> {
+              ShowStringCharacters -> False, NumberMarks -> False, 
+               PrintPrecision -> 3, ShowSyntaxStyles -> False}]}}, 
+          GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Top}}}, 
+          AutoDelete -> False, 
+          GridBoxItemSize -> {
+           "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+          BaselinePosition -> {1, 1}]}, 
+       Dynamic[Typeset`open$$], ImageSize -> Automatic]},
+     "SummaryPanel"],
+    DynamicModuleValues:>{}], "]"}],
+  Success[
+  "NotebookAdded", <|
+   "MessageTemplate" :> "`notebook` has been added to `workspace`", 
+    "MessageParameters" -> <|
+     "notebook" -> "AddNotebookToWorkspace.nb", "workspace" -> 
+      "GeneralWorkspace"|>, "TimeStamp" -> "Mon 19 Jun 2023 11:51:23"|>],
+  Editable->False,
+  SelectWithContents->True,
+  Selectable->False]], "Output",
+ CellChangeTimes->{3.896182283208449*^9},
+ CellLabel->"Out[1]=",
+ CellID->1236291406,ExpressionUUID->"27295c69-202d-40a1-b482-ad7d74f3308d"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"MemberQ", "[", 
+  RowBox[{
+   RowBox[{"GeneralNotebooks", "[", "]"}], ",", 
+   RowBox[{"EvaluationNotebook", "[", "]"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.896182283619074*^9, 3.8961822947343273`*^9}},
+ CellLabel->"In[2]:=",
+ CellID->98022155,ExpressionUUID->"14f7beab-2f8f-46af-bdd1-086b960f409b"],
+
+Cell[BoxData["True"], "Output",
+ CellChangeTimes->{3.8961822957071466`*^9},
+ CellLabel->"Out[2]=",
+ CellID->703986366,ExpressionUUID->"a8744725-2139-427e-b1da-a9612c8ebd35"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[BoxData[
+ InterpretationBox[Cell[
+  "Possible Issues", "ExampleSection",ExpressionUUID->
+   "246baa75-daf2-4b34-8977-e1a3a5b6e3b6"],
+  $Line = 0; Null]], "ExampleSection",
+ CellID->7729533,ExpressionUUID->"c89a48c2-a89c-4822-bf4a-706337358f1a"],
+
+Cell[BoxData[
+ InterpretationBox[Cell[
+  "Interactive Examples", "ExampleSection",ExpressionUUID->
+   "eaecfa8e-6eab-4175-a76a-cf71d492dce6"],
+  $Line = 0; Null]], "ExampleSection",
+ CellID->1061242311,ExpressionUUID->"ecee49f2-0a75-40bb-8c42-bfd6a7a1a583"],
+
+Cell[BoxData[
+ InterpretationBox[Cell[
+  "Neat Examples", "ExampleSection",ExpressionUUID->
+   "f4673e85-cf14-437b-ae9f-3e2c99d6b3ec"],
+  $Line = 0; Null]], "ExampleSection",
+ CellID->1447832642,ExpressionUUID->"5b4c9987-79c8-485f-b5a0-41f63bf86127"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Metadata", "MetadataSection",
+ CellID->586009937,ExpressionUUID->"20a6dd90-9e27-4534-a0f2-80cbdf42d052"],
+
+Cell[TextData[{
+ "New in: ",
+ Cell["XX", "HistoryData",
+  CellTags->"New",ExpressionUUID->"42870f89-ca8b-484d-abac-f6cc53f51aee"],
+ " | Modified in: ",
+ Cell[" ", "HistoryData",
+  CellTags->"Modified",ExpressionUUID->"1a45bed5-3e61-48d1-b349-0bed28c41736"],
+ " | Obsolete in: ",
+ Cell[" ", "HistoryData",
+  CellTags->"Obsolete",ExpressionUUID->
+  "9c04cda4-41a8-4dbe-8e03-e3a2c58126ce"]
+}], "History",
+ CellID->709006017,ExpressionUUID->"eb202458-f6a7-4bfb-bd7c-9460f1db200d"],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+ "Categorization",
+ Cell[BoxData[
+  TemplateBox[{"Metadata", 
+    Cell[
+     BoxData[
+      FrameBox[
+       Cell[
+       "Metadata such as page URI, context, and type of documentation page.", 
+        "MoreInfoText"], BaseStyle -> "IFrameBox"]], "MoreInfoTextOuter"]},
+   "MoreInfoOpenerButtonTemplate"]],ExpressionUUID->
+  "2e65673a-49d6-46b4-92fe-2b4cec683a39"]
+}], "CategorizationSection",
+ CellID->2024854163,ExpressionUUID->"450957f7-e087-4df2-afa3-e92088797a43"],
+
+Cell["Symbol", "Categorization",
+ CellLabel->"Entity Type",
+ CellID->550563532,ExpressionUUID->"79a1c50a-a919-4611-ae63-55030b81fd42"],
+
+Cell["BradleyAshby/NotebookWorkspaces", "Categorization",
+ CellLabel->"Paclet Name",
+ CellID->1961731048,ExpressionUUID->"06b59e68-a5d2-4854-afc6-c1823475abdb"],
+
+Cell["BradleyAshby`NotebookWorkspaces`", "Categorization",
+ CellLabel->"Context",
+ CellID->497291345,ExpressionUUID->"d2dd2701-d81d-4638-b5ea-de102d0c075a"],
+
+Cell["BradleyAshby/NotebookWorkspaces/ref/AddNotebookToWorkspace", \
+"Categorization",
+ CellLabel->"URI",
+ CellID->2116764938,ExpressionUUID->"1ebf6c0b-8e3f-436d-9d0b-2540c1e5d057"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Keywords", "KeywordsSection",
+ CellID->1254216764,ExpressionUUID->"654ca382-0883-4905-ace4-ac9a9a6cbb5e"],
+
+Cell["XXXX", "Keywords",
+ CellID->2069157243,ExpressionUUID->"de334134-a32a-46b5-a7d8-90dbd8583a78"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Syntax Templates", "TemplatesSection",
+ CellID->2123087230,ExpressionUUID->"171cf68a-1041-4ba0-985f-3149bf0d5739"],
+
+Cell[BoxData[""], "Template",
+ CellLabel->"Additional Function Template",
+ CellID->138796058,ExpressionUUID->"b3749e39-551f-4832-924f-1ed64683f54e"],
+
+Cell[BoxData[""], "Template",
+ CellLabel->"Arguments Pattern",
+ CellID->578106164,ExpressionUUID->"b7fdc97d-9c85-4d46-acdf-d02e5a9d9d7b"],
+
+Cell[BoxData[""], "Template",
+ CellLabel->"Local Variables",
+ CellID->1014279320,ExpressionUUID->"be6af4ee-dfe6-4891-9ce7-aedd86581f29"],
+
+Cell[BoxData[""], "Template",
+ CellLabel->"Color Equal Signs",
+ CellID->267341354,ExpressionUUID->"5ed05f31-020a-440f-9cfe-325810125a74"]
+}, Closed]]
+}, Open  ]]
+},
+WindowSize->{758, 766},
+WindowMargins->{{-1003, Automatic}, {-79, Automatic}},
+TaggingRules->{
+ "WelcomeScreenSettings" -> {"FEStarting" -> False}, "Paclet" -> 
+  "BradleyAshby/NotebookWorkspaces"},
+FrontEndVersion->"13.3 for Mac OS X x86 (64-bit) (June 3, 2023)",
+StyleDefinitions->FrontEnd`FileName[{"Wolfram"}, "FunctionPageStylesExt.nb", 
+  CharacterEncoding -> "UTF-8"],
+ExpressionUUID->"73eb6ef0-03c3-4c91-abc0-f753954bd6d9"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{
+ "ExtendedExamples"->{
+  Cell[25354, 631, 487, 13, 58, "ExtendedExamplesSection",ExpressionUUID->"ea4242de-8030-47fc-b4e3-5aa374725bbc",
+   CellTags->"ExtendedExamples",
+   CellID->562294866]}
+ }
+*)
+(*CellTagsIndex
+CellTagsIndex->{
+ {"ExtendedExamples", 46211, 1164}
+ }
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 119, 1, 74, "ObjectName",ExpressionUUID->"0831c457-2820-4dc0-98a1-a940b1be8350",
+ CellID->632460730],
+Cell[702, 25, 1600, 37, 124, "Usage",ExpressionUUID->"a3837ca9-6073-40d9-a3d5-8fb185c9d322",
+ CellID->1870920107],
+Cell[2305, 64, 472, 13, 28, "Notes",ExpressionUUID->"99ee11fe-a4cb-411f-aadc-ae614f864853",
+ CellID->1242679651],
+Cell[2780, 79, 551, 13, 46, "Notes",ExpressionUUID->"88275487-cf90-47df-b456-e24989e4e756",
+ CellID->98926864],
+Cell[3334, 94, 307, 5, 45, "Notes",ExpressionUUID->"71be7720-cce9-40bb-80bf-d56becb58263",
+ CellID->631975225],
+Cell[3644, 101, 1025, 19, 63, "Notes",ExpressionUUID->"1c763fe7-da9f-4b7c-adb1-2768df0a7851",
+ CellID->1432689968],
+Cell[4672, 122, 566, 13, 46, "Notes",ExpressionUUID->"6afae9d6-ce1c-4ceb-8abf-b7f82f7e30e2",
+ CellID->2104180217],
+Cell[5241, 137, 1046, 25, 28, "Notes",ExpressionUUID->"f87b8387-e337-4800-be42-cd91bc39f53d",
+ CellID->1098678975],
+Cell[6290, 164, 463, 10, 28, "Notes",ExpressionUUID->"58abd863-db3a-4cc0-831a-93b8a988c845",
+ CellID->1514392968]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[6790, 179, 459, 13, 40, "SeeAlsoSection",ExpressionUUID->"d4a2c00a-e9a8-4ab8-ad47-fa523af9f2f0",
+ CellID->1433135919],
+Cell[7252, 194, 2284, 51, 23, "SeeAlso",ExpressionUUID->"e89678af-8023-4fda-94bb-c01b8ce0e431",
+ CellID->538805881]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[9573, 250, 436, 12, 41, "TechNotesSection",ExpressionUUID->"d4d9b986-9917-4ff6-a04e-e826e95ff40e",
+ CellID->1919386215],
+Cell[10012, 264, 101, 1, 19, "Tutorials",ExpressionUUID->"536616ed-b15c-4cfe-91d6-fc180cbcd327",
+ CellID->1772253918]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[10150, 270, 117, 1, 40, "MoreAboutSection",ExpressionUUID->"bb1d8f6d-436a-4a3d-a07a-085fa7f43ddb",
+ CellID->673415936],
+Cell[10270, 273, 361, 7, 19, "MoreAbout",ExpressionUUID->"63344ae5-a09a-413a-8272-b23401b1416f",
+ CellID->1884288521],
+Cell[10634, 282, 392, 7, 19, "MoreAbout",ExpressionUUID->"5515fc90-7a7e-4335-85bd-05678a1a26b3",
+ CellID->1093320927]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[11063, 294, 473, 13, 40, "RelatedLinksSection",ExpressionUUID->"a358b411-9d1f-4e4b-a3c6-5c1728c85ed8",
+ CellID->1550053690],
+Cell[11539, 309, 103, 1, 19, "RelatedLinks",ExpressionUUID->"84f8ffd6-9590-41f2-bed0-b98c123f42d5",
+ CellID->628246073]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[11679, 315, 531, 14, 70, "ExamplesInitializationSection",ExpressionUUID->"8d042ba2-5642-47e4-b248-c4bc6fbc3361",
+ CellID->1902140259],
+Cell[12213, 331, 192, 3, 47, "ExampleInitialization",ExpressionUUID->"6256f8a3-c4c4-4bab-b9b8-90fe6f243d3d",
+ CellID->1829763771]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[12442, 339, 442, 12, 73, "PrimaryExamplesSection",ExpressionUUID->"2f7a7fad-5313-4b33-972c-279b4e0fdfa1",
+ CellID->873874157],
+Cell[12887, 353, 213, 2, 24, "ExampleText",ExpressionUUID->"5e275eb8-df71-42b5-ad9a-cccdfa767746",
+ CellID->229012885],
+Cell[CellGroupData[{
+Cell[13125, 359, 258, 5, 27, "Input",ExpressionUUID->"6a2b9af7-adf6-44f0-a2fc-177758be987e",
+ CellID->393347205],
+Cell[13386, 366, 5562, 118, 53, "Output",ExpressionUUID->"2b7330b0-49ac-4ef5-93fe-1b432c86db9b",
+ CellID->1502572078]
+}, Open  ]],
+Cell[18963, 487, 205, 2, 24, "ExampleText",ExpressionUUID->"93fb8b4a-f311-4c66-b90c-7e8430b7f8b1",
+ CellID->1468709873],
+Cell[CellGroupData[{
+Cell[19193, 493, 564, 12, 37, "Input",ExpressionUUID->"cc5ebc9f-a212-492b-acc5-75c065e86409",
+ CellID->1108712378],
+Cell[19760, 507, 5545, 118, 53, "Output",ExpressionUUID->"5e8b2251-6da3-469c-ab85-e30eeb38f66d",
+ CellID->612458475]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[25354, 631, 487, 13, 58, "ExtendedExamplesSection",ExpressionUUID->"ea4242de-8030-47fc-b4e3-5aa374725bbc",
+ CellTags->"ExtendedExamples",
+ CellID->562294866],
+Cell[CellGroupData[{
+Cell[25866, 648, 242, 5, 35, "ExampleSection",ExpressionUUID->"e731d30b-6768-4bac-bc97-cc975130a839",
+ CellID->1561766062],
+Cell[26111, 655, 211, 2, 24, "ExampleText",ExpressionUUID->"cee2089c-6c76-49be-88f8-fee3dff1e139",
+ CellID->700469254],
+Cell[CellGroupData[{
+Cell[26347, 661, 347, 8, 27, "Input",ExpressionUUID->"cf0549cc-85c5-4dde-9b76-2c836ea2cd08",
+ CellID->1618151841],
+Cell[26697, 671, 170, 3, 26, "Output",ExpressionUUID->"6a38fb3f-35c9-476d-addc-bdfaa33609b3",
+ CellID->472225220]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[26904, 679, 567, 12, 65, "Input",ExpressionUUID->"c1db9633-ebd8-45de-a5e4-9ae679a4d704",
+ CellID->1131595816],
+Cell[27474, 693, 5561, 118, 53, "Output",ExpressionUUID->"aa41a82d-0459-4ac1-9a5b-a77e11f1b8e0",
+ CellID->967612887]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[33072, 816, 281, 7, 27, "Input",ExpressionUUID->"15883280-8874-4d32-be0f-2f294f10908a",
+ CellID->1923616725],
+Cell[33356, 825, 173, 3, 26, "Output",ExpressionUUID->"9f623566-9bae-4d81-aa6b-51df7d7dfa35",
+ CellID->587078280]
+}, Open  ]]
+}, Open  ]],
+Cell[33556, 832, 265, 5, 35, "ExampleSection",ExpressionUUID->"d34f2346-8f87-4d0a-a466-291fe492625e",
+ CellID->2057070400],
+Cell[CellGroupData[{
+Cell[33846, 841, 243, 5, 23, "ExampleSection",ExpressionUUID->"96f934db-4236-4f85-8809-736b26d1ca9c",
+ CellID->842979747],
+Cell[34092, 848, 247, 5, 26, "ExampleSubsection",ExpressionUUID->"bf117621-e23b-4a98-9518-47fa95cb5716",
+ CellID->1010988570],
+Cell[34342, 855, 246, 5, 22, "ExampleSubsection",ExpressionUUID->"82ff0133-db27-453d-99d8-ec197834fed7",
+ CellID->794280926]
+}, Open  ]],
+Cell[34603, 863, 248, 5, 35, "ExampleSection",ExpressionUUID->"38e9f0f7-2b40-4c77-b1f8-705cf040fe9b",
+ CellID->721173530],
+Cell[CellGroupData[{
+Cell[34876, 872, 258, 5, 23, "ExampleSection",ExpressionUUID->"9a9c2f5e-9a7b-41f9-ac8d-faa1c85d77f3",
+ CellID->365815042],
+Cell[35137, 879, 503, 11, 26, "ExampleText",ExpressionUUID->"61829a8e-7509-47d2-95c9-c17eee750b62",
+ CellID->1742182514],
+Cell[CellGroupData[{
+Cell[35665, 894, 327, 6, 27, "Input",ExpressionUUID->"d48b9636-3e8f-4525-ba98-d64d01fad201",
+ CellID->1245217486],
+Cell[35995, 902, 5548, 118, 53, "Output",ExpressionUUID->"27295c69-202d-40a1-b482-ad7d74f3308d",
+ CellID->1236291406]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[41580, 1025, 328, 7, 27, "Input",ExpressionUUID->"14f7beab-2f8f-46af-bdd1-086b960f409b",
+ CellID->98022155],
+Cell[41911, 1034, 173, 3, 26, "Output",ExpressionUUID->"a8744725-2139-427e-b1da-a9612c8ebd35",
+ CellID->703986366]
+}, Open  ]]
+}, Open  ]],
+Cell[42111, 1041, 249, 5, 35, "ExampleSection",ExpressionUUID->"c89a48c2-a89c-4822-bf4a-706337358f1a",
+ CellID->7729533],
+Cell[42363, 1048, 257, 5, 23, "ExampleSection",ExpressionUUID->"ecee49f2-0a75-40bb-8c42-bfd6a7a1a583",
+ CellID->1061242311],
+Cell[42623, 1055, 250, 5, 23, "ExampleSection",ExpressionUUID->"5b4c9987-79c8-485f-b5a0-41f63bf86127",
+ CellID->1447832642]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[42910, 1065, 110, 1, 72, "MetadataSection",ExpressionUUID->"20a6dd90-9e27-4534-a0f2-80cbdf42d052",
+ CellID->586009937],
+Cell[43023, 1068, 476, 12, 26, "History",ExpressionUUID->"eb202458-f6a7-4bfb-bd7c-9460f1db200d",
+ CellID->709006017],
+Cell[CellGroupData[{
+Cell[43524, 1084, 485, 13, 21, "CategorizationSection",ExpressionUUID->"450957f7-e087-4df2-afa3-e92088797a43",
+ CellID->2024854163],
+Cell[44012, 1099, 134, 2, 35, "Categorization",ExpressionUUID->"79a1c50a-a919-4611-ae63-55030b81fd42",
+ CellID->550563532],
+Cell[44149, 1103, 160, 2, 35, "Categorization",ExpressionUUID->"06b59e68-a5d2-4854-afc6-c1823475abdb",
+ CellID->1961731048],
+Cell[44312, 1107, 156, 2, 35, "Categorization",ExpressionUUID->"d2dd2701-d81d-4638-b5ea-de102d0c075a",
+ CellID->497291345],
+Cell[44471, 1111, 181, 3, 35, "Categorization",ExpressionUUID->"1ebf6c0b-8e3f-436d-9d0b-2540c1e5d057",
+ CellID->2116764938]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[44689, 1119, 111, 1, 21, "KeywordsSection",ExpressionUUID->"654ca382-0883-4905-ace4-ac9a9a6cbb5e",
+ CellID->1254216764],
+Cell[44803, 1122, 100, 1, 21, "Keywords",ExpressionUUID->"de334134-a32a-46b5-a7d8-90dbd8583a78",
+ CellID->2069157243]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[44940, 1128, 120, 1, 21, "TemplatesSection",ExpressionUUID->"171cf68a-1041-4ba0-985f-3149bf0d5739",
+ CellID->2123087230],
+Cell[45063, 1131, 148, 2, 30, "Template",ExpressionUUID->"b3749e39-551f-4832-924f-1ed64683f54e",
+ CellID->138796058],
+Cell[45214, 1135, 137, 2, 30, "Template",ExpressionUUID->"b7fdc97d-9c85-4d46-acdf-d02e5a9d9d7b",
+ CellID->578106164],
+Cell[45354, 1139, 136, 2, 30, "Template",ExpressionUUID->"be6af4ee-dfe6-4891-9ce7-aedd86581f29",
+ CellID->1014279320],
+Cell[45493, 1143, 137, 2, 30, "Template",ExpressionUUID->"5ed05f31-020a-440f-9cfe-325810125a74",
+ CellID->267341354]
+}, Closed]]
+}, Open  ]]
+}
+]
+*)
+

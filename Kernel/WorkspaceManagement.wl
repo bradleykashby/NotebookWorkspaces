@@ -60,6 +60,15 @@ $CurrentWorkspace/:Set[$CurrentWorkspace,value_]:=(
 	value)
 $CurrentWorkspace:=LocalSymbol[$localcurrentworkspace]
 
+(*backwards compatibility:
+	moving any stored $CurrentWorkspace to the new persistence method*)
+With[{initval=InitializationValue[$CurrentWorkspace,"FrontEndSession"]},
+	If[!MissingQ[initval],
+		$CurrentWorkspace=initval;
+		Remove[InitializationValue[$CurrentWorkspace,"FrontEndSession"]]
+	]
+]
+
 
 initializeMetadata[]:=(
 	$WorkspaceMetadata=<|

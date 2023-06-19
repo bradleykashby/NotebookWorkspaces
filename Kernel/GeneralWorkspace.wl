@@ -28,6 +28,15 @@ $GeneralNotebookUUIDs/:Set[$GeneralNotebookUUIDs,value_]:=(
 	value)
 $GeneralNotebookUUIDs:=LocalSymbol[$localgeneraluuids]
 
+(*backwards compatibility:
+	moving any stored $GeneralNotebookUUIDs to the new persistence method*)
+With[{initval=InitializationValue[$GeneralNotebookUUIDs,"FrontEndSession"]},
+	If[!MissingQ[initval],
+		$GeneralNotebookUUIDs=initval;
+		Remove[InitializationValue[$GeneralNotebookUUIDs,"FrontEndSession"]]
+	]
+]
+
 $GeneralNotebooks:=Select[Notebooks[],MemberQ[$GeneralNotebookUUIDs,Information[#,"ExpressionUUID"]]&]
 
 

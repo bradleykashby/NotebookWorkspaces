@@ -241,8 +241,8 @@ reopenNotebooks[notebooksfile_,workspace_]:=
 	Module[{opennotebooks,savedlist,untitledlist,notebooklist={}},
 	
 		opennotebooks=Get[notebooksfile];
-		savedlist=opennotebooks["Saved"];
-		untitledlist=opennotebooks["Untitled"];
+		savedlist=DeleteDuplicates[opennotebooks["Saved"]];
+		untitledlist=DeleteDuplicates[opennotebooks["Untitled"]];
 		
 		Scan[
 			AppendTo[notebooklist,

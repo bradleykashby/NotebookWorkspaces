@@ -187,7 +187,7 @@ SaveAndRecordNotebooks[allq_Symbol:False,workspace_String]:=
 	With[{
 		workspacelastsaved=Lookup[WorkspaceMetadata[workspace,"SaveInformation"],"LastSaved"]},
 		
-		saveAndRecordNotebooks[True,$GeneralWorkspace,workspacelastsaved];
+		saveAndRecordNotebooks[allq,$GeneralWorkspace,workspacelastsaved];
 		saveAndRecordNotebooks[allq,workspace,workspacelastsaved]		
 		]
 
@@ -225,7 +225,7 @@ saveAndRecordNotebooks[allq_Symbol:False,workspace_String,workspacelastsaved_]:=
 
 ReopenNotebooks[workspace_String]/;workspaceExistQ[workspace]:=(
 		reopenNotebooks0[workspace]
-		);
+		)
 	
 reopenNotebooks0[workspace_String]:=With[
 	{notebooksfile=WorkspaceNotebooksFile[workspace]},
@@ -235,14 +235,14 @@ reopenNotebooks0[workspace_String]:=With[
 		False, Failure["NotebooksRecordFileMissing",<|"MessageTemplate"->"Notebooks file for this workspace is missing"|>],
 		_, Failure["NotebooksRecordFileError",<|"MessageTemplate"->"Unable to determine notebooks file"|>]
 		]
-	];
+	]
 
 reopenNotebooks[notebooksfile_,workspace_]:=
 	Module[{opennotebooks,savedlist,untitledlist,notebooklist={}},
 	
 		opennotebooks=Get[notebooksfile];
-		savedlist=DeleteDuplicates[opennotebooks["Saved"]];
-		untitledlist=DeleteDuplicates[opennotebooks["Untitled"]];
+		savedlist=DeleteDuplicates@Lookup[opennotebooks,"Saved",{}];
+		untitledlist=DeleteDuplicates@Lookup[opennotebooks,"Untitled",{}];
 		
 		Scan[
 			AppendTo[notebooklist,
@@ -258,10 +258,8 @@ reopenNotebooks[notebooksfile_,workspace_]:=
 				]&,
 			untitledlist];
 	
-		If[workspace==$GeneralWorkspace,
-			AddNotebookToGeneral[notebooklist];
-		]
-	];
+		notebooklist
+	]
 	
 quieterNotebookOpen[nfn_String]:=With[{nbo=NotebookOpen[nfn,Visible->False]},
 		SetOptions[nbo,Visible->True];

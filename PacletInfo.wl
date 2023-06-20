@@ -9,6 +9,7 @@ PacletObject[
     "PublisherID" -> "BradleyAshby",
     "Version" -> "1.1.0",
     "WolframVersion" -> "13.1+",
+    "PrimaryContext" -> "BradleyAshby`NotebookWorkspaces`",
     "Extensions" -> {
       {
         "Kernel",

@@ -4,9 +4,8 @@ BeginPackage["BradleyAshby`NotebookWorkspaces`GeneralWorkspace`"]
 
 
 $GeneralWorkspace
-initializeGeneralWorkspace
+LoadGeneralWorkspace
 PruneGeneralNotebookUUIDs
-$GeneralNotebookUUIDs
 AddNotebookToGeneralList
 
 Begin["`Private`"]
@@ -26,7 +25,7 @@ $GeneralNotebookUUIDs/:Set[$GeneralNotebookUUIDs,value_]:=(
 	LocalSymbol[$localgeneraluuids]=value;
 	UpdateDynamicsUsing[$GeneralNotebookUUIDs];
 	value)
-$GeneralNotebookUUIDs:=LocalSymbol[$localgeneraluuids]
+$GeneralNotebookUUIDs:=LocalSymbol[$localgeneraluuids]/.{x_List:>x,_->{}}
 
 (*backwards compatibility:
 	moving any stored $GeneralNotebookUUIDs to the new persistence method*)
@@ -43,13 +42,17 @@ $GeneralNotebooks:=Select[Notebooks[],MemberQ[$GeneralNotebookUUIDs,Information[
 GeneralNotebooks[]:=$GeneralNotebooks
 
 
-initializeGeneralWorkspace[]/;!ListQ[$GeneralNotebookUUIDs]:=(
-	$GeneralNotebookUUIDs={};
-	If[workspaceExistQ[$GeneralWorkspace],
-		ReopenNotebooks[$GeneralWorkspace],
-		CreateWorkspace[$GeneralWorkspace]
+generalActiveQ[]:=TrueQ[WorkspaceMetadata[$GeneralWorkspace,"FEPID"]==$FEPID]
+
+
+LoadGeneralWorkspace[args___]/;!workspaceExistQ[$GeneralWorkspace]:=
+	CreateWorkspace[$GeneralWorkspace]
+
+LoadGeneralWorkspace[log_String:"Loading General Workspace"]:=
+	With[{notebooklist=ReopenNotebooks[$GeneralWorkspace]},
+		recordWorkspaceMetadata[log];
+		AddNotebookToGeneralList[notebooklist]
 	]
-	)
 
 
 PruneGeneralNotebookUUIDs[]:=
@@ -63,13 +66,12 @@ AddNotebookToGeneral[nb_NotebookObject]:=
 	AddNotebookToWorkspace[$GeneralWorkspace,nb]
 
 
-SetAttributes[AddNotebookToGeneral,Listable];
+SetAttributes[AddNotebookToGeneralList,Listable];
 AddNotebookToGeneralList[nb_NotebookObject]:=
 	AddNotebookToGeneralList[Information[nb,"ExpressionUUID"]]
 
 AddNotebookToGeneralList[nbuuid_String]:=
 	Module[{newlist},
-		initializeGeneralWorkspace[];
 		newlist=DeleteDuplicates[Append[$GeneralNotebookUUIDs,nbuuid]];
 		$GeneralNotebookUUIDs=newlist;
 		
@@ -77,14 +79,16 @@ AddNotebookToGeneralList[nbuuid_String]:=
 	]
 
 
-RemoveNotebookFromGeneral[nb_NotebookObject]:=RemoveNotebookFromGeneral[Information[nb,"ExpressionUUID"]]
+RemoveNotebookFromGeneral[nb_NotebookObject]:=
+	RemoveNotebookFromGeneral[Information[nb,"ExpressionUUID"]]
 
-RemoveNotebookFromGeneral[nbuuid_String]:=(
-	initializeGeneralWorkspace[];
-	$GeneralNotebookUUIDs=DeleteCases[$GeneralNotebookUUIDs,nbuuid];
-
-	GeneralNotebooks[]
-)
+RemoveNotebookFromGeneral[nbuuid_String]:=
+	With[{nbo=SelectFirst[Notebooks[],Information[#,"ExpressionUUID"]==nbuuid&]},
+		removeNotebookFromGeneralRecord[nbo];
+		$GeneralNotebookUUIDs=DeleteCases[$GeneralNotebookUUIDs,nbuuid];
+	
+		GeneralNotebooks[]
+	]
 
 
 (*inverse of RecordNotebookToWorkspace, currently only used in GeneralWorkspace*)

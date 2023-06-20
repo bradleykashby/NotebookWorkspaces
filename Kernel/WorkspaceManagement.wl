@@ -114,17 +114,19 @@ initializeWorkspaceNotebooksFile[workspace_String]:=
 
 
 SetWorkspace[workspace_String,log_String:"Workspace Set"]/;workspaceExistQ[workspace]:=(
-	UnsetWorkspace["Unset:"<>log];
+	(*if no workspace is active, initialize the general space first*)
+	If[!$NotebookWorkspacesActiveQ,LoadGeneralWorkspace[]];
+
+	UnsetWorkspace["Unset: "<>log];
 	setWorkspace[workspace,log];
 	$CurrentWorkspace
 	)
 
 setWorkspace[workspace_String,log_String:"Workspace Set"]:=(
 	$CurrentWorkspace=workspace;
+	$NotebookWorkspacesActiveQ=True;
 	UpdatePalette[$CurrentWorkspace];
 	setupForRestart[];
-	
-	initializeGeneralWorkspace[];
 	
 	LaunchWorkspaceTask[workspace,$FEPID];
 	recordWorkspaceMetadata[log];
@@ -187,8 +189,8 @@ recordWorkspaceMetadata[workspace_String,log_String:"NoneGiven"]:=
 	Module[{newlog},
 		newlog=<|"Timestamp"->Now,"Event"->log|>;
 		
-		(*if this is for the current workspace, log the FEPID and TaskUUID as well*)
-		If[workspace==$CurrentWorkspace,
+		(*if this is for the current workspaces, log the FEPID and TaskUUID as well*)
+		If[MemberQ[{$CurrentWorkspace,$GeneralWorkspace},workspace],
 			AppendTo[newlog,<|
 				"FEPID"->$FEPID,
 				"TaskUUID"->$WorkspaceTaskUUID|>]
@@ -314,6 +316,8 @@ SaveWorkspace[allq_Symbol:False,log_String:"ManualSave"]:=SaveWorkspace[log,"Sav
 
 SaveWorkspace[log_String:"ManualSave",opts:OptionsPattern[]]/;workspaceExistQ[$CurrentWorkspace]:=
 	WithStatusUpdate["Saving...",
+		If[!$NotebookWorkspacesActiveQ,SetWorkspace[$CurrentWorkspace]];
+		
 		With[{resp=SaveAndRecordNotebooks[OptionValue["SaveAll"],$CurrentWorkspace]},
 			recordWorkspaceMetadata[$CurrentWorkspace,<|"SaveInformation"-><|"LastSaved"->Now,"SaveTrigger"->log|>|>];
 			recordWorkspaceMetadata[$GeneralWorkspace,<|"SaveInformation"-><|"LastSaved"->Now,"SaveTrigger"->log,"ActiveWorkspace"->$CurrentWorkspace|>|>];
@@ -332,14 +336,16 @@ SaveWorkspace[log_String:"ManualSave",opts:OptionsPattern[]]/;!workspaceExistQ[$
 		]
 
 
+SaveWorkspaceAs[newname_String]/;(newname==$CurrentWorkspace):=SaveWorkspace[]
+
 SaveWorkspaceAs[newname_String]/;(workspaceExistQ[newname]):=
 	With[{resp=overwriteConfirm[newname]},
 		If[TrueQ@resp,
-			RemoveWorkspace[newname];
+			removeWorkspace[newname];
 			DeleteDirectory[WorkspaceSaveDirectory[newname],DeleteContents->True];
 			SaveWorkspaceAs[newname],
 			Abort[]
-		]	
+		]
 	]
 
 SaveWorkspaceAs[newname_String]/;(!workspaceExistQ[newname]):=Enclose[
@@ -353,17 +359,22 @@ overwriteConfirm[newworkspace_String]:=
 		{"Cancel"->False,"Overwrite"->True},Modal->True];
 
 
-CloseWorkspace[]:=closeWorkspace[$CurrentWorkspace]
-
-closeWorkspace[_Symbol]:=UnsetWorkspace[]; 
+CloseWorkspace[]/;!workspaceExistQ[$CurrentWorkspace]:=(
+	UnsetWorkspace[];
+	$NotebookWorkspacesActiveQ=False;
+	)
 (* Should the None case also give a message that no workspace is open?
 	If we close all notebooks in this case, it needs a prompt. It's a destructive action *)
 
+CloseWorkspace[]:=(
+	closeWorkspace[$CurrentWorkspace];
+	UnsetWorkspace[];
+	$NotebookWorkspacesActiveQ=False;
+	)
+
 closeWorkspace[workspace_String]:=(
 	TaskSuspend[$WorkspaceTaskUUID];
-	TaskAbort[$WorkspaceTaskUUID];
 	SaveWorkspace[];
-	UnsetWorkspace[];
 	closeNotebooks[workspace];
 )
 
@@ -374,7 +385,7 @@ SwitchWorkspace[workspace_String]:=With[{
 			Windows or Mac machines. Temp set it to True so that won't happen.*)
 		CurrentValue[$FrontEnd,{PrivateNotebookOptions,"FinalWindowPrompt"}]=True;
 		
-		CloseWorkspace[];
+		closeWorkspace[$CurrentWorkspace];
 		loadWorkspace[workspace];
 		
 		CurrentValue[$FrontEnd,{PrivateNotebookOptions,"FinalWindowPrompt"}]=closeonexit;
@@ -412,11 +423,11 @@ RemoveWorkspace[workspace_String]:=Module[{FEPID=activeWorkspacePID[workspace]},
 		$FEPID,(UnsetWorkspace["Removing workspace"];removeWorkspace[workspace]),
 		_Integer,workspaceActive[workspace],
 		False,removeWorkspace[workspace]]
-]
+	]
 
 removeWorkspace[workspace_String]:=(
 	$WorkspaceMetadata=KeyDrop[WorkspaceMetadata[],workspace]
-)
+	)
 
 
 CleanWorkspace[]/;workspaceExistQ[$CurrentWorkspace]:=
@@ -462,7 +473,7 @@ AddNotebookToWorkspace[workspace_String,notebook_NotebookObject]:=
 		RecordNotebookToWorkspace[notebook,workspace];
 		recordWorkspaceMetadata[workspace,nbtitle<>" added to workspace"];
 		If[workspace==$GeneralWorkspace,
-			initializeGeneralWorkspace[];AddNotebookToGeneralList[notebook]];
+			AddNotebookToGeneralList[notebook]];
 		
 		Success["NotebookAdded",<|
 			"MessageTemplate":>"`notebook` has been added to `workspace`",
@@ -545,16 +556,12 @@ SaveWorkspaceTask[workspace_String,fepid_Integer]:=With[{currentspace={$CurrentW
 taskExistQ[uuid_String]:=Cases[Tasks[],TaskObject@KeyValuePattern["TaskUUID"->uuid]]/.{{}->False,_->True}
 
 
-RestartWorkspaces[]:=
-	With[{
-		iscurrent=TrueQ[WorkspaceMetadata[$CurrentWorkspace,"FEPID"]==$FEPID]
-		},
-	
-		If[iscurrent,
-			setWorkspace[$CurrentWorkspace,"Reset after Quit"],
-			$CurrentWorkspace=None
-			]
-	]
+$NotebookWorkspacesActiveQ=TrueQ[activeWorkspacePID[$CurrentWorkspace]===$FEPID];
+
+
+RestartWorkspaces[]/;$NotebookWorkspacesActiveQ:=SetWorkspace[$CurrentWorkspace,"Reset after Quit"]
+
+RestartWorkspaces[]/;!$NotebookWorkspacesActiveQ:=($CurrentWorkspace=None)
 
 
 SessionSubmit[ScheduledTask[RestartWorkspaces[],{Quantity[1,"Seconds"],1}]]

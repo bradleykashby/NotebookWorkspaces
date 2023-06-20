@@ -11,11 +11,8 @@ $BaseSaveDirectory
 
 Begin["`Private`"]
 
+
 Needs["BradleyAshby`NotebookWorkspaces`"]
-Needs["BradleyAshby`NotebookWorkspaces`WorkspaceManagement`"]
-Needs["BradleyAshby`NotebookWorkspaces`GeneralWorkspace`"]
-Needs["BradleyAshby`NotebookWorkspaces`SaveAndRecordNotebooks`"]
-Needs["BradleyAshby`NotebookWorkspaces`Palette`"]
 
 
 configpattern=KeyValuePattern[{

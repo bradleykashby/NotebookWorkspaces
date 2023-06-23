@@ -4,9 +4,9 @@ BeginPackage["BradleyAshby`NotebookWorkspaces`GeneralWorkspace`"]
 
 
 $GeneralWorkspace
-$GeneralNotebooks
-$GeneralNotebookUUIDs
-initializeGeneralWorkspace
+LoadGeneralWorkspace
+PruneGeneralNotebookUUIDs
+AddNotebookToGeneralList
 
 Begin["`Private`"]
 
@@ -19,42 +19,96 @@ Needs["BradleyAshby`NotebookWorkspaces`Palette`"]
 
 
 $GeneralWorkspace= "GeneralWorkspace";
+$localgeneraluuids="NotebookWorkspaces/$GeneralNotebookUUIDs";
 
-$GeneralNotebookUUIDs;
+$GeneralNotebookUUIDs/:Set[$GeneralNotebookUUIDs,value_]:=(
+	LocalSymbol[$localgeneraluuids]=value;
+	UpdateDynamicsUsing[$GeneralNotebookUUIDs];
+	value)
+$GeneralNotebookUUIDs:=LocalSymbol[$localgeneraluuids]/.{x_List:>x,_->{}}
+
+(*backwards compatibility:
+	moving any stored $GeneralNotebookUUIDs to the new persistence method*)
+With[{initval=InitializationValue[$GeneralNotebookUUIDs,"FrontEndSession"]},
+	If[!MissingQ[initval],
+		$GeneralNotebookUUIDs=initval;
+		Remove[InitializationValue[$GeneralNotebookUUIDs,"FrontEndSession"]]
+	]
+]
+
 $GeneralNotebooks:=Select[Notebooks[],MemberQ[$GeneralNotebookUUIDs,Information[#,"ExpressionUUID"]]&]
 
 
 GeneralNotebooks[]:=$GeneralNotebooks
 
 
-initializeGeneralWorkspace[]/;!ListQ[$GeneralNotebookUUIDs]:=(
-	InitializationValue[$GeneralNotebookUUIDs,"FrontEndSession"]=$GeneralNotebookUUIDs={};
-	UpdateDynamicsUsing[$GeneralNotebooks];
-	If[FileExistsQ[WorkspaceSaveDirectory[$GeneralWorkspace]],
-		ReopenNotebooks[$GeneralWorkspace],
-		ResourceFunction["EnsureDirectory"][WorkspaceSaveDirectory[$GeneralWorkspace]]
+generalActiveQ[]:=TrueQ[WorkspaceMetadata[$GeneralWorkspace,"FEPID"]==$FEPID]
+
+
+LoadGeneralWorkspace[args___]/;!workspaceExistQ[$GeneralWorkspace]:=
+	CreateWorkspace[$GeneralWorkspace]
+
+LoadGeneralWorkspace[log_String:"Loading General Workspace"]:=
+	With[{notebooklist=ReopenNotebooks[$GeneralWorkspace]},
+		recordWorkspaceMetadata[log];
+		AddNotebookToGeneralList[notebooklist]
 	]
-);
+
+
+PruneGeneralNotebookUUIDs[]:=
+	With[{currentgeneral=Information[GeneralNotebooks[],"ExpressionUUID"]},
+		$GeneralNotebookUUIDs=currentgeneral
+	]
 
 
 SetAttributes[AddNotebookToGeneral,Listable];
-AddNotebookToGeneral[nb_NotebookObject]:=AddNotebookToGeneral[Information[nb,"ExpressionUUID"]]
-AddNotebookToGeneral[nbuuid_String]:=(
-	initializeGeneralWorkspace[];
-	InitializationValue[$GeneralNotebookUUIDs,"FrontEndSession"]=$GeneralNotebookUUIDs=DeleteDuplicates[Append[$GeneralNotebookUUIDs,nbuuid]];
-	UpdateDynamicsUsing[$GeneralNotebooks];
-	GeneralNotebooks[]
-)
+AddNotebookToGeneral[nb_NotebookObject]:=
+	AddNotebookToWorkspace[$GeneralWorkspace,nb]
 
-RemoveNotebookFromGeneral[nb_NotebookObject]:=RemoveNotebookFromGeneral[Information[nb,"ExpressionUUID"]]
-RemoveNotebookFromGeneral[nbuuid_String]:=(
-	initializeGeneralWorkspace[];
-	InitializationValue[$GeneralNotebookUUIDs,"FrontEndSession"]=$GeneralNotebookUUIDs=DeleteCases[$GeneralNotebookUUIDs,nbuuid];
-	UpdateDynamicsUsing[$GeneralNotebooks];
-	GeneralNotebooks[]
-)
 
-generalnotebooknames:=Information[#,"WindowTitle"]&/@$GeneralNotebooks
+SetAttributes[AddNotebookToGeneralList,Listable];
+AddNotebookToGeneralList[nb_NotebookObject]:=
+	AddNotebookToGeneralList[Information[nb,"ExpressionUUID"]]
+
+AddNotebookToGeneralList[nbuuid_String]:=
+	Module[{newlist},
+		newlist=DeleteDuplicates[Append[$GeneralNotebookUUIDs,nbuuid]];
+		$GeneralNotebookUUIDs=newlist;
+		
+		GeneralNotebooks[]
+	]
+
+
+RemoveNotebookFromGeneral[nb_NotebookObject]:=
+	RemoveNotebookFromGeneral[Information[nb,"ExpressionUUID"]]
+
+RemoveNotebookFromGeneral[nbuuid_String]:=
+	With[{nbo=SelectFirst[Notebooks[],Information[#,"ExpressionUUID"]==nbuuid&]},
+		removeNotebookFromGeneralRecord[nbo];
+		$GeneralNotebookUUIDs=DeleteCases[$GeneralNotebookUUIDs,nbuuid];
+	
+		GeneralNotebooks[]
+	]
+
+
+(*inverse of RecordNotebookToWorkspace, currently only used in GeneralWorkspace*)
+removeNotebookFromGeneralRecord[nb_NotebookObject]:=
+	With[{workspace=$GeneralWorkspace},
+		Module[{key,filepath=notebookFile[nb,workspace],oldrecord,newrecord,newlist},
+			
+			key=Switch[FileExistsQ[Quiet[NotebookFileName[nb]]],
+				True,"Saved",
+				False,"Untitled"];
+			
+			oldrecord=Get@WorkspaceNotebooksFile[workspace];
+			newlist=DeleteCases[Lookup[oldrecord,key,{}],filepath];
+			newrecord=Append[oldrecord,key->newlist];
+			
+			Put[newrecord,WorkspaceNotebooksFile[workspace]];
+			
+			newrecord
+		]
+	]
 
 
 End[];

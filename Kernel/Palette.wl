@@ -8,6 +8,7 @@ ManageExcludedNotebooks
 UpdatePalette
 $PaletteDynamicBoxes
 UpdateDynamicsUsing
+nameWorkspaceDialog
 
 Begin["`Private`"]
 
@@ -18,7 +19,7 @@ Needs["BradleyAshby`NotebookWorkspaces`GeneralWorkspace`"]
 Needs["BradleyAshby`NotebookWorkspaces`SaveAndRecordNotebooks`"]
 
 
-workspaceslist:=Keys@ReverseSortBy[WorkspaceMetadata[],#["Timestamp"]&];
+workspaceslist:=Keys@ReverseSortBy[KeyDrop[$GeneralWorkspace]@WorkspaceMetadata[],#["Timestamp"]&];
 
 
 sortedgeneral:=SortBy[GeneralNotebooks[],
@@ -40,7 +41,7 @@ excludedbuttons:=
 
 nameWorkspaceDialog[workspace_String:""]:=DialogInput[{workspacename=workspace,error=Spacer[1]},
 		Column[{
-			TextCell["Enter a name for the workspace: "],
+			TextCell["Enter a name for the new workspace: "],
 			InputField[Dynamic[workspacename],String,BoxID->"namefield"],
 			Item[Dynamic[error],ItemSize->Automatic],
 			Row[{
@@ -119,7 +120,7 @@ configureTab:=Column[{
 
 palettecontents=Panel[TabView[{
 		"Workspaces"->Dynamic[workspacesTab[WorkspaceMetadata[]],TrackedSymbols:>{$WorkspaceMetadata,$CurrentWorkspace,$WorkspaceStatus}],
-		"General space"->Dynamic[generalTab,TrackedSymbols:>{$GeneralNotebooks}],
+		"General space"->Dynamic[generalTab,TrackedSymbols:>{$GeneralNotebookUUIDs}],
 		"Configuration"->Dynamic[configureTab,TrackedSymbols:>{
 			$DefaultWorkspace,$SaveFrequency,$BaseSaveDirectory,$ExcludedNotebooks}]
 		}],BaseStyle->{FontSize->12}]

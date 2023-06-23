@@ -4,6 +4,7 @@ BeginPackage["BradleyAshby`NotebookWorkspaces`WorkspaceManagement`"]
 
 
 $WorkspaceMetadata
+CreateWorkspace
 WorkspaceSaveDirectory
 WorkspaceNotebooksFile
 workspaceExistQ
@@ -25,7 +26,7 @@ Needs["BradleyAshby`NotebookWorkspaces`Palette`"]
 
 $WorkspaceTaskUUID=None;
 $FEPID=SystemInformation["FrontEnd", "ProcessID"];
-
+$FEPersistenceLocation=SelectFirst[$PersistencePath,#["Type"]=="FrontEndSession"&];
 
 
 $localworkspacerecord="NotebookWorkspaces/WorkspaceRecord";
@@ -42,13 +43,31 @@ WorkspaceMetadata[]:=(
 		}
 	)
 
+WorkspaceMetadata[workspace_String,___]/;!MemberQ[Keys[WorkspaceMetadata[]],workspace]:=Missing["WorkspaceNotInMetadata",workspace]
 WorkspaceMetadata[workspace_String]:=Lookup[WorkspaceMetadata[],workspace]
 WorkspaceMetadata[workspace_String,All]:=WorkspaceMetadata[workspace]
-WorkspaceMetadata[workspace_String,value_String]/;workspaceExistQ[workspace]:=With[
+WorkspaceMetadata[workspace_String,value_String]:=With[
 	{spacedata=WorkspaceMetadata[workspace]},
 		Lookup[spacedata,value]
 		]
 WorkspaceMetadata[All,value_String]:=Lookup[value]/@WorkspaceMetadata[]
+
+
+$localcurrentworkspace="NotebookWorkspaces/$CurrentWorkspace";
+$CurrentWorkspace/:Set[$CurrentWorkspace,value_]:=(
+	LocalSymbol[$localcurrentworkspace]=value;
+	UpdateDynamicsUsing[$CurrentWorkspace];
+	value)
+$CurrentWorkspace:=LocalSymbol[$localcurrentworkspace]
+
+(*backwards compatibility:
+	moving any stored $CurrentWorkspace to the new persistence method*)
+With[{initval=InitializationValue[$CurrentWorkspace,"FrontEndSession"]},
+	If[!MissingQ[initval],
+		$CurrentWorkspace=initval;
+		Remove[InitializationValue[$CurrentWorkspace,"FrontEndSession"]]
+	]
+]
 
 
 initializeMetadata[]:=(
@@ -69,20 +88,45 @@ WorkspaceSaveDirectory[workspace_String]:= FileNameJoin[{$BaseSaveDirectory,work
 WorkspaceNotebooksFile[workspace_String]:=FileNameJoin[{WorkspaceSaveDirectory[workspace],"notebooksrecord"}]
 
 
-SetWorkspace[workspace_String,log_String:"Workspace Set"]:=Enclose[
-	Confirm[validateWorkspaceName[workspace]];
-	UnsetWorkspace["Unset:"<>log];
-	setWorkspace[workspace,log];
-	$CurrentWorkspace
+CreateWorkspace[workspace_String,log_String:"Workspace created"]/;!workspaceExistQ[workspace]:=
+	Enclose[
+		Confirm[validateWorkspaceName[workspace]];
+		ResourceFunction["EnsureDirectory"][WorkspaceSaveDirectory[workspace]];
+		initializeWorkspaceNotebooksFile[workspace];
+		initializeWorkspaceMetadata[workspace,log];
+		
+		Success["WorkspaceCreated",
+			<|"MessageTemplate"->"Workspace `x` was created.",
+			"MessageParameters"-><|"x"->workspace|>,
+			"TimeStamp"->DateString[]|>]
+		
 	,"Expression"]
 
+CreateWorkspace[workspace_String,log_String:"Workspace created"]/;workspaceExistQ[workspace]:=
+	Failure["WorkspaceExists",
+		<|"MessageTemplate"->"The workspace \"`x`\" already exists.",
+		"MessageParameters"-><|"x"->workspace|>,
+		"TimeStamp"->DateString[]|>]
+
+
+initializeWorkspaceNotebooksFile[workspace_String]:=
+	Put[<|"Untitled"->{},"Saved"->{},"Timestamp"->Now,"Workspace"->workspace|>,WorkspaceNotebooksFile[workspace]]
+
+
+SetWorkspace[workspace_String,log_String:"Workspace Set"]/;workspaceExistQ[workspace]:=(
+	(*if no workspace is active, initialize the general space first*)
+	If[!$NotebookWorkspacesActiveQ,LoadGeneralWorkspace[]];
+
+	UnsetWorkspace["Unset: "<>log];
+	setWorkspace[workspace,log];
+	$CurrentWorkspace
+	)
+
 setWorkspace[workspace_String,log_String:"Workspace Set"]:=(
-	InitializationValue[$CurrentWorkspace,"FrontEndSession"]=$CurrentWorkspace=workspace;
+	$CurrentWorkspace=workspace;
+	$NotebookWorkspacesActiveQ=True;
 	UpdatePalette[$CurrentWorkspace];
 	setupForRestart[];
-	ResourceFunction["EnsureDirectory"][WorkspaceSaveDirectory[workspace]];
-	
-	initializeGeneralWorkspace[];
 	
 	LaunchWorkspaceTask[workspace,$FEPID];
 	recordWorkspaceMetadata[log];
@@ -90,8 +134,11 @@ setWorkspace[workspace_String,log_String:"Workspace Set"]:=(
 	)
 
 
+WorkspaceRestart::FESessionPersistenceMissing="FrontEndSession PersistenceLocation not found. Notebook Workspaces may not automatically restart after kernel quit.";
+setupForRestart[]/;MissingQ[$FEPersistenceLocation]:=Message[WorkspaceRestart::FESessionPersistenceMissing]
+
 setupForRestart[]:=(
-	InitializationValue[WorkspacesRestarted,"FrontEndSession",MergingFunction->ReleaseHold]=Hold[(
+	InitializationValue[WorkspacesRestarted,$FEPersistenceLocation,MergingFunction->ReleaseHold]=Hold[(
 		Needs["BradleyAshby`NotebookWorkspaces`"->None];
 		$CurrentWorkspace
 		)]
@@ -108,7 +155,7 @@ UnsetWorkspace[log_String:"UnsetWorkspace"]:=
 		tasks=Cases[spaces,KeyValuePattern["TaskUUID"->uuid_String]/;taskExistQ[uuid]:>uuid];
 		
 		Quiet[TaskAbort[#];TaskRemove[#];&/@tasks];
-		InitializationValue[$CurrentWorkspace,"FrontEndSession"]=$CurrentWorkspace=None;
+		$CurrentWorkspace=None;
 		UpdatePalette[$CurrentWorkspace];
 		$WorkspaceTaskUUID=None;
 		
@@ -116,24 +163,60 @@ UnsetWorkspace[log_String:"UnsetWorkspace"]:=
 	]
 
 
+initializeWorkspaceMetadata[workspace_String,log_String:"Workspace created"]:=
+	Module[{workspaces=WorkspaceMetadata[]},
+		
+		AppendTo[workspaces,
+			workspace-><|
+				"FEPID"->None,
+				"Timestamp"->Now,
+				"TaskUUID"->None,
+				"SaveInformation"-><|
+					"LastSaved"->"Never",
+					"SaveTrigger"->"None"|>,
+				"Event"->log
+				|>];
+		
+		$WorkspaceMetadata=workspaces;
+			
+		]
+
+
 recordWorkspaceMetadata[log_String:"NoneGiven"]:=
-	recordWorkspaceMetadata[$CurrentWorkspace,
-		<|
-		"FEPID"->$FEPID,
-		"Timestamp"->Now,
-		"TaskUUID"->$WorkspaceTaskUUID,
-		"Event"->log
-		|>
+	recordWorkspaceMetadata[$CurrentWorkspace,log]
+	
+recordWorkspaceMetadata[workspace_String,log_String:"NoneGiven"]:=
+	Module[{newlog},
+		newlog=<|"Timestamp"->Now,"Event"->log|>;
+		
+		(*if this is for the current workspaces, log the FEPID and TaskUUID as well*)
+		If[MemberQ[{$CurrentWorkspace,$GeneralWorkspace},workspace],
+			AppendTo[newlog,<|
+				"FEPID"->$FEPID,
+				"TaskUUID"->$WorkspaceTaskUUID|>]
+			];
+			
+		recordWorkspaceMetadata[workspace,newlog]
 	]
 
 recordWorkspaceMetadata[workspace_String,log_Association]:=
 	Module[{
 		workspaces=WorkspaceMetadata[],
-		defaultentry=<|"FEPID"->$FEPID,"Timestamp"->Now,"TaskUUID"->$WorkspaceTaskUUID,"SaveInformation"-><|"LastSaved"->"Never","SaveTrigger"->"None"|>|>,
-		entry
-		},
+		entry,defaultentry},
+
+		(*automatically initialize if metadata is missing.
+		this should be made more explicit instead of automatic*)
+		defaultentry=<|
+			"FEPID"->$FEPID,
+			"Timestamp"->Now,
+			"TaskUUID"->$WorkspaceTaskUUID,
+			"SaveInformation"-><|
+				"LastSaved"->"Never",
+				"SaveTrigger"->"None"
+				|>
+			|>;
+		entry=Lookup[workspaces,workspace,defaultentry];
 		
-		entry=Lookup[workspaces,workspace]/._Missing->defaultentry;
 		entry=Append[entry,log];
 		entry=Append[entry,"Timestamp"->Now];
 		
@@ -144,10 +227,7 @@ recordWorkspaceMetadata[workspace_String,log_Association]:=
 	];
 
 
-removeWorkspaceMetadata[workspace_String]/;workspaceExistQ[workspace]:=
-	recordWorkspaceMetadata[workspace,<|"FEPID"->None,"TaskUUID"->None,"Event"->"Metadata Cleared"|>]
-
-removeWorkspaceMetadata[workspace_String,log_String]/;workspaceExistQ[workspace]:=
+removeWorkspaceMetadata[workspace_String,log_String:"Metadata Cleared"]/;workspaceExistQ[workspace]:=
 	recordWorkspaceMetadata[workspace,<|"FEPID"->None,"TaskUUID"->None,"Event"->log|>]
 
 
@@ -166,7 +246,7 @@ RebuildWorkspaceMetadata[]:=Module[
 					"Timestamp"->Now|>]
 			]&,allworkspacefiles];
 
-	$WorkspaceMetadata=Merge[{WorkspaceMetadata[],KeyDrop[restoredata,$GeneralWorkspace]},First]
+	$WorkspaceMetadata=Merge[{WorkspaceMetadata[],restoredata},First]
 
 ]
 
@@ -234,67 +314,67 @@ SaveWorkspace[allq_Symbol:False,None]:=SaveWorkspace["TaskUUIDMissing","SaveAll"
 
 SaveWorkspace[allq_Symbol:False,log_String:"ManualSave"]:=SaveWorkspace[log,"SaveAll"->allq];
 
-SaveWorkspace[log_String:"ManualSave",opts:OptionsPattern[]]:=WithStatusUpdate["Saving...",
-		Module[{resp},
-			If[workspaceExistQ[$CurrentWorkspace],
-				resp=SaveAndRecordNotebooks[OptionValue["SaveAll"],$CurrentWorkspace];
-				recordWorkspaceMetadata[$CurrentWorkspace,<|"SaveInformation"-><|"LastSaved"->Now,"SaveTrigger"->log|>|>];
-				
-				SelectFirst[resp,#["Workspace"]==$CurrentWorkspace&],
-				
-				Failure["NoWorkspace",<|"MessageTemplate"->"No workspace selected. Load a workspace or use SaveWorkspaceAs"|>]
-				]
+SaveWorkspace[log_String:"ManualSave",opts:OptionsPattern[]]/;workspaceExistQ[$CurrentWorkspace]:=
+	WithStatusUpdate["Saving...",
+		If[!$NotebookWorkspacesActiveQ,SetWorkspace[$CurrentWorkspace]];
+		
+		With[{resp=SaveAndRecordNotebooks[OptionValue["SaveAll"],$CurrentWorkspace]},
+			recordWorkspaceMetadata[$CurrentWorkspace,<|"SaveInformation"-><|"LastSaved"->Now,"SaveTrigger"->log|>|>];
+			recordWorkspaceMetadata[$GeneralWorkspace,<|"SaveInformation"-><|"LastSaved"->Now,"SaveTrigger"->log,"ActiveWorkspace"->$CurrentWorkspace|>|>];
+			resp
 			]
 		]
 
+SaveWorkspace[log_String:"ManualSave",opts:OptionsPattern[]]/;!workspaceExistQ[$CurrentWorkspace]:=
+	WithStatusUpdate["Saving...",
+		With[{newname=nameWorkspaceDialog[]},
+			If[newname==$Canceled,
+				Return[Failure["NoWorkspace",<|"MessageTemplate"->"No workspace selected. Load a workspace or use SaveWorkspaceAs"|>]]];
+				
+			SaveWorkspaceAs[newname]]
+		
+		]
 
-(* set the space but don't reopen any notebooks *)
-SaveWorkspaceAs[newname_String]:=Enclose[
-	SaveWorkspaceAs[$CurrentWorkspace,Confirm[validateWorkspaceName[newname]]];
-	,"Expression"]
-	
-SaveWorkspaceAs[workspace_,newname_String]/;(workspace==$CurrentWorkspace):=
-	saveWorkspaceAs0[workspace,newname]
-(*SaveWorkspaceAs[workspace_String,newname_String]/;workspaceExistQ[workspace]:=
-	not the current workspace, but exists:	not implemented;
-	copyWorkspace[workspace,newname]*)
 
-saveWorkspaceAs0[workspace_,newname_String]/;(!workspaceExistQ[newname]):=
-	saveWorkspaceAs[workspace,newname];
-	
-saveWorkspaceAs0[workspace_,newname_String]/;(workspaceExistQ[newname]):=
+SaveWorkspaceAs[newname_String]/;(newname==$CurrentWorkspace):=SaveWorkspace[]
+
+SaveWorkspaceAs[newname_String]/;(workspaceExistQ[newname]):=
 	With[{resp=overwriteConfirm[newname]},
 		If[TrueQ@resp,
-			saveWorkspaceAs[workspace,newname],
+			removeWorkspace[newname];
+			DeleteDirectory[WorkspaceSaveDirectory[newname],DeleteContents->True];
+			SaveWorkspaceAs[newname],
 			Abort[]
-		]	
-]
+		]
+	]
+
+SaveWorkspaceAs[newname_String]/;(!workspaceExistQ[newname]):=Enclose[
+	Confirm[CreateWorkspace[newname]];
+	SetWorkspace[newname];
+	SaveWorkspace["SaveWorkspaceAs","SaveAll"->True];
+	,"Expression"]
 
 overwriteConfirm[newworkspace_String]:=
 	ChoiceDialog["The workspace \""<>newworkspace<>"\" already exists. Overwrite?",
 		{"Cancel"->False,"Overwrite"->True},Modal->True];
 
-saveWorkspaceAs[workspace_,newname_String]:=
-	(
-	SetWorkspace[newname];
-	SaveWorkspace[];
+
+CloseWorkspace[]/;!workspaceExistQ[$CurrentWorkspace]:=(
+	UnsetWorkspace[];
+	$NotebookWorkspacesActiveQ=False;
 	)
-
-(*copyWorkspace[workspace_String,newname_String]/;workspaceExistQ[workspace]:=;*)
-(*copy directory, etc. don't forget to confirm overwrite*)
-
-
-CloseWorkspace[]:=closeWorkspace[$CurrentWorkspace]
-
-closeWorkspace[_Symbol]:=UnsetWorkspace[]; 
 (* Should the None case also give a message that no workspace is open?
 	If we close all notebooks in this case, it needs a prompt. It's a destructive action *)
 
+CloseWorkspace[]:=(
+	closeWorkspace[$CurrentWorkspace];
+	UnsetWorkspace[];
+	$NotebookWorkspacesActiveQ=False;
+	)
+
 closeWorkspace[workspace_String]:=(
 	TaskSuspend[$WorkspaceTaskUUID];
-	TaskAbort[$WorkspaceTaskUUID];
 	SaveWorkspace[];
-	UnsetWorkspace[];
 	closeNotebooks[workspace];
 )
 
@@ -305,7 +385,7 @@ SwitchWorkspace[workspace_String]:=With[{
 			Windows or Mac machines. Temp set it to True so that won't happen.*)
 		CurrentValue[$FrontEnd,{PrivateNotebookOptions,"FinalWindowPrompt"}]=True;
 		
-		CloseWorkspace[];
+		closeWorkspace[$CurrentWorkspace];
 		loadWorkspace[workspace];
 		
 		CurrentValue[$FrontEnd,{PrivateNotebookOptions,"FinalWindowPrompt"}]=closeonexit;
@@ -343,14 +423,14 @@ RemoveWorkspace[workspace_String]:=Module[{FEPID=activeWorkspacePID[workspace]},
 		$FEPID,(UnsetWorkspace["Removing workspace"];removeWorkspace[workspace]),
 		_Integer,workspaceActive[workspace],
 		False,removeWorkspace[workspace]]
-]
+	]
 
 removeWorkspace[workspace_String]:=(
 	$WorkspaceMetadata=KeyDrop[WorkspaceMetadata[],workspace]
-)
+	)
 
 
-CleanWorkspace[]:=
+CleanWorkspace[]/;workspaceExistQ[$CurrentWorkspace]:=
 	Module[{dir=WorkspaceSaveDirectory[$CurrentWorkspace],files,choice},
 		
 		choice=ChoiceDialog[
@@ -375,11 +455,43 @@ CleanWorkspace[]:=
 		
 		SaveWorkspace[True,"CleanWorkspace[]"]
 				
-	]/;workspaceExistQ[$CurrentWorkspace]
+	]
 
+
+AddNotebookToWorkspace[workspace_String,rest___]/;!workspaceExistQ[workspace]:=
+	Enclose[
+		Confirm[CreateWorkspace[workspace]];
+		AddNotebookToWorkspace[workspace,rest]
+	,"Expression"]
+
+AddNotebookToWorkspace[workspace_String]:=AddNotebookToWorkspace[workspace,EvaluationNotebook[]]
+
+AddNotebookToWorkspace[workspace_String,notebook_NotebookObject]:=
+	With[{nbtitle=Information[notebook,"WindowTitle"]},
+	
+		SaveNotebook[notebook,workspace];
+		RecordNotebookToWorkspace[notebook,workspace];
+		recordWorkspaceMetadata[workspace,nbtitle<>" added to workspace"];
+		If[workspace==$GeneralWorkspace,
+			AddNotebookToGeneralList[notebook]];
+		
+		Success["NotebookAdded",<|
+			"MessageTemplate":>"`notebook` has been added to `workspace`",
+			"MessageParameters"-><|
+				"notebook"->nbtitle,
+				"workspace"->workspace|>,
+			"TimeStamp"->DateString[]
+			|>]
+	]
+
+
+validateWorkspaceName[workspacename_String]/;workspaceExistQ[workspacename]:=
+	Failure["WorkspaceExists",
+		<|"MessageTemplate"->"The workspace \"`x`\" already exists.",
+		"MessageParameters"-><|"x"->workspacename|>,
+		"TimeStamp"->DateString[]|>]
 
 validateWorkspaceName[workspacename_String]:=Enclose[
-	Confirm[If[workspacename=="GeneralWorkspace",Failure["NameReserved",<|"MessageTemplate"->"The name \"GeneralWorkspace\" is reserved. Select another."|>]]];
 	Confirm[If[!StringFreeQ[workspacename,Except[{WordCharacter,WhitespaceCharacter}]],Failure["BadName",<|"MessageTemplate"->"Workspace names can only contain letters, numbers, and spaces."|>]]];
 	workspacename
 	,"Expression"]
@@ -444,19 +556,12 @@ SaveWorkspaceTask[workspace_String,fepid_Integer]:=With[{currentspace={$CurrentW
 taskExistQ[uuid_String]:=Cases[Tasks[],TaskObject@KeyValuePattern["TaskUUID"->uuid]]/.{{}->False,_->True}
 
 
-feRestartedQ:=!ValueQ@$CurrentWorkspace;
+$NotebookWorkspacesActiveQ=TrueQ[activeWorkspacePID[$CurrentWorkspace]===$FEPID];
 
 
-RestartWorkspaces[]/;!feRestartedQ:=With[{
-	iscurrent=TrueQ[WorkspaceMetadata[$CurrentWorkspace,"FEPID"]==$FEPID]
-	},
+RestartWorkspaces[]/;$NotebookWorkspacesActiveQ:=SetWorkspace[$CurrentWorkspace,"Reset after Quit"]
 
-	If[iscurrent,
-		setWorkspace[$CurrentWorkspace,"Reset after Quit"]
-		]
-	]
-
-RestartWorkspaces[]/;feRestartedQ:=Nothing;
+RestartWorkspaces[]/;!$NotebookWorkspacesActiveQ:=($CurrentWorkspace=None)
 
 
 SessionSubmit[ScheduledTask[RestartWorkspaces[],{Quantity[1,"Seconds"],1}]]

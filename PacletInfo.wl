@@ -7,8 +7,9 @@ PacletObject[
     "Creator" -> "Bradley Ashby",
     "License" -> "MIT",
     "PublisherID" -> "BradleyAshby",
-    "Version" -> "1.0.0",
+    "Version" -> "1.1.0",
     "WolframVersion" -> "13.1+",
+    "PrimaryContext" -> "BradleyAshby`NotebookWorkspaces`",
     "Extensions" -> {
       {
         "Kernel",
@@ -54,7 +55,8 @@ PacletObject[
           "BradleyAshby`NotebookWorkspaces`RemoveFromExcludedNotebooks",
           "BradleyAshby`NotebookWorkspaces`GeneralNotebooks",
           "BradleyAshby`NotebookWorkspaces`AddNotebookToGeneral",
-          "BradleyAshby`NotebookWorkspaces`RemoveNotebookFromGeneral"
+          "BradleyAshby`NotebookWorkspaces`RemoveNotebookFromGeneral",
+          "BradleyAshby`NotebookWorkspaces`AddNotebookToWorkspace"
         }
       },
       {"FrontEnd"},

@@ -2,6 +2,9 @@
 
 BeginPackage["BradleyAshby`NotebookWorkspaces`SaveAndRecordNotebooks`"]
 
+SaveNotebook
+RecordNotebookToWorkspace
+RecordWorkspaceNotebooks
 SaveAndRecordNotebooks
 ReopenNotebooks
 closeNotebooks
@@ -57,43 +60,84 @@ RemoveFromExcludedNotebooks[nb_String]:=With[{excluded=$ExcludedNotebooks},
 	]
 
 
-	(* Untitled/unsaved notebooks *)
-SaveNotebook[nb_NotebookObject,workspace_String]/;!FileExistsQ[Quiet[NotebookFileName[nb]]]:=
-	Module[{
-		nbtitle=Quiet[Information[nb,"WindowTitle"]],
-		filepath
-		},
-		
-		If[!MissingQ@nbtitle,
-			filepath=FileNameJoin[{
-				WorkspaceSaveDirectory[workspace],
-				ResourceFunction["SlugifyString"][nbtitle,"ForceLowerCase"->False]<>".nb"}];
-			Export[filepath,nb,OverwriteTarget->True]
-			]
-	]; 
-
 	(* Notebooks with an existing save location *)
 SaveNotebook[nb_NotebookObject,workspace_String]/;FileExistsQ[Quiet[NotebookFileName[nb]]]:=(
 	NotebookSave[nb];
 	)
+	
+		(* Untitled/unsaved notebooks *)
+SaveNotebook[nb_NotebookObject,workspace_String]:=
+	With[{filepath=notebookFile[nb,workspace]},
+		Export[filepath,nb,OverwriteTarget->True]
+	]
 
 
-(* Make a list of open notebooks to recover in case of crash *)
-	(* Untitled/unsaved notebooks *)
-RecordNotebook[nb_NotebookObject,workspace_String]/;!FileExistsQ[Quiet[NotebookFileName[nb]]]:=
-	Module[{nbtitle=Quiet[Information[nb,"WindowTitle"]],filepath},
+(* Record a single notebook into a workspace *)
+RecordNotebookToWorkspace[nb_NotebookObject,workspace_String]/;workspaceExistQ[workspace]:=
+	Module[{key,filepath=notebookFile[nb,workspace],oldrecord,newrecord},
 		
-		If[!MissingQ@nbtitle,
-			filepath=FileNameJoin[{
-				WorkspaceSaveDirectory[workspace],
-				ResourceFunction["SlugifyString"][nbtitle,"ForceLowerCase"->False]<>".nb"}];
-			AppendTo[opennotebooks["Untitled"],filepath]
-			]		
-	];
+		key=Switch[FileExistsQ[Quiet[NotebookFileName[nb]]],
+			True,"Saved",
+			False,"Untitled"];
+		
+		oldrecord=Get@WorkspaceNotebooksFile[workspace];
+		newrecord=ResourceFunction["AppendAt"][oldrecord,filepath,{key}];
+		
+		Put[newrecord,WorkspaceNotebooksFile[workspace]];
+		
+		newrecord
+	]
 
-	(* Notebooks with an existing save location *)
-RecordNotebook[nb_NotebookObject,workspace_String]/;FileExistsQ[Quiet[NotebookFileName[nb]]]:=
-	AppendTo[opennotebooks["Saved"],NotebookFileName[nb]];
+
+RecordWorkspaceNotebooks[nblist:{_NotebookObject...},workspace_String]:=
+	Module[{groupednotebooks,untitled,saved,workspacerecord},
+		
+		groupednotebooks=GroupBy[nblist,
+			(FileExistsQ[Quiet[NotebookFileName[#]]]&)->
+				(notebookFile[#,workspace]&)];
+		untitled=Lookup[groupednotebooks,False,{}];
+		saved=Lookup[groupednotebooks,True,{}];
+		
+		workspacerecord=<|
+			"Untitled"->untitled,
+			"Saved"->saved,
+			"Timestamp"->Now,
+			"Workspace"->workspace,
+			"FEPID"->$FEPID|>;
+		
+		Put[workspacerecord,WorkspaceNotebooksFile[workspace]];
+		
+		(*if this is the general space, remove uuids for closed notebooks*)
+		If[workspace==$GeneralWorkspace,
+			PruneGeneralNotebookUUIDs[]
+		];
+		
+		workspacerecord			
+	]
+
+
+notebookFile[nb_NotebookObject,workspace_String]:=
+	With[{filepath=Quiet[NotebookFileName[nb]]},
+		Switch[FileExistsQ[filepath],
+			True,filepath,
+			False,unsavedNotebookFile[nb,workspace]
+		]
+	]
+
+unsavedNotebookFile[nb_NotebookObject,workspace_String]:=
+	Module[{nbtitle=Quiet[Information[nb,"WindowTitle"]],filepath,differentiator=""},
+		
+		nbtitle=nbtitle/._Missing->Information[nb,"ExpressionUUID"];
+		(*the differentiator helps prevents overwriting if a notebook is being added when the space is not current*)
+		If[workspace!=$CurrentWorkspace,
+			differentiator="_"<>Hash[Information[nb,"ExpressionUUID"],"Expression","HexString"]];
+		
+		filepath=FileNameJoin[{
+			WorkspaceSaveDirectory[workspace],
+			ResourceFunction["SlugifyString"][nbtitle<>differentiator,"ForceLowerCase"->False]<>".nb"}];
+		
+		filepath		
+	]
 
 
 systemNotebookQ[nb_NotebookObject]:=TrueQ@With[{dir=Quiet@NotebookDirectory@nb},
@@ -103,49 +147,52 @@ systemNotebookQ[nb_NotebookObject]:=TrueQ@With[{dir=Quiet@NotebookDirectory@nb},
 			Alternatives[
 				$BaseDirectory,
 				$InstallationDirectory,
-				$UserBasePacletsDirectory
+				$UserBasePacletsDirectory,
+				PacletManager`$SystemDocumentationDirectory
 			]
 		]
 	]
 ];
 
 
-recordableNotebooks[workspace_String]/;(workspace==$GeneralWorkspace):=$GeneralNotebooks;
+recordableNotebooks[workspace_String]/;(workspace==$GeneralWorkspace):=GeneralNotebooks[]
 
-recordableNotebooks[HoldPattern[workspace_:$CurrentWorkspace]]:=With[
-	{general=$GeneralNotebookUUIDs,
-	excluded=$ExcludedNotebooks},
-
-		Select[Notebooks[],
+recordableNotebooks[HoldPattern[workspace_:$CurrentWorkspace]]:=
+	With[
+		{excluded=$ExcludedNotebooks},
+	
+		Select[Complement[Notebooks[],GeneralNotebooks[]],
 			Module[{title,type,uuid},
 				{title,type,uuid}=Information[#,
 					{"WindowTitle","DocumentType","ExpressionUUID"}];	
 				
 				And[
 					Not[MemberQ[excluded,title]],
-					Not[MemberQ[general,uuid]],
 					Not[type=="Help"],
 					TrueQ[CurrentValue[#,Visible]],
 					Not[systemNotebookQ[#]]
 			        ]
-				]&]];
+			]&
+		]
+	]
 
 
 SaveAndRecordNotebooks::duplicates="Duplicate notebooks saved. Not all will be recovered.";
 SaveAndRecordNotebooks::opennotebooks="Too few open notebooks. Notebooks saved but not recorded.";
 
 SaveAndRecordNotebooks[allq_Symbol:False]/;BooleanQ[allq]:=SaveAndRecordNotebooks[allq,$CurrentWorkspace]
-SaveAndRecordNotebooks[allq_Symbol:False,_Symbol]:=Failure["NoWorkspace",<|"MessageTemplate"->"No workspace loaded"|>]
+SaveAndRecordNotebooks[allq_Symbol:False,workspace_String]/;!workspaceExistQ[workspace]:=Failure["NoWorkspace",<|"MessageTemplate"->"No workspace loaded"|>]
 
-SaveAndRecordNotebooks[allq_Symbol:False,workspace_String]:=With[
-			{workspacelastsaved=Lookup[WorkspaceMetadata[workspace,"SaveInformation"],"LastSaved"]},
+SaveAndRecordNotebooks[allq_Symbol:False,workspace_String]:=
+	With[{
+		workspacelastsaved=Lookup[WorkspaceMetadata[workspace,"SaveInformation"],"LastSaved"]},
 		
-		saveAndRecordNotebooks[allq,#,workspacelastsaved]&/@DeleteDuplicates[{$GeneralWorkspace,workspace}]
-		];
+		saveAndRecordNotebooks[allq,$GeneralWorkspace,workspacelastsaved];
+		saveAndRecordNotebooks[allq,workspace,workspacelastsaved]		
+		]
 
-saveAndRecordNotebooks[allq_Symbol:False,workspace_String,workspacelastsaved_]:=Module[{
-			recordablenotebooks,
-			saveablenotebooks},
+saveAndRecordNotebooks[allq_Symbol:False,workspace_String,workspacelastsaved_]:=
+	Module[{recordablenotebooks,saveablenotebooks,opennotebooks},
 
 		recordablenotebooks=recordableNotebooks[workspace];
 		If[Or[allq,MissingQ[workspacelastsaved]],
@@ -156,23 +203,20 @@ saveAndRecordNotebooks[allq_Symbol:False,workspace_String,workspacelastsaved_]:=
 				{modifiedq,modtime}=Information[#,
 					{"ModifiedInMemory","MemoryModificationTime"}];	
 				
-				And[
+				And[		
 					modifiedq,
-					workspacelastsaved<modtime
+					workspacelastsaved<modtime,
+					TrueQ[AbsoluteCurrentValue[#,Saveable]]
 			        ]
 				]&]
 			];
-		
-		opennotebooks=<|"Untitled"->{},"Saved"->{},"Timestamp"->Now,"Workspace"->workspace,"FEPID"->$FEPID|>;
 
 		SaveNotebook[#,workspace]&/@saveablenotebooks;
-		RecordNotebook[#,workspace]&/@recordablenotebooks;
+		opennotebooks=RecordWorkspaceNotebooks[recordablenotebooks,workspace];
 
-		If[!DuplicateFreeQ[Flatten@Lookup[opennotebooks,{"Untitled","Saved"}]],
+		If[!DuplicateFreeQ[Flatten@Lookup[opennotebooks,{"Untitled","Saved"},{}]],
 			Message[SaveAndRecordNotebooks::duplicates]
 			];
-		
-		Put[opennotebooks,WorkspaceNotebooksFile[workspace]];
 		
 		KeyDrop[opennotebooks,"FEPID"]
 
@@ -181,7 +225,7 @@ saveAndRecordNotebooks[allq_Symbol:False,workspace_String,workspacelastsaved_]:=
 
 ReopenNotebooks[workspace_String]/;workspaceExistQ[workspace]:=(
 		reopenNotebooks0[workspace]
-		);
+		)
 	
 reopenNotebooks0[workspace_String]:=With[
 	{notebooksfile=WorkspaceNotebooksFile[workspace]},
@@ -191,14 +235,14 @@ reopenNotebooks0[workspace_String]:=With[
 		False, Failure["NotebooksRecordFileMissing",<|"MessageTemplate"->"Notebooks file for this workspace is missing"|>],
 		_, Failure["NotebooksRecordFileError",<|"MessageTemplate"->"Unable to determine notebooks file"|>]
 		]
-	];
+	]
 
 reopenNotebooks[notebooksfile_,workspace_]:=
 	Module[{opennotebooks,savedlist,untitledlist,notebooklist={}},
 	
 		opennotebooks=Get[notebooksfile];
-		savedlist=opennotebooks["Saved"];
-		untitledlist=opennotebooks["Untitled"];
+		savedlist=DeleteDuplicates@Lookup[opennotebooks,"Saved",{}];
+		untitledlist=DeleteDuplicates@Lookup[opennotebooks,"Untitled",{}];
 		
 		Scan[
 			AppendTo[notebooklist,
@@ -214,10 +258,8 @@ reopenNotebooks[notebooksfile_,workspace_]:=
 				]&,
 			untitledlist];
 	
-		If[workspace==$GeneralWorkspace,
-			AddNotebookToGeneral[notebooklist];
-		]
-	];
+		notebooklist
+	]
 	
 quieterNotebookOpen[nfn_String]:=With[{nbo=NotebookOpen[nfn,Visible->False]},
 		SetOptions[nbo,Visible->True];

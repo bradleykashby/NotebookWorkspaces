@@ -7,15 +7,15 @@ $GeneralWorkspace
 LoadGeneralWorkspace
 PruneGeneralNotebookUUIDs
 AddNotebookToGeneralList
+$GeneralNotebookUUIDs
 
 Begin["`Private`"]
 
 
 Needs["BradleyAshby`NotebookWorkspaces`"]
+Needs["BradleyAshby`NotebookWorkspaces`Utilities"]
 Needs["BradleyAshby`NotebookWorkspaces`Configuration`"]
 Needs["BradleyAshby`NotebookWorkspaces`WorkspaceManagement`"]
-Needs["BradleyAshby`NotebookWorkspaces`SaveAndRecordNotebooks`"]
-Needs["BradleyAshby`NotebookWorkspaces`Palette`"]
 
 
 $GeneralWorkspace= "GeneralWorkspace";
@@ -23,7 +23,7 @@ $localgeneraluuids="NotebookWorkspaces/$GeneralNotebookUUIDs";
 
 $GeneralNotebookUUIDs/:Set[$GeneralNotebookUUIDs,value_]:=(
 	LocalSymbol[$localgeneraluuids]=value;
-	UpdateDynamicsUsing[$GeneralNotebookUUIDs];
+	UpdatePalette[$GeneralNotebookUUIDs];
 	value)
 $GeneralNotebookUUIDs:=LocalSymbol[$localgeneraluuids]/.{x_List:>x,_->{}}
 
@@ -50,7 +50,7 @@ LoadGeneralWorkspace[args___]/;!workspaceExistQ[$GeneralWorkspace]:=
 
 LoadGeneralWorkspace[log_String:"Loading General Workspace"]:=
 	With[{notebooklist=ReopenNotebooks[$GeneralWorkspace]},
-		recordWorkspaceMetadata[log];
+		RecordWorkspaceMetadata[log];
 		AddNotebookToGeneralList[notebooklist]
 	]
 

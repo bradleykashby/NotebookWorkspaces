@@ -3,17 +3,17 @@
 (*** Wolfram Notebook File ***)
 (* http://www.wolfram.com/nb *)
 
-(* CreatedBy='Mathematica 13.2' *)
+(* CreatedBy='Mathematica 13.3' *)
 
 (*CacheID: 234*)
 (* Internal cache information:
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[      1443,         49]
+NotebookDataLength[      1573,         50]
 NotebookOptionsPosition[       770,         26]
-NotebookOutlinePosition[      1482,         51]
-CellTagsIndexPosition[      1439,         48]
+NotebookOutlinePosition[      1613,         52]
+CellTagsIndexPosition[      1570,         49]
 WindowFrame->Palette*)
 
 (* Beginning of Notebook Content *)
@@ -21,23 +21,24 @@ Notebook[{
 Cell[BoxData[
  DynamicBox[ToBoxes[
   BradleyAshby`NotebookWorkspaces`Palette`palettecontents, StandardForm],
-  ImageSizeCache->{338., {181., 188.}}]],ExpressionUUID->"10ab9375-8062-455a-\
-842b-4f759801e093"]
+  ImageSizeCache->{338., {244., 250.}}]],ExpressionUUID->"5a103cbf-c2f9-457a-\
+91a1-96896ff4f67c"]
 },
 NotebookDynamicExpression:>Refresh[
  Needs["BradleyAshby`NotebookWorkspaces`" -> None]; 
+  With[{$CellContext`aop = 
+     AbsoluteCurrentValue[$FrontEnd, "AutoOpenPalettes"]}, 
+    CurrentValue[$FrontEnd, "AutoOpenPalettes"] = 
+    DeleteCases[$CellContext`aop, "NotebookWorkspacesPalette.nb"]]; 
   BradleyAshby`NotebookWorkspaces`Palette`Private`reinitializePalette[]; Null,
    None],
 WindowSize->Fit,
 WindowMargins->{{Automatic, 0}, {Automatic, 0}},
 WindowElements->{},
-Visible->True,
-TaggingRules->{
- "WelcomeScreenSettings" -> {"FEStarting" -> False}, 
-  "NotebookWorkspacesPaletteQ" -> True},
-FrontEndVersion->"13.2 for Mac OS X x86 (64-bit) (November 18, 2022)",
+TaggingRules->{"NotebookWorkspacesPaletteQ" -> True},
+FrontEndVersion->"13.3 for Mac OS X x86 (64-bit) (June 3, 2023)",
 StyleDefinitions->"Palette.nb",
-ExpressionUUID->"9a5450d8-d784-493f-94f7-b40ae12e8a95"
+ExpressionUUID->"b0507c16-db2e-4789-9a6c-e568f5fb0a50"
 ]
 (* End of Notebook Content *)
 
@@ -50,8 +51,9 @@ CellTagsIndex->{}
 *)
 (*NotebookFileOutline
 Notebook[{
-Cell[559, 20, 207, 4, 371, InheritFromParent,ExpressionUUID->"10ab9375-8062-455a-842b-4f759801e093"]
+Cell[559, 20, 207, 4, 16, InheritFromParent,ExpressionUUID->"5a103cbf-c2f9-457a-91a1-96896ff4f67c"]
 }
 ]
 *)
 
+(* End of internal cache information *)

@@ -15,16 +15,16 @@ Begin["`Private`"]
 
 
 Needs["BradleyAshby`NotebookWorkspaces`"]
+Needs["BradleyAshby`NotebookWorkspaces`Utilities"]
 Needs["BradleyAshby`NotebookWorkspaces`Configuration`"]
 Needs["BradleyAshby`NotebookWorkspaces`WorkspaceManagement`"]
 Needs["BradleyAshby`NotebookWorkspaces`GeneralWorkspace`"]
-Needs["BradleyAshby`NotebookWorkspaces`Palette`"]
 
 
 $localexcludednotebooks="NotebookWorkspaces/ExcludedNotebooks";
 $ExcludedNotebooks/:Set[$ExcludedNotebooks,value_]:=(
 	LocalSymbol[$localexcludednotebooks]=value;
-	UpdateDynamicsUsing[$ExcludedNotebooks];
+	UpdatePalette[$ExcludedNotebooks];
 	value)
 $ExcludedNotebooks:=Replace[LocalSymbol[$localexcludednotebooks],Except[_List]->{"Messages"}]
 
@@ -148,7 +148,7 @@ systemNotebookQ[nb_NotebookObject]:=TrueQ@With[{dir=Quiet@NotebookDirectory@nb},
 				$BaseDirectory,
 				$InstallationDirectory,
 				$UserBasePacletsDirectory,
-				PacletManager`$SystemDocumentationDirectory
+				PacletManager`$SystemDocumentationDirectory/.None->$BaseDirectory
 			]
 		]
 	]

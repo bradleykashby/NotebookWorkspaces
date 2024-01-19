@@ -4,7 +4,6 @@ BeginPackage["BradleyAshby`NotebookWorkspaces`WorkspaceManagement`"]
 
 
 $WorkspaceMetadata
-CreateWorkspace
 WorkspaceSaveDirectory
 WorkspaceNotebooksFile
 workspaceExistQ
@@ -13,15 +12,14 @@ activeWorkspacePID
 validateWorkspaceName
 workspaceLastSaved
 $WorkspaceStatus=None;
+RecordWorkspaceMetadata
 
 Begin["`Private`"]
 
 
 Needs["BradleyAshby`NotebookWorkspaces`"]
+Needs["BradleyAshby`NotebookWorkspaces`Utilities`"]
 Needs["BradleyAshby`NotebookWorkspaces`Configuration`"]
-Needs["BradleyAshby`NotebookWorkspaces`GeneralWorkspace`"]
-Needs["BradleyAshby`NotebookWorkspaces`SaveAndRecordNotebooks`"]
-Needs["BradleyAshby`NotebookWorkspaces`Palette`"]
 
 
 $WorkspaceTaskUUID=None;
@@ -32,7 +30,7 @@ $FEPersistenceLocation=SelectFirst[$PersistencePath,#["Type"]=="FrontEndSession"
 $localworkspacerecord="NotebookWorkspaces/WorkspaceRecord";
 $WorkspaceMetadata/:Set[$WorkspaceMetadata,value_]:=(
 	LocalSymbol[$localworkspacerecord]=value;
-	UpdateDynamicsUsing[$WorkspaceMetadata];
+	UpdatePalette[$WorkspaceMetadata];
 	value)
 $WorkspaceMetadata:=LocalSymbol[$localworkspacerecord]
 
@@ -56,7 +54,7 @@ WorkspaceMetadata[All,value_String]:=Lookup[value]/@WorkspaceMetadata[]
 $localcurrentworkspace="NotebookWorkspaces/$CurrentWorkspace";
 $CurrentWorkspace/:Set[$CurrentWorkspace,value_]:=(
 	LocalSymbol[$localcurrentworkspace]=value;
-	UpdateDynamicsUsing[$CurrentWorkspace];
+	UpdatePalette[$CurrentWorkspace];
 	value)
 $CurrentWorkspace:=LocalSymbol[$localcurrentworkspace]
 
@@ -109,6 +107,17 @@ CreateWorkspace[workspace_String,log_String:"Workspace created"]/;workspaceExist
 		"TimeStamp"->DateString[]|>]
 
 
+DeleteWorkspace[workspace_String]/;IntegerQ[activeWorkspacePID[workspace]]:=
+	Failure["WorkspaceActive",<|
+		"MessageTemplate"->"Workspace is currently active."
+		|>]
+
+DeleteWorkspace[workspace_String]:=(
+		removeWorkspace[workspace];
+		DeleteDirectory[WorkspaceSaveDirectory[workspace],DeleteContents->True];
+	)
+
+
 initializeWorkspaceNotebooksFile[workspace_String]:=
 	Put[<|"Untitled"->{},"Saved"->{},"Timestamp"->Now,"Workspace"->workspace|>,WorkspaceNotebooksFile[workspace]]
 
@@ -129,7 +138,7 @@ setWorkspace[workspace_String,log_String:"Workspace Set"]:=(
 	setupForRestart[];
 	
 	LaunchWorkspaceTask[workspace,$FEPID];
-	recordWorkspaceMetadata[log];
+	RecordWorkspaceMetadata[log];
 	
 	)
 
@@ -182,10 +191,10 @@ initializeWorkspaceMetadata[workspace_String,log_String:"Workspace created"]:=
 		]
 
 
-recordWorkspaceMetadata[log_String:"NoneGiven"]:=
-	recordWorkspaceMetadata[$CurrentWorkspace,log]
+RecordWorkspaceMetadata[log_String:"NoneGiven"]:=
+	RecordWorkspaceMetadata[$CurrentWorkspace,log]
 	
-recordWorkspaceMetadata[workspace_String,log_String:"NoneGiven"]:=
+RecordWorkspaceMetadata[workspace_String,log_String:"NoneGiven"]:=
 	Module[{newlog},
 		newlog=<|"Timestamp"->Now,"Event"->log|>;
 		
@@ -196,10 +205,10 @@ recordWorkspaceMetadata[workspace_String,log_String:"NoneGiven"]:=
 				"TaskUUID"->$WorkspaceTaskUUID|>]
 			];
 			
-		recordWorkspaceMetadata[workspace,newlog]
+		RecordWorkspaceMetadata[workspace,newlog]
 	]
 
-recordWorkspaceMetadata[workspace_String,log_Association]:=
+RecordWorkspaceMetadata[workspace_String,log_Association]:=
 	Module[{
 		workspaces=WorkspaceMetadata[],
 		entry,defaultentry},
@@ -228,7 +237,7 @@ recordWorkspaceMetadata[workspace_String,log_Association]:=
 
 
 removeWorkspaceMetadata[workspace_String,log_String:"Metadata Cleared"]/;workspaceExistQ[workspace]:=
-	recordWorkspaceMetadata[workspace,<|"FEPID"->None,"TaskUUID"->None,"Event"->log|>]
+	RecordWorkspaceMetadata[workspace,<|"FEPID"->None,"TaskUUID"->None,"Event"->log|>]
 
 
 RebuildWorkspaceMetadata[]:=Module[
@@ -302,9 +311,9 @@ activeWorkspaceQ[workspace_]:=IntegerQ@activeWorkspacePID@workspace
 SetAttributes[WithStatusUpdate,{HoldAll}]
 
 WithStatusUpdate[status_String,expr_]:=WithCleanup[
-	$WorkspaceStatus=status;UpdateDynamicsUsing[$WorkspaceStatus],		
+	$WorkspaceStatus=status;UpdatePalette[$WorkspaceStatus],		
 		expr,
-	$WorkspaceStatus=None;UpdateDynamicsUsing[$WorkspaceStatus]
+	$WorkspaceStatus=None;UpdatePalette[$WorkspaceStatus]
 	]
 
 
@@ -319,8 +328,8 @@ SaveWorkspace[log_String:"ManualSave",opts:OptionsPattern[]]/;workspaceExistQ[$C
 		If[!$NotebookWorkspacesActiveQ,SetWorkspace[$CurrentWorkspace]];
 		
 		With[{resp=SaveAndRecordNotebooks[OptionValue["SaveAll"],$CurrentWorkspace]},
-			recordWorkspaceMetadata[$CurrentWorkspace,<|"SaveInformation"-><|"LastSaved"->Now,"SaveTrigger"->log|>|>];
-			recordWorkspaceMetadata[$GeneralWorkspace,<|"SaveInformation"-><|"LastSaved"->Now,"SaveTrigger"->log,"ActiveWorkspace"->$CurrentWorkspace|>|>];
+			RecordWorkspaceMetadata[$CurrentWorkspace,<|"SaveInformation"-><|"LastSaved"->Now,"SaveTrigger"->log|>|>];
+			RecordWorkspaceMetadata[$GeneralWorkspace,<|"SaveInformation"-><|"LastSaved"->Now,"SaveTrigger"->log,"ActiveWorkspace"->$CurrentWorkspace|>|>];
 			resp
 			]
 		]
@@ -341,9 +350,9 @@ SaveWorkspaceAs[newname_String]/;(newname==$CurrentWorkspace):=SaveWorkspace[]
 SaveWorkspaceAs[newname_String]/;(workspaceExistQ[newname]):=
 	With[{resp=overwriteConfirm[newname]},
 		If[TrueQ@resp,
-			removeWorkspace[newname];
-			DeleteDirectory[WorkspaceSaveDirectory[newname],DeleteContents->True];
-			SaveWorkspaceAs[newname],
+			(*true*)
+			DeleteWorkspace[newname];SaveWorkspaceAs[newname],
+			(*false*)
 			Abort[]
 		]
 	]
@@ -471,7 +480,7 @@ AddNotebookToWorkspace[workspace_String,notebook_NotebookObject]:=
 	
 		SaveNotebook[notebook,workspace];
 		RecordNotebookToWorkspace[notebook,workspace];
-		recordWorkspaceMetadata[workspace,nbtitle<>" added to workspace"];
+		RecordWorkspaceMetadata[workspace,nbtitle<>" added to workspace"];
 		If[workspace==$GeneralWorkspace,
 			AddNotebookToGeneralList[notebook]];
 		

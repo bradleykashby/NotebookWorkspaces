@@ -13,6 +13,7 @@ Begin["`Private`"]
 
 
 Needs["BradleyAshby`NotebookWorkspaces`"]
+Needs["BradleyAshby`NotebookWorkspaces`Utilities"]
 
 
 configpattern=KeyValuePattern[{
@@ -102,7 +103,7 @@ setConfig[{sec_,dir_,default_}]:=(
 		"BaseSaveDirectory"->dir,
 		"DefaultWorkspaceName"->default
 	|>;
-	UpdateDynamicsUsing[$WorkspaceConfiguration];
+	UpdatePalette[$WorkspaceConfiguration];
 	$WorkspaceConfiguration
 )
 
@@ -114,7 +115,7 @@ setSave[time_Quantity]/;$SaveFrequency!=time:=(
 
 
 setBaseDir[newdir_]/;$BaseSaveDirectory!=newdir:=Module[
-	{workspaces=Append[Keys@WorkspaceMetadata[],$GeneralWorkspace],conflicts},
+	{workspaces=WorkspaceMetadata[],conflicts},
 	
 	conflicts=FileNames[workspaces,newdir];
 	
@@ -136,8 +137,8 @@ setBaseDir[newdir_]/;$BaseSaveDirectory!=newdir:=Module[
 
 setDefault[default_String]:=(	
 	If[!KeyExistsQ[WorkspaceMetadata[],default],
-		$WorkspaceMetadata=Append[WorkspaceMetadata[],default-><|"FEPID"->None,"Event"->"InitializeNewDefaultWorkspace","Timestamp"->Now|>]];
-	
+		CreateWorkspace[default,"InitializeNewDefaultWorkspace"]];
+		
 	$DefaultWorkspace=default
 	)
 

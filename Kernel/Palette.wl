@@ -7,14 +7,15 @@ palettecontents
 ManageExcludedNotebooks
 UpdatePalette
 $PaletteDynamicBoxes
-UpdateDynamicsUsing
 nameWorkspaceDialog
 
 Begin["`Private`"]
 
+
 Needs["BradleyAshby`NotebookWorkspaces`"]
-Needs["BradleyAshby`NotebookWorkspaces`WorkspaceManagement`"]
+Needs["BradleyAshby`NotebookWorkspaces`Utilities"]
 Needs["BradleyAshby`NotebookWorkspaces`Configuration`"]
+Needs["BradleyAshby`NotebookWorkspaces`WorkspaceManagement`"]
 Needs["BradleyAshby`NotebookWorkspaces`GeneralWorkspace`"]
 Needs["BradleyAshby`NotebookWorkspaces`SaveAndRecordNotebooks`"]
 
@@ -119,40 +120,21 @@ configureTab:=Column[{
 
 
 palettecontents=Panel[TabView[{
-		"Workspaces"->Dynamic[workspacesTab[WorkspaceMetadata[]],TrackedSymbols:>{$WorkspaceMetadata,$CurrentWorkspace,$WorkspaceStatus}],
-		"General space"->Dynamic[generalTab,TrackedSymbols:>{$GeneralNotebookUUIDs}],
-		"Configuration"->Dynamic[configureTab,TrackedSymbols:>{
-			$DefaultWorkspace,$SaveFrequency,$BaseSaveDirectory,$ExcludedNotebooks}]
+		"Workspaces"->Dynamic[workspacesTab[WorkspaceMetadata[]],
+			TrackedSymbols:>{
+				$WorkspaceMetadata,
+				$CurrentWorkspace,
+				$WorkspaceStatus}],
+		"General space"->Dynamic[generalTab,
+			TrackedSymbols:>{
+				$GeneralNotebookUUIDs}],
+		"Configuration"->Dynamic[configureTab,
+			TrackedSymbols:>{
+				$DefaultWorkspace,
+				$SaveFrequency,
+				$BaseSaveDirectory,
+				$ExcludedNotebooks}]
 		}],BaseStyle->{FontSize->12}]
-
-
-SetAttributes[FindDynamicsUsing,{Listable,HoldAll}]
-FindDynamicsUsing[sym_Symbol]:=Cases[Internal`GetTrackedIDs[],{id_Integer,{___, HoldPattern[sym],___}}:>id]
-
-SetAttributes[UpdateDynamicsUsing,{Listable,HoldAll}]
-UpdateDynamicsUsing[sym_Symbol]:=FrontEndExecute@FrontEnd`UpdateDynamicObjects[Flatten[FindDynamicsUsing[sym]]]
-
-UpdateDynamicsUsing[box_BoxObject]:=(
-	FrontEndExecute@FrontEnd`UpdateDynamicObjects[{box}];
-	)
-
-
-SetAttributes[UpdatePalette,{Listable,HoldAll}]
-
-UpdatePalette[sym_]:=(
-	If[FindDynamicsUsing[sym]=={},
-		reinitializePalette[]];
-		
-	UpdateDynamicsUsing[sym];
-	)
-
-reinitializePalette[]:=With[{
-	palette=Select[Notebooks[],
-			AbsoluteCurrentValue[#,{TaggingRules,"NotebookWorkspacesPaletteQ"}]&]},
-		
-		If[palette!={},
-			NotebookPut[NotebookGet[#],#]&/@palette]
-	]
 
 
 createPaletteNB[]:=
@@ -162,7 +144,9 @@ createPaletteNB[]:=
 			
 			NotebookDynamicExpression:>
 				Refresh[(Needs["BradleyAshby`NotebookWorkspaces`"->None];
-					BradleyAshby`NotebookWorkspaces`Palette`Private`reinitializePalette[];),
+					With[{aop=AbsoluteCurrentValue[$FrontEnd,"AutoOpenPalettes"]},
+						CurrentValue[$FrontEnd,"AutoOpenPalettes"]=DeleteCases[aop,"NotebookWorkspacesPalette.nb"]];
+					BradleyAshby`NotebookWorkspaces`Utilities`ReinitializePalette[];),
 				None],
 			TaggingRules->{"NotebookWorkspacesPaletteQ"->True}],
 		WindowSize->Fit]

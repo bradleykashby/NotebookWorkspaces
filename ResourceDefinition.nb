@@ -46,16 +46,20 @@ Cell[CellGroupData[{
 Cell[TextData[Cell[BoxData[
  InterpretationBox[
   TagBox[
-   ActionMenuBox["\<\"Documentation\"\>",{
-    "\"Open/Close Group\"" :> (
-      SelectionMove[ParentCell[EvaluationCell[]], All, Cell]; 
-      FrontEndTokenExecute[EvaluationNotebook[], "OpenCloseGroup"]), 
-     "\"Open Directory\"" :> 
-     DefinitionNotebookClient`FileTreeOpen[ParentCell[EvaluationCell[]]], 
-     "\"Un/Mark as Excluded\"" :> 
-     DefinitionNotebookClient`FileTreeExclusionToggle[
-      ParentCell[EvaluationCell[]]], "\"Copy Path to Clipboard\"" :> 
-     DefinitionNotebookClient`FileTreeCopy[ParentCell[EvaluationCell[]]]},
+   ActionMenuBox["\<\"Documentation\"\>", {"\<\"Open/Close Group\"\>":>(
+    SelectionMove[
+      ParentCell[
+       EvaluationCell[]], All, Cell]; FrontEndTokenExecute[
+      EvaluationNotebook[], "OpenCloseGroup"]), "\<\"Open Directory\"\>":>
+    DefinitionNotebookClient`FileTreeOpen[
+     ParentCell[
+      EvaluationCell[]]], "\<\"Un/Mark as Excluded\"\>":>
+    DefinitionNotebookClient`FileTreeExclusionToggle[
+     ParentCell[
+      EvaluationCell[]]], "\<\"Copy Path to Clipboard\"\>":>
+    DefinitionNotebookClient`FileTreeCopy[
+     ParentCell[
+      EvaluationCell[]]]},
     Appearance->None,
     BaseStyle->{"Text"}],
    Annotation[#, 
@@ -82,16 +86,20 @@ Cell[CellGroupData[{
 Cell[TextData[Cell[BoxData[
  InterpretationBox[
   TagBox[
-   ActionMenuBox["\<\"English\"\>",{
-    "\"Open/Close Group\"" :> (
-      SelectionMove[ParentCell[EvaluationCell[]], All, Cell]; 
-      FrontEndTokenExecute[EvaluationNotebook[], "OpenCloseGroup"]), 
-     "\"Open Directory\"" :> 
-     DefinitionNotebookClient`FileTreeOpen[ParentCell[EvaluationCell[]]], 
-     "\"Un/Mark as Excluded\"" :> 
-     DefinitionNotebookClient`FileTreeExclusionToggle[
-      ParentCell[EvaluationCell[]]], "\"Copy Path to Clipboard\"" :> 
-     DefinitionNotebookClient`FileTreeCopy[ParentCell[EvaluationCell[]]]},
+   ActionMenuBox["\<\"English\"\>", {"\<\"Open/Close Group\"\>":>(
+    SelectionMove[
+      ParentCell[
+       EvaluationCell[]], All, Cell]; FrontEndTokenExecute[
+      EvaluationNotebook[], "OpenCloseGroup"]), "\<\"Open Directory\"\>":>
+    DefinitionNotebookClient`FileTreeOpen[
+     ParentCell[
+      EvaluationCell[]]], "\<\"Un/Mark as Excluded\"\>":>
+    DefinitionNotebookClient`FileTreeExclusionToggle[
+     ParentCell[
+      EvaluationCell[]]], "\<\"Copy Path to Clipboard\"\>":>
+    DefinitionNotebookClient`FileTreeCopy[
+     ParentCell[
+      EvaluationCell[]]]},
     Appearance->None,
     BaseStyle->{"Text"}],
    Annotation[#, 
@@ -118,16 +126,19 @@ Cell[CellGroupData[{
 Cell[TextData[Cell[BoxData[
  InterpretationBox[
   TagBox[
-   ActionMenuBox["\<\"Guides\"\>",{
-    "\"Open/Close Group\"" :> (
-      SelectionMove[ParentCell[EvaluationCell[]], All, Cell]; 
-      FrontEndTokenExecute[EvaluationNotebook[], "OpenCloseGroup"]), 
-     "\"Open Directory\"" :> 
-     DefinitionNotebookClient`FileTreeOpen[ParentCell[EvaluationCell[]]], 
-     "\"Un/Mark as Excluded\"" :> 
-     DefinitionNotebookClient`FileTreeExclusionToggle[
-      ParentCell[EvaluationCell[]]], "\"Copy Path to Clipboard\"" :> 
-     DefinitionNotebookClient`FileTreeCopy[ParentCell[EvaluationCell[]]]},
+   ActionMenuBox["\<\"Guides\"\>", {"\<\"Open/Close Group\"\>":>(SelectionMove[
+      ParentCell[
+       EvaluationCell[]], All, Cell]; FrontEndTokenExecute[
+      EvaluationNotebook[], "OpenCloseGroup"]), "\<\"Open Directory\"\>":>
+    DefinitionNotebookClient`FileTreeOpen[
+     ParentCell[
+      EvaluationCell[]]], "\<\"Un/Mark as Excluded\"\>":>
+    DefinitionNotebookClient`FileTreeExclusionToggle[
+     ParentCell[
+      EvaluationCell[]]], "\<\"Copy Path to Clipboard\"\>":>
+    DefinitionNotebookClient`FileTreeCopy[
+     ParentCell[
+      EvaluationCell[]]]},
     Appearance->None,
     BaseStyle->{"Text"}],
    Annotation[#, 
@@ -207,16 +218,20 @@ Cell[CellGroupData[{
 Cell[TextData[Cell[BoxData[
  InterpretationBox[
   TagBox[
-   ActionMenuBox["\<\"ReferencePages\"\>",{
-    "\"Open/Close Group\"" :> (
-      SelectionMove[ParentCell[EvaluationCell[]], All, Cell]; 
-      FrontEndTokenExecute[EvaluationNotebook[], "OpenCloseGroup"]), 
-     "\"Open Directory\"" :> 
-     DefinitionNotebookClient`FileTreeOpen[ParentCell[EvaluationCell[]]], 
-     "\"Un/Mark as Excluded\"" :> 
-     DefinitionNotebookClient`FileTreeExclusionToggle[
-      ParentCell[EvaluationCell[]]], "\"Copy Path to Clipboard\"" :> 
-     DefinitionNotebookClient`FileTreeCopy[ParentCell[EvaluationCell[]]]},
+   ActionMenuBox["\<\"ReferencePages\"\>", {"\<\"Open/Close Group\"\>":>(
+    SelectionMove[
+      ParentCell[
+       EvaluationCell[]], All, Cell]; FrontEndTokenExecute[
+      EvaluationNotebook[], "OpenCloseGroup"]), "\<\"Open Directory\"\>":>
+    DefinitionNotebookClient`FileTreeOpen[
+     ParentCell[
+      EvaluationCell[]]], "\<\"Un/Mark as Excluded\"\>":>
+    DefinitionNotebookClient`FileTreeExclusionToggle[
+     ParentCell[
+      EvaluationCell[]]], "\<\"Copy Path to Clipboard\"\>":>
+    DefinitionNotebookClient`FileTreeCopy[
+     ParentCell[
+      EvaluationCell[]]]},
     Appearance->None,
     BaseStyle->{"Text"}],
    Annotation[#, 
@@ -243,16 +258,20 @@ Cell[CellGroupData[{
 Cell[TextData[Cell[BoxData[
  InterpretationBox[
   TagBox[
-   ActionMenuBox["\<\"Symbols\"\>",{
-    "\"Open/Close Group\"" :> (
-      SelectionMove[ParentCell[EvaluationCell[]], All, Cell]; 
-      FrontEndTokenExecute[EvaluationNotebook[], "OpenCloseGroup"]), 
-     "\"Open Directory\"" :> 
-     DefinitionNotebookClient`FileTreeOpen[ParentCell[EvaluationCell[]]], 
-     "\"Un/Mark as Excluded\"" :> 
-     DefinitionNotebookClient`FileTreeExclusionToggle[
-      ParentCell[EvaluationCell[]]], "\"Copy Path to Clipboard\"" :> 
-     DefinitionNotebookClient`FileTreeCopy[ParentCell[EvaluationCell[]]]},
+   ActionMenuBox["\<\"Symbols\"\>", {"\<\"Open/Close Group\"\>":>(
+    SelectionMove[
+      ParentCell[
+       EvaluationCell[]], All, Cell]; FrontEndTokenExecute[
+      EvaluationNotebook[], "OpenCloseGroup"]), "\<\"Open Directory\"\>":>
+    DefinitionNotebookClient`FileTreeOpen[
+     ParentCell[
+      EvaluationCell[]]], "\<\"Un/Mark as Excluded\"\>":>
+    DefinitionNotebookClient`FileTreeExclusionToggle[
+     ParentCell[
+      EvaluationCell[]]], "\<\"Copy Path to Clipboard\"\>":>
+    DefinitionNotebookClient`FileTreeCopy[
+     ParentCell[
+      EvaluationCell[]]]},
     Appearance->None,
     BaseStyle->{"Text"}],
    Annotation[#, 
@@ -670,16 +689,20 @@ Cell[BoxData[
 Cell[TextData[Cell[BoxData[
  InterpretationBox[
   TagBox[
-   ActionMenuBox["\<\"Tutorials\"\>",{
-    "\"Open/Close Group\"" :> (
-      SelectionMove[ParentCell[EvaluationCell[]], All, Cell]; 
-      FrontEndTokenExecute[EvaluationNotebook[], "OpenCloseGroup"]), 
-     "\"Open Directory\"" :> 
-     DefinitionNotebookClient`FileTreeOpen[ParentCell[EvaluationCell[]]], 
-     "\"Un/Mark as Excluded\"" :> 
-     DefinitionNotebookClient`FileTreeExclusionToggle[
-      ParentCell[EvaluationCell[]]], "\"Copy Path to Clipboard\"" :> 
-     DefinitionNotebookClient`FileTreeCopy[ParentCell[EvaluationCell[]]]},
+   ActionMenuBox["\<\"Tutorials\"\>", {"\<\"Open/Close Group\"\>":>(
+    SelectionMove[
+      ParentCell[
+       EvaluationCell[]], All, Cell]; FrontEndTokenExecute[
+      EvaluationNotebook[], "OpenCloseGroup"]), "\<\"Open Directory\"\>":>
+    DefinitionNotebookClient`FileTreeOpen[
+     ParentCell[
+      EvaluationCell[]]], "\<\"Un/Mark as Excluded\"\>":>
+    DefinitionNotebookClient`FileTreeExclusionToggle[
+     ParentCell[
+      EvaluationCell[]]], "\<\"Copy Path to Clipboard\"\>":>
+    DefinitionNotebookClient`FileTreeCopy[
+     ParentCell[
+      EvaluationCell[]]]},
     Appearance->None,
     BaseStyle->{"Text"}],
    Annotation[#, 
@@ -708,16 +731,20 @@ Cell[CellGroupData[{
 Cell[TextData[Cell[BoxData[
  InterpretationBox[
   TagBox[
-   ActionMenuBox["\<\"FrontEnd\"\>",{
-    "\"Open/Close Group\"" :> (
-      SelectionMove[ParentCell[EvaluationCell[]], All, Cell]; 
-      FrontEndTokenExecute[EvaluationNotebook[], "OpenCloseGroup"]), 
-     "\"Open Directory\"" :> 
-     DefinitionNotebookClient`FileTreeOpen[ParentCell[EvaluationCell[]]], 
-     "\"Un/Mark as Excluded\"" :> 
-     DefinitionNotebookClient`FileTreeExclusionToggle[
-      ParentCell[EvaluationCell[]]], "\"Copy Path to Clipboard\"" :> 
-     DefinitionNotebookClient`FileTreeCopy[ParentCell[EvaluationCell[]]]},
+   ActionMenuBox["\<\"FrontEnd\"\>", {"\<\"Open/Close Group\"\>":>(
+    SelectionMove[
+      ParentCell[
+       EvaluationCell[]], All, Cell]; FrontEndTokenExecute[
+      EvaluationNotebook[], "OpenCloseGroup"]), "\<\"Open Directory\"\>":>
+    DefinitionNotebookClient`FileTreeOpen[
+     ParentCell[
+      EvaluationCell[]]], "\<\"Un/Mark as Excluded\"\>":>
+    DefinitionNotebookClient`FileTreeExclusionToggle[
+     ParentCell[
+      EvaluationCell[]]], "\<\"Copy Path to Clipboard\"\>":>
+    DefinitionNotebookClient`FileTreeCopy[
+     ParentCell[
+      EvaluationCell[]]]},
     Appearance->None,
     BaseStyle->{"Text"}],
    Annotation[#, 
@@ -744,16 +771,20 @@ Cell[CellGroupData[{
 Cell[TextData[Cell[BoxData[
  InterpretationBox[
   TagBox[
-   ActionMenuBox["\<\"Palettes\"\>",{
-    "\"Open/Close Group\"" :> (
-      SelectionMove[ParentCell[EvaluationCell[]], All, Cell]; 
-      FrontEndTokenExecute[EvaluationNotebook[], "OpenCloseGroup"]), 
-     "\"Open Directory\"" :> 
-     DefinitionNotebookClient`FileTreeOpen[ParentCell[EvaluationCell[]]], 
-     "\"Un/Mark as Excluded\"" :> 
-     DefinitionNotebookClient`FileTreeExclusionToggle[
-      ParentCell[EvaluationCell[]]], "\"Copy Path to Clipboard\"" :> 
-     DefinitionNotebookClient`FileTreeCopy[ParentCell[EvaluationCell[]]]},
+   ActionMenuBox["\<\"Palettes\"\>", {"\<\"Open/Close Group\"\>":>(
+    SelectionMove[
+      ParentCell[
+       EvaluationCell[]], All, Cell]; FrontEndTokenExecute[
+      EvaluationNotebook[], "OpenCloseGroup"]), "\<\"Open Directory\"\>":>
+    DefinitionNotebookClient`FileTreeOpen[
+     ParentCell[
+      EvaluationCell[]]], "\<\"Un/Mark as Excluded\"\>":>
+    DefinitionNotebookClient`FileTreeExclusionToggle[
+     ParentCell[
+      EvaluationCell[]]], "\<\"Copy Path to Clipboard\"\>":>
+    DefinitionNotebookClient`FileTreeCopy[
+     ParentCell[
+      EvaluationCell[]]]},
     Appearance->None,
     BaseStyle->{"Text"}],
    Annotation[#, 
@@ -808,16 +839,19 @@ Cell[CellGroupData[{
 Cell[TextData[Cell[BoxData[
  InterpretationBox[
   TagBox[
-   ActionMenuBox["\<\"Kernel\"\>",{
-    "\"Open/Close Group\"" :> (
-      SelectionMove[ParentCell[EvaluationCell[]], All, Cell]; 
-      FrontEndTokenExecute[EvaluationNotebook[], "OpenCloseGroup"]), 
-     "\"Open Directory\"" :> 
-     DefinitionNotebookClient`FileTreeOpen[ParentCell[EvaluationCell[]]], 
-     "\"Un/Mark as Excluded\"" :> 
-     DefinitionNotebookClient`FileTreeExclusionToggle[
-      ParentCell[EvaluationCell[]]], "\"Copy Path to Clipboard\"" :> 
-     DefinitionNotebookClient`FileTreeCopy[ParentCell[EvaluationCell[]]]},
+   ActionMenuBox["\<\"Kernel\"\>", {"\<\"Open/Close Group\"\>":>(SelectionMove[
+      ParentCell[
+       EvaluationCell[]], All, Cell]; FrontEndTokenExecute[
+      EvaluationNotebook[], "OpenCloseGroup"]), "\<\"Open Directory\"\>":>
+    DefinitionNotebookClient`FileTreeOpen[
+     ParentCell[
+      EvaluationCell[]]], "\<\"Un/Mark as Excluded\"\>":>
+    DefinitionNotebookClient`FileTreeExclusionToggle[
+     ParentCell[
+      EvaluationCell[]]], "\<\"Copy Path to Clipboard\"\>":>
+    DefinitionNotebookClient`FileTreeCopy[
+     ParentCell[
+      EvaluationCell[]]]},
     Appearance->None,
     BaseStyle->{"Text"}],
    Annotation[#, 
@@ -1725,7 +1759,7 @@ when using the general space, unsaved notebooks are specific to each \
 workspace.\
 \>", "Notes",
  TaggingRules->{},
- CellChangeTimes->{{3.8961846037386017`*^9, 3.896184678592821*^9}, {
+ CellChangeTimes->{{3.896184603738601*^9, 3.896184678592821*^9}, {
   3.8961847151791077`*^9, 3.896184737274808*^9}, {3.89618479008954*^9, 
   3.896184813777213*^9}},
  CellID->828606114,ExpressionUUID->"a0b919b0-1105-4936-a5c8-0c745f28d4a0"],
@@ -1735,7 +1769,7 @@ Notebook Workspaces is primarily palette-driven, though many functions are \
 also available for programmatic use.\
 \>", "Notes",
  TaggingRules->{},
- CellChangeTimes->{{3.8961848947385483`*^9, 3.896184897390312*^9}, {
+ CellChangeTimes->{{3.896184894738548*^9, 3.896184897390312*^9}, {
   3.896184946554069*^9, 3.896184957175618*^9}},
  CellID->504238867,ExpressionUUID->"62cea10d-c93f-41df-b6d8-fde640010ace"]
 }, Open  ]],
@@ -4448,35 +4482,60 @@ that are otherwise beyond the scope of the paclet documentation.",
 
 Cell[CellGroupData[{
 
-Cell["Version 1.1.0", "Subsubsection",
- CellChangeTimes->{{3.896185576736567*^9, 3.8961855788294277`*^9}},
+Cell["Version 1.1.1", "Subsubsection",
+ CellChangeTimes->{{3.896185576736567*^9, 3.8961855788294277`*^9}, 
+   3.915098701778646*^9},
  CellID->1047009844,ExpressionUUID->"c7356ff4-35ad-4fcb-9c6b-b08155266f86"],
 
-Cell["New function: AddNotebookToWorkspace", "Item",
- CellChangeTimes->{{3.896185586162045*^9, 3.8961855932552443`*^9}},
- CellID->1514331902,ExpressionUUID->"45cb8601-6bd5-4ae2-ae45-bdb62212ae7a"],
-
-Cell["Fixed major bug with SaveWorkspaceAs", "Item",
- CellChangeTimes->{{3.896185586162045*^9, 3.8961855960246058`*^9}},
- CellID->324147227,ExpressionUUID->"cb14cccd-84e5-4e0a-ace7-b7aac14a1b60"],
-
-Cell["SaveWorkspace calls SaveWorkspaceAs if necessary", "Item",
- CellChangeTimes->{{3.896185586162045*^9, 3.896185597348297*^9}},
- CellID->564797759,ExpressionUUID->"db3198b2-05e6-45a0-8aa6-cd4b7af25578"],
+Cell[CellGroupData[{
 
 Cell["\<\
-Reworked some persistence issues, which will make the general space more \
-reliable\
+Fixing a crash if workspaces initialization happens while the rest of the \
+system is still being initialized.\
 \>", "Item",
- CellChangeTimes->{{3.896185586162045*^9, 3.896185599058257*^9}},
- CellID->1741516525,ExpressionUUID->"0ff0a55f-05a0-4037-8ee1-6472e2c721f3"]
+ CellChangeTimes->{{3.915098715990178*^9, 3.915098753106841*^9}, {
+  3.915098817295885*^9, 3.915098864615755*^9}},
+ CellID->1189936518,ExpressionUUID->"bc65d5ca-92d0-42d5-921f-6508d78901f2"],
+
+Cell["\<\
+This was often seen because the system reopens palettes when the FE is \
+launched. The Notebook Workspaces palette will no longer be reopened \
+automatically.\
+\>", "Subitem",
+ CellChangeTimes->{{3.915098715990178*^9, 3.9150987978768682`*^9}, {
+  3.915098871118403*^9, 3.915098907929508*^9}, {3.915098943594995*^9, 
+  3.915098982187257*^9}},
+ CellID->426665224,ExpressionUUID->"39d1f1fe-bc80-43c6-9cbb-188b0c3a0112"],
+
+Cell["\<\
+In some versions it's still possible for the palette to cause a crash if it's \
+opened too soon after launching Mathematica.\
+\>", "Subitem",
+ CellChangeTimes->{{3.915098715990178*^9, 3.9150987978768682`*^9}, {
+  3.915098871118403*^9, 3.915098907929508*^9}, {3.915098943594995*^9, 
+  3.915099047098913*^9}},
+ CellID->138918572,ExpressionUUID->"7e213a65-d292-4c5b-9bb4-a09633a007f5"],
+
+Cell["I'm still looking for a more elegant solution to this issue.", "Subitem",
+ CellChangeTimes->{{3.915098715990178*^9, 3.9150987978768682`*^9}, {
+  3.915098871118403*^9, 3.915098907929508*^9}, {3.915098943594995*^9, 
+  3.9150989771210823`*^9}},
+ CellID->724458496,ExpressionUUID->"f3e4a859-9a28-4a97-9bc7-5eb69ab8204e"]
+}, Open  ]],
+
+Cell["\<\
+Snuck in a tiny fix for excessive messages if the user hasn't installed \
+system documentation.\
+\>", "Item",
+ CellChangeTimes->{{3.915099053931616*^9, 3.915099076957827*^9}},
+ CellID->306712012,ExpressionUUID->"0b178593-0627-42de-b2bf-5d8ac30c718c"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
 Cell["Upcoming goals", "Subsubsection",
  CellChangeTimes->{{3.896185612266329*^9, 3.896185629254368*^9}, {
-  3.896185673040642*^9, 3.8961856756731873`*^9}, {3.896186313639279*^9, 
+  3.896185673040642*^9, 3.896185675673187*^9}, {3.896186313639279*^9, 
   3.896186318946638*^9}},
  CellID->1691574103,ExpressionUUID->"312388c3-a8ca-488e-86bf-ff67de3cd82b"],
 
@@ -4500,7 +4559,7 @@ Improve/rework initialization functions. I think I'm currently trying to be \
 too clever by doing it automatically in some cases where it should be more \
 explicit.\
 \>", "Subitem",
- CellChangeTimes->{{3.896185676588346*^9, 3.8961857176614037`*^9}},
+ CellChangeTimes->{{3.896185676588346*^9, 3.896185717661404*^9}},
  CellID->724195802,ExpressionUUID->"976582c9-ec53-431a-b9a3-09b6869b8830"],
 
 Cell["\<\
@@ -4633,7 +4692,7 @@ kZD5VTajSY94QfzF6MpQD/SeOef/H2sPHldllk4h
       "]]}},
 CreateCellID->True,
 DynamicEvaluationTimeout->60,
-FrontEndVersion->"13.3 for Mac OS X x86 (64-bit) (June 3, 2023)",
+FrontEndVersion->"13.1 for Mac OS X x86 (64-bit) (June 16, 2022)",
 StyleDefinitions->Notebook[{
    Cell[
     StyleData[StyleDefinitions -> "Default.nb"]], 
@@ -12470,7 +12529,7 @@ GRPf1sw3cDj8VSOm/5G9w5vAHXKt3IZQ/0HDoQHBFwFFwBcEHxR9zQlGcP3o
    Cell[
     StyleData["AttachedMessage"], Deletable -> True, 
     CellMargins -> {{60, 40}, {15, 5}}]}, Visible -> False, FrontEndVersion -> 
-  "13.3 for Mac OS X x86 (64-bit) (June 3, 2023)", StyleDefinitions -> 
+  "13.1 for Mac OS X x86 (64-bit) (June 16, 2022)", StyleDefinitions -> 
   "PrivateStylesheetFormatting.nb"],
 ExpressionUUID->"0deb370d-b1fd-44c9-8308-de825a0874fd"
 ]

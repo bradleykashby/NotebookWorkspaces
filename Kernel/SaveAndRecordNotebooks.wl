@@ -148,7 +148,8 @@ systemNotebookQ[nb_NotebookObject]:=TrueQ@With[{dir=Quiet@NotebookDirectory@nb},
 				$BaseDirectory,
 				$InstallationDirectory,
 				$UserBasePacletsDirectory,
-				PacletManager`$SystemDocumentationDirectory
+				PacletManager`$SystemDocumentationDirectory/.None->$BaseDirectory
+
 			]
 		]
 	]

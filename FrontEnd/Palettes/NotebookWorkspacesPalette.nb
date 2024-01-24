@@ -3,17 +3,17 @@
 (*** Wolfram Notebook File ***)
 (* http://www.wolfram.com/nb *)
 
-(* CreatedBy='Mathematica 13.2' *)
+(* CreatedBy='Mathematica 13.1' *)
 
 (*CacheID: 234*)
 (* Internal cache information:
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[      1443,         49]
-NotebookOptionsPosition[       770,         26]
-NotebookOutlinePosition[      1482,         51]
-CellTagsIndexPosition[      1439,         48]
+NotebookDataLength[      1472,         48]
+NotebookOptionsPosition[       713,         25]
+NotebookOutlinePosition[      1512,         50]
+CellTagsIndexPosition[      1469,         47]
 WindowFrame->Palette*)
 
 (* Beginning of Notebook Content *)
@@ -21,23 +21,22 @@ Notebook[{
 Cell[BoxData[
  DynamicBox[ToBoxes[
   BradleyAshby`NotebookWorkspaces`Palette`palettecontents, StandardForm],
-  ImageSizeCache->{338., {181., 188.}}]],ExpressionUUID->"10ab9375-8062-455a-\
-842b-4f759801e093"]
+  ImageSizeCache->{338., {260., 266.}}]]]
 },
 NotebookDynamicExpression:>Refresh[
- Needs["BradleyAshby`NotebookWorkspaces`" -> None]; 
-  BradleyAshby`NotebookWorkspaces`Palette`Private`reinitializePalette[]; Null,
-   None],
+  With[{$CellContext`aop = 
+    AbsoluteCurrentValue[$FrontEnd, "AutoOpenPalettes"]}, 
+   CurrentValue[$FrontEnd, "AutoOpenPalettes"] = 
+   DeleteCases[$CellContext`aop, "NotebookWorkspacesPalette.nb"]], None],
 WindowSize->Fit,
 WindowMargins->{{Automatic, 0}, {Automatic, 0}},
 WindowElements->{},
-Visible->True,
-TaggingRules->{
- "WelcomeScreenSettings" -> {"FEStarting" -> False}, 
-  "NotebookWorkspacesPaletteQ" -> True},
-FrontEndVersion->"13.2 for Mac OS X x86 (64-bit) (November 18, 2022)",
-StyleDefinitions->"Palette.nb",
-ExpressionUUID->"9a5450d8-d784-493f-94f7-b40ae12e8a95"
+TaggingRules->{"NotebookWorkspacesPaletteQ" -> True},
+Initialization:>(Needs["BradleyAshby`NotebookWorkspaces`" -> None]; 
+ BradleyAshby`NotebookWorkspaces`Palette`Private`reinitializePalette[]; 
+ Null),
+FrontEndVersion->"13.1 for Mac OS X x86 (64-bit) (June 16, 2022)",
+StyleDefinitions->"Palette.nb"
 ]
 (* End of Notebook Content *)
 
@@ -50,8 +49,9 @@ CellTagsIndex->{}
 *)
 (*NotebookFileOutline
 Notebook[{
-Cell[559, 20, 207, 4, 371, InheritFromParent,ExpressionUUID->"10ab9375-8062-455a-842b-4f759801e093"]
+Cell[559, 20, 150, 3, 16, InheritFromParent,ExpressionUUID->"0632fbb9-7fad-4c36-8ff4-24bbf799d53b"]
 }
 ]
 *)
 
+(* End of internal cache information *)

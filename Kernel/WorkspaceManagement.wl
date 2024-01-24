@@ -564,7 +564,12 @@ RestartWorkspaces[]/;$NotebookWorkspacesActiveQ:=SetWorkspace[$CurrentWorkspace,
 RestartWorkspaces[]/;!$NotebookWorkspacesActiveQ:=($CurrentWorkspace=None)
 
 
-SessionSubmit[ScheduledTask[RestartWorkspaces[],{Quantity[1,"Seconds"],1}]]
+SessionSubmit[ScheduledTask[
+		With[{initsloaded=TrueQ[System`Private`$InitsLoaded]},
+			If[initsloaded,
+				RestartWorkspaces[];
+				TaskRemove[$CurrentTask]]],
+	Quantity[1,"Seconds"]]]
 
 
 End[];

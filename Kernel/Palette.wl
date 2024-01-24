@@ -160,9 +160,12 @@ createPaletteNB[]:=
 		PaletteNotebook[
 			Dynamic[BradleyAshby`NotebookWorkspaces`Palette`palettecontents],
 			
-			NotebookDynamicExpression:>
-				Refresh[(Needs["BradleyAshby`NotebookWorkspaces`"->None];
-					BradleyAshby`NotebookWorkspaces`Palette`Private`reinitializePalette[];),
+			Initialization:>
+				(Needs["BradleyAshby`NotebookWorkspaces`"->None];
+				BradleyAshby`NotebookWorkspaces`Palette`Private`reinitializePalette[];),
+			NotebookDynamicExpression:>Refresh[
+				With[{aop=AbsoluteCurrentValue[$FrontEnd,"AutoOpenPalettes"]},
+					CurrentValue[$FrontEnd,"AutoOpenPalettes"]=DeleteCases[aop,"NotebookWorkspacesPalette.nb"]],
 				None],
 			TaggingRules->{"NotebookWorkspacesPaletteQ"->True}],
 		WindowSize->Fit]

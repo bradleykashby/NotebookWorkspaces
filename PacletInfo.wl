@@ -7,7 +7,7 @@ PacletObject[
     "Creator" -> "Bradley Ashby",
     "License" -> "MIT",
     "PublisherID" -> "BradleyAshby",
-    "Version" -> "1.1.0",
+    "Version" -> "1.2.0",
     "WolframVersion" -> "13.1+",
     "PrimaryContext" -> "BradleyAshby`NotebookWorkspaces`",
     "Extensions" -> {
@@ -19,6 +19,14 @@ PacletObject[
           {
             "BradleyAshby`NotebookWorkspaces`",
             "NotebookWorkspaces.wl"
+          },
+          {
+            "BradleyAshby`NotebookWorkspaces`Common`",
+            "Common.wl"
+          },
+          {
+            "BradleyAshby`NotebookWorkspaces`Utilities`",
+            "Utilities.wl"
           },
           {
             "BradleyAshby`NotebookWorkspaces`Configuration`",

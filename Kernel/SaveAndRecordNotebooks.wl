@@ -2,29 +2,18 @@
 
 BeginPackage["BradleyAshby`NotebookWorkspaces`SaveAndRecordNotebooks`"]
 
-SaveNotebook
-RecordNotebookToWorkspace
-RecordWorkspaceNotebooks
-SaveAndRecordNotebooks
-ReopenNotebooks
-closeNotebooks
-$ExcludedNotebooks
-
 
 Begin["`Private`"]
 
 
 Needs["BradleyAshby`NotebookWorkspaces`"]
-Needs["BradleyAshby`NotebookWorkspaces`Configuration`"]
-Needs["BradleyAshby`NotebookWorkspaces`WorkspaceManagement`"]
-Needs["BradleyAshby`NotebookWorkspaces`GeneralWorkspace`"]
-Needs["BradleyAshby`NotebookWorkspaces`Palette`"]
+Needs["BradleyAshby`NotebookWorkspaces`Common`"]
 
 
 $localexcludednotebooks="NotebookWorkspaces/ExcludedNotebooks";
 $ExcludedNotebooks/:Set[$ExcludedNotebooks,value_]:=(
 	LocalSymbol[$localexcludednotebooks]=value;
-	UpdateDynamicsUsing[$ExcludedNotebooks];
+	UpdatePalette[$ExcludedNotebooks];
 	value)
 $ExcludedNotebooks:=Replace[LocalSymbol[$localexcludednotebooks],Except[_List]->{"Messages"}]
 
@@ -148,7 +137,7 @@ systemNotebookQ[nb_NotebookObject]:=TrueQ@With[{dir=Quiet@NotebookDirectory@nb},
 				$BaseDirectory,
 				$InstallationDirectory,
 				$UserBasePacletsDirectory,
-				PacletManager`$SystemDocumentationDirectory
+				PacletManager`$SystemDocumentationDirectory/.None->$BaseDirectory
 			]
 		]
 	]
@@ -181,7 +170,7 @@ SaveAndRecordNotebooks::duplicates="Duplicate notebooks saved. Not all will be r
 SaveAndRecordNotebooks::opennotebooks="Too few open notebooks. Notebooks saved but not recorded.";
 
 SaveAndRecordNotebooks[allq_Symbol:False]/;BooleanQ[allq]:=SaveAndRecordNotebooks[allq,$CurrentWorkspace]
-SaveAndRecordNotebooks[allq_Symbol:False,workspace_String]/;!workspaceExistQ[workspace]:=Failure["NoWorkspace",<|"MessageTemplate"->"No workspace loaded"|>]
+SaveAndRecordNotebooks[allq_Symbol:False,workspace_String]/;!WorkspaceExistsQ[workspace]:=Failure["NoWorkspace",<|"MessageTemplate"->"No workspace loaded"|>]
 
 SaveAndRecordNotebooks[allq_Symbol:False,workspace_String]:=
 	With[{
@@ -223,7 +212,7 @@ saveAndRecordNotebooks[allq_Symbol:False,workspace_String,workspacelastsaved_]:=
 ]
 
 
-ReopenNotebooks[workspace_String]/;workspaceExistQ[workspace]:=(
+ReopenNotebooks[workspace_String]/;WorkspaceExistsQ[workspace]:=(
 		reopenNotebooks0[workspace]
 		)
 	

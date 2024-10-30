@@ -20,10 +20,14 @@ RemoveNotebookFromGeneral
 GeneralNotebooks
 RebuildWorkspaceMetadata
 AddNotebookToWorkspace
+DeleteWorkspace
+CreateWorkspace
 
 Begin["`Private`"]
 
 
+Needs["BradleyAshby`NotebookWorkspaces`Common`"]
+Needs["BradleyAshby`NotebookWorkspaces`Utilities`"]
 Needs["BradleyAshby`NotebookWorkspaces`Configuration`"]
 Needs["BradleyAshby`NotebookWorkspaces`WorkspaceManagement`"]
 Needs["BradleyAshby`NotebookWorkspaces`GeneralWorkspace`"]

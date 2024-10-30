@@ -3,16 +3,11 @@
 BeginPackage["BradleyAshby`NotebookWorkspaces`Configuration`"]
 
 
-ConfigureWorkspaces
-WorkspaceConfiguration
-$DefaultWorkspace
-$SaveFrequency
-$BaseSaveDirectory
-
 Begin["`Private`"]
 
 
 Needs["BradleyAshby`NotebookWorkspaces`"]
+Needs["BradleyAshby`NotebookWorkspaces`Common`"]
 
 
 configpattern=KeyValuePattern[{
@@ -102,7 +97,7 @@ setConfig[{sec_,dir_,default_}]:=(
 		"BaseSaveDirectory"->dir,
 		"DefaultWorkspaceName"->default
 	|>;
-	UpdateDynamicsUsing[$WorkspaceConfiguration];
+	UpdatePalette[$WorkspaceConfiguration];
 	$WorkspaceConfiguration
 )
 
@@ -114,7 +109,7 @@ setSave[time_Quantity]/;$SaveFrequency!=time:=(
 
 
 setBaseDir[newdir_]/;$BaseSaveDirectory!=newdir:=Module[
-	{workspaces=Append[Keys@WorkspaceMetadata[],$GeneralWorkspace],conflicts},
+	{workspaces=Keys[WorkspaceMetadata[]],conflicts},
 	
 	conflicts=FileNames[workspaces,newdir];
 	
@@ -129,15 +124,15 @@ setBaseDir[newdir_]/;$BaseSaveDirectory!=newdir:=Module[
 	CopyDirectory[FileNameJoin[{$BaseSaveDirectory,#}],FileNameJoin[{newdir,#}]]&/@workspaces;
 	
 	$BaseSaveDirectory=newdir;
-];
+]
 (* copy the contents of the existing base dir, if any
 	do we need to check the new destination is safe first? *)
 
 
 setDefault[default_String]:=(	
 	If[!KeyExistsQ[WorkspaceMetadata[],default],
-		$WorkspaceMetadata=Append[WorkspaceMetadata[],default-><|"FEPID"->None,"Event"->"InitializeNewDefaultWorkspace","Timestamp"->Now|>]];
-	
+		CreateWorkspace[default,"InitializeNewDefaultWorkspace"]];
+		
 	$DefaultWorkspace=default
 	)
 

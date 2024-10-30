@@ -4,20 +4,15 @@ BeginPackage["BradleyAshby`NotebookWorkspaces`Palette`"]
 
 
 palettecontents
-ManageExcludedNotebooks
-UpdatePalette
+(*ManageExcludedNotebooks
 $PaletteDynamicBoxes
-nameWorkspaceDialog
+nameWorkspaceDialog*)
 
 Begin["`Private`"]
 
 
 Needs["BradleyAshby`NotebookWorkspaces`"]
-Needs["BradleyAshby`NotebookWorkspaces`Utilities"]
-Needs["BradleyAshby`NotebookWorkspaces`Configuration`"]
-Needs["BradleyAshby`NotebookWorkspaces`WorkspaceManagement`"]
-Needs["BradleyAshby`NotebookWorkspaces`GeneralWorkspace`"]
-Needs["BradleyAshby`NotebookWorkspaces`SaveAndRecordNotebooks`"]
+Needs["BradleyAshby`NotebookWorkspaces`Common`"]
 
 
 workspaceslist:=Keys@ReverseSortBy[KeyDrop[$GeneralWorkspace]@WorkspaceMetadata[],#["Timestamp"]&];
@@ -141,12 +136,11 @@ createPaletteNB[]:=
 	CreatePalette[
 		PaletteNotebook[
 			Dynamic[BradleyAshby`NotebookWorkspaces`Palette`palettecontents],
-			
-			NotebookDynamicExpression:>
-				Refresh[(Needs["BradleyAshby`NotebookWorkspaces`"->None];
-					With[{aop=AbsoluteCurrentValue[$FrontEnd,"AutoOpenPalettes"]},
-						CurrentValue[$FrontEnd,"AutoOpenPalettes"]=DeleteCases[aop,"NotebookWorkspacesPalette.nb"]];
-					BradleyAshby`NotebookWorkspaces`Utilities`ReinitializePalette[];),
+			Initialization:>
+				(Needs["BradleyAshby`NotebookWorkspaces`"->None]),
+			NotebookDynamicExpression:>Refresh[
+				With[{aop=AbsoluteCurrentValue[$FrontEnd,"AutoOpenPalettes"]},
+					CurrentValue[$FrontEnd,"AutoOpenPalettes"]=DeleteCases[aop,"NotebookWorkspacesPalette.nb"]];,
 				None],
 			TaggingRules->{"NotebookWorkspacesPaletteQ"->True}],
 		WindowSize->Fit]

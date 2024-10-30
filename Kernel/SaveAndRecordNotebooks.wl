@@ -2,23 +2,20 @@
 
 BeginPackage["BradleyAshby`NotebookWorkspaces`SaveAndRecordNotebooks`"]
 
-SaveNotebook
+(*SaveNotebook
 RecordNotebookToWorkspace
 RecordWorkspaceNotebooks
 SaveAndRecordNotebooks
 ReopenNotebooks
 closeNotebooks
-$ExcludedNotebooks
+$ExcludedNotebooks*)
 
 
 Begin["`Private`"]
 
 
 Needs["BradleyAshby`NotebookWorkspaces`"]
-Needs["BradleyAshby`NotebookWorkspaces`Utilities"]
-Needs["BradleyAshby`NotebookWorkspaces`Configuration`"]
-Needs["BradleyAshby`NotebookWorkspaces`WorkspaceManagement`"]
-Needs["BradleyAshby`NotebookWorkspaces`GeneralWorkspace`"]
+Needs["BradleyAshby`NotebookWorkspaces`Common`"]
 
 
 $localexcludednotebooks="NotebookWorkspaces/ExcludedNotebooks";
@@ -181,7 +178,7 @@ SaveAndRecordNotebooks::duplicates="Duplicate notebooks saved. Not all will be r
 SaveAndRecordNotebooks::opennotebooks="Too few open notebooks. Notebooks saved but not recorded.";
 
 SaveAndRecordNotebooks[allq_Symbol:False]/;BooleanQ[allq]:=SaveAndRecordNotebooks[allq,$CurrentWorkspace]
-SaveAndRecordNotebooks[allq_Symbol:False,workspace_String]/;!workspaceExistQ[workspace]:=Failure["NoWorkspace",<|"MessageTemplate"->"No workspace loaded"|>]
+SaveAndRecordNotebooks[allq_Symbol:False,workspace_String]/;!WorkspaceExistsQ[workspace]:=Failure["NoWorkspace",<|"MessageTemplate"->"No workspace loaded"|>]
 
 SaveAndRecordNotebooks[allq_Symbol:False,workspace_String]:=
 	With[{
@@ -223,7 +220,7 @@ saveAndRecordNotebooks[allq_Symbol:False,workspace_String,workspacelastsaved_]:=
 ]
 
 
-ReopenNotebooks[workspace_String]/;workspaceExistQ[workspace]:=(
+ReopenNotebooks[workspace_String]/;WorkspaceExistsQ[workspace]:=(
 		reopenNotebooks0[workspace]
 		)
 	

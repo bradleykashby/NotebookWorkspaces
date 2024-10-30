@@ -3,17 +3,17 @@
 BeginPackage["BradleyAshby`NotebookWorkspaces`Configuration`"]
 
 
-ConfigureWorkspaces
+(*ConfigureWorkspaces
 WorkspaceConfiguration
 $DefaultWorkspace
 $SaveFrequency
-$BaseSaveDirectory
+$BaseSaveDirectory*)
 
 Begin["`Private`"]
 
 
 Needs["BradleyAshby`NotebookWorkspaces`"]
-Needs["BradleyAshby`NotebookWorkspaces`Utilities"]
+Needs["BradleyAshby`NotebookWorkspaces`Common`"]
 
 
 configpattern=KeyValuePattern[{

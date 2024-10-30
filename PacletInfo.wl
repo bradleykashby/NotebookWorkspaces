@@ -21,6 +21,14 @@ PacletObject[
             "NotebookWorkspaces.wl"
           },
           {
+            "BradleyAshby`NotebookWorkspaces`Common`",
+            "Common.wl"
+          },
+          {
+            "BradleyAshby`NotebookWorkspaces`Utilities`",
+            "Utilities.wl"
+          },
+          {
             "BradleyAshby`NotebookWorkspaces`Configuration`",
             "WorkspaceConfiguration.wl"
           },

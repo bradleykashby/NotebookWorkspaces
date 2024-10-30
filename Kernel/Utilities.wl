@@ -3,15 +3,16 @@
 BeginPackage["BradleyAshby`NotebookWorkspaces`Utilities`"]
 
 
-ReinitializePalette
+(*ReinitializePalette
 UpdatePalette
-WorkspaceExistsQ
+WorkspaceExistsQ*)
 
 
 Begin["`Private`"]
 
 
 Needs["BradleyAshby`NotebookWorkspaces`"]
+Needs["BradleyAshby`NotebookWorkspaces`Common`"]
 
 
 SetAttributes[FindDynamicsUsing,{Listable,HoldAll}]

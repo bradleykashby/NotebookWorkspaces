@@ -3,17 +3,17 @@
 (*** Wolfram Notebook File ***)
 (* http://www.wolfram.com/nb *)
 
-(* CreatedBy='Mathematica 13.3' *)
+(* CreatedBy='Wolfram 14.1' *)
 
 (*CacheID: 234*)
 (* Internal cache information:
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
-NotebookDataPosition[       158,          7]
-NotebookDataLength[      1573,         50]
-NotebookOptionsPosition[       770,         26]
-NotebookOutlinePosition[      1613,         52]
-CellTagsIndexPosition[      1570,         49]
+NotebookDataPosition[       154,          7]
+NotebookDataLength[      1701,         52]
+NotebookOptionsPosition[       801,         26]
+NotebookOutlinePosition[      1737,         54]
+CellTagsIndexPosition[      1694,         51]
 WindowFrame->Palette*)
 
 (* Beginning of Notebook Content *)
@@ -21,24 +21,26 @@ Notebook[{
 Cell[BoxData[
  DynamicBox[ToBoxes[
   BradleyAshby`NotebookWorkspaces`Palette`palettecontents, StandardForm],
-  ImageSizeCache->{338., {244., 250.}}]],ExpressionUUID->"5a103cbf-c2f9-457a-\
-91a1-96896ff4f67c"]
+  ImageSizeCache->{337.17529296875, {266.205240234375, 272.889322265625}}]],Ex\
+pressionUUID->"926d10df-cb84-4c5a-93bb-3c8b102106cf"]
 },
 NotebookDynamicExpression:>Refresh[
- Needs["BradleyAshby`NotebookWorkspaces`" -> None]; 
-  With[{$CellContext`aop = 
-     AbsoluteCurrentValue[$FrontEnd, "AutoOpenPalettes"]}, 
-    CurrentValue[$FrontEnd, "AutoOpenPalettes"] = 
-    DeleteCases[$CellContext`aop, "NotebookWorkspacesPalette.nb"]]; 
-  BradleyAshby`NotebookWorkspaces`Palette`Private`reinitializePalette[]; Null,
-   None],
+  With[{BradleyAshby`NotebookWorkspaces`Palette`Private`aop = 
+    AbsoluteCurrentValue[$FrontEnd, "AutoOpenPalettes"]}, 
+   CurrentValue[$FrontEnd, "AutoOpenPalettes"] = 
+   DeleteCases[
+    BradleyAshby`NotebookWorkspaces`Palette`Private`aop, 
+     "NotebookWorkspacesPalette.nb"]], None],
 WindowSize->Fit,
 WindowMargins->{{Automatic, 0}, {Automatic, 0}},
 WindowElements->{},
 TaggingRules->{"NotebookWorkspacesPaletteQ" -> True},
-FrontEndVersion->"13.3 for Mac OS X x86 (64-bit) (June 3, 2023)",
+Initialization:>(Needs["BradleyAshby`NotebookWorkspaces`" -> None]; 
+ BradleyAshby`NotebookWorkspaces`Palette`Private`reinitializePalette[]; 
+ Null),
+FrontEndVersion->"14.1 for Mac OS X x86 (64-bit) (July 16, 2024)",
 StyleDefinitions->"Palette.nb",
-ExpressionUUID->"b0507c16-db2e-4789-9a6c-e568f5fb0a50"
+ExpressionUUID->"f31abdbd-b94d-49fa-a1fb-0b78b910b76c"
 ]
 (* End of Notebook Content *)
 
@@ -51,7 +53,7 @@ CellTagsIndex->{}
 *)
 (*NotebookFileOutline
 Notebook[{
-Cell[559, 20, 207, 4, 16, InheritFromParent,ExpressionUUID->"5a103cbf-c2f9-457a-91a1-96896ff4f67c"]
+Cell[555, 20, 242, 4, 15, InheritFromParent,ExpressionUUID->"926d10df-cb84-4c5a-93bb-3c8b102106cf"]
 }
 ]
 *)

@@ -3,15 +3,6 @@
 BeginPackage["BradleyAshby`NotebookWorkspaces`WorkspaceManagement`"]
 
 
-(*$WorkspaceMetadata
-WorkspaceSaveDirectory
-WorkspaceNotebooksFile
-$FEPID
-activeWorkspacePID
-validateWorkspaceName
-workspaceLastSaved
-$WorkspaceStatus=None;
-RecordWorkspaceMetadata*)
 
 Begin["`Private`"]
 

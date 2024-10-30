@@ -3,11 +3,6 @@
 BeginPackage["BradleyAshby`NotebookWorkspaces`Utilities`"]
 
 
-(*ReinitializePalette
-UpdatePalette
-WorkspaceExistsQ*)
-
-
 Begin["`Private`"]
 
 

@@ -3,12 +3,6 @@
 BeginPackage["BradleyAshby`NotebookWorkspaces`Configuration`"]
 
 
-(*ConfigureWorkspaces
-WorkspaceConfiguration
-$DefaultWorkspace
-$SaveFrequency
-$BaseSaveDirectory*)
-
 Begin["`Private`"]
 
 
@@ -115,7 +109,7 @@ setSave[time_Quantity]/;$SaveFrequency!=time:=(
 
 
 setBaseDir[newdir_]/;$BaseSaveDirectory!=newdir:=Module[
-	{workspaces=WorkspaceMetadata[],conflicts},
+	{workspaces=Keys[WorkspaceMetadata[]],conflicts},
 	
 	conflicts=FileNames[workspaces,newdir];
 	
@@ -130,7 +124,7 @@ setBaseDir[newdir_]/;$BaseSaveDirectory!=newdir:=Module[
 	CopyDirectory[FileNameJoin[{$BaseSaveDirectory,#}],FileNameJoin[{newdir,#}]]&/@workspaces;
 	
 	$BaseSaveDirectory=newdir;
-];
+]
 (* copy the contents of the existing base dir, if any
 	do we need to check the new destination is safe first? *)
 

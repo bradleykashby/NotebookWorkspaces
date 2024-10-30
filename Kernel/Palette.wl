@@ -4,9 +4,6 @@ BeginPackage["BradleyAshby`NotebookWorkspaces`Palette`"]
 
 
 palettecontents
-(*ManageExcludedNotebooks
-$PaletteDynamicBoxes
-nameWorkspaceDialog*)
 
 Begin["`Private`"]
 

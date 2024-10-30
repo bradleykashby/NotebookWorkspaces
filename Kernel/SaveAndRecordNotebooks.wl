@@ -2,14 +2,6 @@
 
 BeginPackage["BradleyAshby`NotebookWorkspaces`SaveAndRecordNotebooks`"]
 
-(*SaveNotebook
-RecordNotebookToWorkspace
-RecordWorkspaceNotebooks
-SaveAndRecordNotebooks
-ReopenNotebooks
-closeNotebooks
-$ExcludedNotebooks*)
-
 
 Begin["`Private`"]
 

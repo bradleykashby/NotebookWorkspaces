@@ -3,12 +3,7 @@
 BeginPackage["BradleyAshby`NotebookWorkspaces`GeneralWorkspace`"]
 
 
-(*$GeneralWorkspace
-LoadGeneralWorkspace
-PruneGeneralNotebookUUIDs
-AddNotebookToGeneralList
-$GeneralNotebookUUIDs
-*)
+
 Begin["`Private`"]
 
 
@@ -57,6 +52,11 @@ PruneGeneralNotebookUUIDs[]:=
 	With[{currentgeneral=Information[GeneralNotebooks[],"ExpressionUUID"]},
 		$GeneralNotebookUUIDs=currentgeneral
 	]
+
+
+SetAttributes[AddNotebookToGeneral,Listable];
+	AddNotebookToGeneral[nb_NotebookObject]:=
+		AddNotebookToWorkspace[$GeneralWorkspace,nb]
 
 
 SetAttributes[AddNotebookToGeneralList,Listable];
